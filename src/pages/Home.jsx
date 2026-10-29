@@ -1,4 +1,5 @@
 import { faqs, steps } from "../data/content";
+import { HeroHoverGrid } from "../components/HeroHoverGrid";
 import { InsightsSection, PartnershipSection } from "../components/Sections";
 import {
   ConnectedSystems,
@@ -38,6 +39,7 @@ export default function Home() {
   return (
     <>
       <section className="editorial-hero">
+        <HeroHoverGrid />
         <div className="container">
           <div className="hero-kicker">
             <span>
