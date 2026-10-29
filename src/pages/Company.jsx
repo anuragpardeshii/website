@@ -36,16 +36,14 @@ export function About() {
               <br />
               <span>Possibility.</span>
             </div>
-            <div className="about-art-shapes">
-              <div className="shape-ring" />
-              <div className="shape-blue" />
-              <div className="shape-grid" />
-              <span className="shape-star">✳</span>
-              <div className="shape-label">
-                <Icon name="sparkle" />
-                Complex made simple.
-              </div>
-            </div>
+            <img
+              className="about-architecture"
+              src="/images/connected-architecture.webp"
+              alt=""
+              loading="lazy"
+              width="1672"
+              height="941"
+            />
           </div>
         </div>
       </section>

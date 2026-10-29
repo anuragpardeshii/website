@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { articles, faqs, projects, services } from "../data/content";
+import {
+  articles,
+  faqs,
+  projects,
+  allServices as services,
+} from "../data/content";
 import { Button, FAQList, Icon, PageHero } from "../components/ui";
 
 export function FAQ() {

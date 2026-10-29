@@ -15,6 +15,7 @@ const types = {
   ".woff2": "font/woff2",
   ".svg": "image/svg+xml",
   ".png": "image/png",
+  ".webp": "image/webp",
   ".xml": "application/xml",
   ".txt": "text/plain",
 };
@@ -76,6 +77,28 @@ try {
   for (const route of routes) {
     const response = await page.goto(base + route.path);
     await page.evaluate(() => document.fonts.ready);
+    const failedImages = await page
+      .locator("img")
+      .evaluateAll(async (images) => {
+        return (
+          await Promise.all(
+            images.map(async (img) => {
+              img.loading = "eager";
+              try {
+                await img.decode();
+                return img.naturalWidth > 0 ? null : img.src;
+              } catch {
+                return img.src;
+              }
+            }),
+          )
+        ).filter(Boolean);
+      });
+    assert.equal(
+      failedImages.length,
+      0,
+      `All artwork loads on ${route.path}: ${failedImages.join(", ")}`,
+    );
     assert.equal(response.status(), 200, `Route ${route.path} returns 200`);
     assert.equal(
       await page.locator("main h1").count(),
@@ -171,6 +194,7 @@ try {
         fullPage: true,
       });
     report.routes.push({ path: route.path, desktopOverflow, mobileOverflow });
+    console.log(`Checked ${route.path}`);
     await page.setViewportSize({ width: 1440, height: 1000 });
   }
   await page.goto(base + "/");
@@ -204,9 +228,58 @@ try {
   await page.locator(".mega-links a").first().click();
   assert(page.url().includes("/services/website-development"));
   report.interactions.push("Mobile navigation and service destination");
+  await page.goto(base + "/");
+  const initialTab = page.getByRole("tab", { name: /CRM Development/ });
+  await initialTab.focus();
+  await page.keyboard.press("ArrowDown");
+  assert.equal(
+    await page
+      .getByRole("tab", { name: /ERP Development/ })
+      .getAttribute("aria-selected"),
+    "true",
+  );
+  await page.getByRole("link", { name: "Explore ERP", exact: true }).waitFor();
+  await page.keyboard.press("Home");
+  assert.equal(
+    await page
+      .getByRole("tab", { name: /Website Development/ })
+      .getAttribute("aria-selected"),
+    "true",
+  );
+  await page.getByRole("button", { name: "Logistics", exact: true }).click();
+  assert(
+    (await page.locator(".connection-detail").innerText()).includes(
+      "Everything moving in the right direction.",
+    ),
+  );
+  assert.equal(await page.locator("html").getAttribute("data-motion"), "off");
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  assert(
+    await page
+      .getByRole("button", {
+        name: "Animations reduced by your device preference",
+      })
+      .isDisabled(),
+  );
+  report.interactions.push(
+    "Solution tabs support arrows and Home, connected-system controls update content, reduced-motion preference respected",
+  );
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page
+    .getByRole("button", { name: "Pause animations", exact: true })
+    .click();
+  assert.equal(await page.locator("html").getAttribute("data-motion"), "off");
+  await page
+    .getByRole("button", { name: "Enable animations", exact: true })
+    .click();
+  assert.equal(await page.locator("html").getAttribute("data-motion"), "on");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  report.interactions.push("Global animation pause and resume");
+
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(base + "/work");
-  await page.getByRole("button", { name: "SaaS", exact: true }).click();
+  await page.getByRole("button", { name: "CRM", exact: true }).click();
   assert.equal(await page.locator(".project-card").count(), 1);
   assert(
     await page
@@ -215,7 +288,7 @@ try {
       .then((s) => s.includes("Orbit") || s.includes("Less busywork")),
   );
   await page.getByRole("button", { name: "All projects" }).click();
-  assert.equal(await page.locator(".project-card").count(), 3);
+  assert.equal(await page.locator(".project-card").count(), 4);
   report.interactions.push("Project category filters");
   await page.goto(base + "/insights");
   await page.getByRole("searchbox").fill("dashboard");

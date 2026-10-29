@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { services, site } from "../data/content";
+import { allServices as services, site } from "../data/content";
 import { Button, Eyebrow, Icon, TextLink } from "../components/ui";
 
 const emptyForm = {

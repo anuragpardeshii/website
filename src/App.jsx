@@ -1,6 +1,7 @@
 import { useEffect } from "react";
+import { MotionProvider } from "./components/MotionSystem";
 import { Layout } from "./components/Layout";
-import { articles, projects, services, site } from "./data/content";
+import { articles, projects, allServices, site } from "./data/content";
 import Home from "./pages/Home";
 import { ServiceDetail, Services } from "./pages/Services";
 import { ProjectDetail, Work } from "./pages/Work";
@@ -18,7 +19,7 @@ import { FAQ, NotFound, Policy, Sitemap } from "./pages/Utility";
 const basePages = [
   {
     path: "/",
-    title: "Thoughtfully built software",
+    title: "Ambition, meet execution",
     description: site.description,
     component: Home,
   },
@@ -26,14 +27,14 @@ const basePages = [
     path: "/services",
     title: "Software development services",
     description:
-      "Custom websites, web applications, admin dashboards, business analytics, SaaS products, and workflow automation built around your business.",
+      "Website development, CRM, ERP, dashboards and business analytics, e-commerce and order management, and inventory and logistics software.",
     component: Services,
   },
   {
     path: "/work",
     title: "Our work & product explorations",
     description:
-      "Explore original product concepts for analytics, SaaS collaboration, and commerce. Discover the SimpTech approach in action.",
+      "Explore original product concepts for CRM, analytics, commerce, and logistics. Discover the SimpTech approach in action.",
     component: Work,
   },
   {
@@ -123,7 +124,7 @@ const basePages = [
 ];
 export const routes = [
   ...basePages,
-  ...services.map((s) => ({
+  ...allServices.map((s) => ({
     path: `/services/${s.slug}`,
     title: s.title,
     description: s.description,
@@ -162,8 +163,13 @@ export default function App({ path = "/" }) {
     document.title = `${route.title} | ${site.name}`;
   }, [route.title]);
   return (
-    <Layout path={path} hideCTA={path === "/contact" || route.path === "/404"}>
-      <Page />
-    </Layout>
+    <MotionProvider>
+      <Layout
+        path={path}
+        hideCTA={path === "/contact" || route.path === "/404"}
+      >
+        <Page />
+      </Layout>
+    </MotionProvider>
   );
 }

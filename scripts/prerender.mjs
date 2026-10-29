@@ -16,12 +16,14 @@ for (const path of [...routes.map((r) => r.path), "/404"]) {
   const meta = `<title>${escape(title)}</title>\n<meta name="description" content="${escape(route.description)}"/>\n<link rel="canonical" href="${url}"/>\n<meta property="og:type" content="${path.startsWith("/insights/") ? "article" : "website"}"/>\n<meta property="og:title" content="${escape(title)}"/>\n<meta property="og:description" content="${escape(route.description)}"/>\n<meta property="og:url" content="${url}"/>\n<meta property="og:site_name" content="${site.name}"/>\n<meta name="twitter:card" content="summary_large_image"/>\n<meta property="og:image" content="${site.origin}/social-card.png"/>\n<meta name="twitter:image" content="${site.origin}/social-card.png"/>\n<meta name="twitter:title" content="${escape(title)}"/>\n<meta name="twitter:description" content="${escape(route.description)}"/>\n${path === "/404" ? '<meta name="robots" content="noindex"/>' : ""}<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: site.name, url: site.origin, description: site.description, logo: `${site.origin}/favicon.svg` }).replaceAll("<", "\\u003c")}</script>`;
   const html = template
     .replace("<!--page-meta-->", meta)
-    .replace("<!--app-html-->", render(path));
+    .replace("<!--app-html-->", render(path))
+    .replace('id="root"', `id="root" data-page-path="${path}"`);
   if (path === "/404") await writeFile("dist/404.html", html);
   else {
     const directory = `dist${path === "/" ? "" : path}`;
     await mkdir(directory, { recursive: true });
     await writeFile(`${directory}/index.html`, html);
+    if (path !== "/") await writeFile(`dist${path}.html`, html);
   }
 }
 await writeFile(

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { services, site } from "../data/content";
+import { MotionToggle, Reveal, ScrollProgress } from "./MotionSystem";
 import { Button, Icon, Logo, TextLink } from "./ui";
 
 const companyLinks = [
@@ -65,7 +66,7 @@ export function Header({ path }) {
         >
           <details className="nav-dropdown" name="primary-menu">
             <summary className={path.startsWith("/services") ? "active" : ""}>
-              Services
+              Solutions
               <Icon name="chevron" size={14} />
             </summary>
             <div className="mega-menu">
@@ -97,13 +98,13 @@ export function Header({ path }) {
             href="/work"
             aria-current={path.startsWith("/work") ? "page" : undefined}
           >
-            Our work
+            Work
           </a>
           <a
             href="/approach"
             aria-current={path === "/approach" ? "page" : undefined}
           >
-            Our approach
+            Approach
           </a>
           <details
             className="nav-dropdown company-dropdown"
@@ -118,7 +119,7 @@ export function Header({ path }) {
                   : ""
               }
             >
-              Company
+              Studio
               <Icon name="chevron" size={14} />
             </summary>
             <div className="company-menu">
@@ -136,6 +137,7 @@ export function Header({ path }) {
           >
             Insights
           </a>
+          <MotionToggle />
           <Button className="nav-cta" href="/contact" icon="diagonal">
             Let’s talk
           </Button>
@@ -148,26 +150,33 @@ export function Header({ path }) {
 export function ContactCTA() {
   return (
     <section className="contact-cta">
-      <div className="container cta-inner">
-        <div>
-          <span className="eyebrow eyebrow-light">
-            <span />
-            YOUR NEXT CHAPTER STARTS HERE
-          </span>
+      <div className="container">
+        <div className="cta-label">
+          <span>YOUR NEXT CHAPTER STARTS HERE.</span>
+          <span>LET’S MAKE IT HAPPEN ↙</span>
+        </div>
+        <Reveal className="cta-editorial">
           <h2>
-            Have something
+            What’s your
             <br />
-            great in mind<span>?</span>
+            <span>next big move?</span>
           </h2>
-          <p>Let’s turn it into something your business can build on.</p>
+          <a
+            className="cta-big-arrow"
+            href="/contact"
+            aria-label="Start a project with SimpTech"
+          >
+            <Icon name="diagonal" size={64} />
+          </a>
+        </Reveal>
+        <div className="cta-bottom">
+          <p>
+            A bold idea. A complex challenge. A better way to work.
+            <br />
+            We’d love to hear what you have in mind.
+          </p>
+          <TextLink href="/contact">Start a conversation</TextLink>
         </div>
-        <div className="cta-action">
-          <Button href="/contact" variant="white" icon="diagonal">
-            Let’s build it together
-          </Button>
-          <span>A conversation is a great place to start.</span>
-        </div>
-        <div className="cta-orbit" aria-hidden="true" />
       </div>
     </section>
   );
@@ -222,6 +231,9 @@ export function Footer() {
             </div>
           </div>
         </div>
+        <div className="footer-wordmark" aria-hidden="true">
+          simptech<span>®</span>
+        </div>
         <div className="footer-bottom">
           <span>
             © {new Date().getFullYear()} {site.name}. All rights reserved.
@@ -245,6 +257,7 @@ export function Layout({ children, path, hideCTA = false }) {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
+      <ScrollProgress />
       <Header path={path} />
       <main id="main-content">
         {children}

@@ -1,6 +1,6 @@
 # SimpTech
 
-A complete React + Vite company website with 27 pre-rendered pages, original product illustrations, and reusable components. The visual direction uses a white canvas, restrained blue accents, Inter typography, and generous space. No stock template, copied brand artwork, external font request, or AI API is required.
+A complete React + Vite company website with 32 pre-rendered pages, original generated artwork and product interfaces, and reusable components. The redesigned visual direction uses a white canvas, electric cobalt, oversized Inter typography, original architectural imagery, editorial layouts, and a dark interactive systems section. Motion for React (Framer Motion) drives scroll reveals, parallax, magnetic links, and animated capability transitions. No stock template, copied brand artwork, external font request, or AI API is required.
 
 ## Run locally
 
@@ -18,25 +18,25 @@ npm run build
 npm run preview
 ```
 
-`npm run build` builds the browser bundle, renders every route to its own HTML file, and writes `dist/sitemap.xml`, `dist/robots.txt`, and `dist/404.html`. Every page has an individual title, description, canonical URL, social metadata, and readable HTML before JavaScript runs. The application hydrates those pages to activate filters, menus, forms, and saved drafts. Navigation uses ordinary URLs and browser history.
+`npm run build` builds the browser bundle, renders every route to its own directory index and clean-URL HTML alias, and writes `dist/sitemap.xml`, `dist/robots.txt`, and `dist/404.html`. Every page has an individual title, description, canonical URL, social metadata, and readable HTML before JavaScript runs. A route marker prevents hydration mismatches on static hosts that fall back to the homepage. The application hydrates matching pages to activate filters, menus, forms, and saved drafts. Navigation uses ordinary URLs and browser history.
 
 ## Edit the website
 
-| What to change                                                   | Where                                  |
-| ---------------------------------------------------------------- | -------------------------------------- |
-| Company name, description, deployed origin, public contact email | `src/data/content.js` → `site`         |
-| Services and their detail pages                                  | `src/data/content.js` → `services`     |
-| Project concepts and detail stories                              | `src/data/content.js` → `projects`     |
-| Articles and full article text                                   | `src/data/content.js` → `articles`     |
-| Approved client testimonials                                     | `src/data/content.js` → `testimonials` |
-| FAQs, process steps, and industry content                        | `src/data/content.js`                  |
-| Homepage composition and main headline                           | `src/pages/Home.jsx`                   |
-| Navbar, footer, and shared contact CTA                           | `src/components/Layout.jsx`            |
-| Buttons, headings, icons, and accordion                          | `src/components/ui.jsx`                |
-| Original dashboard, board, storefront, and article illustrations | `src/components/ProductVisuals.jsx`    |
-| Colors, typography, spacing, and responsive rules                | `src/styles.css`                       |
-| Routing and page search metadata                                 | `src/App.jsx`                          |
-| Production pre-rendering                                         | `scripts/prerender.mjs`                |
+| What to change                                                   | Where                                                                       |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Company name, description, deployed origin, public contact email | `src/data/content.js` → `site`                                              |
+| Services and their detail pages                                  | `src/data/solutions.js` → `solutions`                                       |
+| Project concepts and detail stories                              | `src/data/content.js` → `projects`                                          |
+| Articles and full article text                                   | `src/data/content.js` → `articles`                                          |
+| Approved client testimonials                                     | `src/data/content.js` → `testimonials`                                      |
+| FAQs, process steps, and industry content                        | `src/data/content.js`                                                       |
+| Homepage composition and main headline                           | `src/pages/Home.jsx`                                                        |
+| Navbar, footer, and shared contact CTA                           | `src/components/Layout.jsx`                                                 |
+| Buttons, headings, icons, and accordion                          | `src/components/ui.jsx`                                                     |
+| Product interfaces and journal covers                            | `src/components/EnterpriseVisuals.jsx`, `src/components/ProductVisuals.jsx` |
+| Colors, typography, spacing, and responsive rules                | `src/redesign.css` (new visual system), `src/styles.css` (base styles)      |
+| Routing and page search metadata                                 | `src/App.jsx`                                                               |
+| Production pre-rendering                                         | `scripts/prerender.mjs`                                                     |
 
 The content arrays generate their corresponding detail routes automatically. To add a service, project, or article, copy an existing object, choose a unique slug, and update its content. Rebuild to generate the new HTML and sitemap entry. For a new standalone page, add a React component and register it in `basePages` in `src/App.jsx`.
 
@@ -50,7 +50,7 @@ Set `site.contactEmail` to your verified public email to enable the email handof
 
 ### Project stories and testimonials
 
-The Meridian, Orbit, and Aster projects are explicitly labeled as original concepts. Their UI names, customers, transactions, and metrics are illustrative. Replace them with approved project details as real work becomes available; do not relabel concept work as delivered client work.
+The Meridian, Orbit, Aster, and Atlas projects are explicitly labeled as original concepts. Their UI names, customers, transactions, and metrics are illustrative. Replace them with approved project details as real work becomes available; do not relabel concept work as delivered client work.
 
 No customer quotes, client logos, statistics, or endorsements have been invented. A reusable testimonial section is implemented. Add approved entries to the `testimonials` array:
 
@@ -67,19 +67,19 @@ The homepage automatically displays the testimonial section when the array conta
 
 ## Included pages
 
-| Page family         | Routes                                                                                                                                                                                  |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Homepage            | `/`                                                                                                                                                                                     |
-| Services            | `/services`                                                                                                                                                                             |
-| Service details     | `/services/website-development`, `/services/web-applications`, `/services/admin-dashboards`, `/services/business-analytics`, `/services/saas-products`, `/services/workflow-automation` |
-| Work                | `/work`                                                                                                                                                                                 |
-| Project concepts    | `/work/meridian-analytics`, `/work/orbit-workspace`, `/work/aster-commerce`                                                                                                             |
-| Company             | `/about`, `/approach`, `/industries`, `/technologies`, `/careers`                                                                                                                       |
-| Insights            | `/insights`                                                                                                                                                                             |
-| Articles            | `/insights/before-you-build-your-mvp`, `/insights/dashboards-that-drive-decisions`, `/insights/automate-the-right-things`                                                               |
-| Contact and help    | `/contact`, `/faq`                                                                                                                                                                      |
-| Website information | `/privacy`, `/terms`, `/accessibility`, `/sitemap`                                                                                                                                      |
-| Missing page        | `/404.html`                                                                                                                                                                             |
+| Page family         | Routes                                                                                                                                                                                        |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Homepage            | `/`                                                                                                                                                                                           |
+| Services            | `/services`                                                                                                                                                                                   |
+| Service details     | `/services/website-development`, `/services/crm-development`, `/services/erp-development`, `/services/business-analytics`, `/services/ecommerce-development`, `/services/inventory-logistics` |
+| Work                | `/work`                                                                                                                                                                                       |
+| Project concepts    | `/work/meridian-analytics`, `/work/orbit-workspace`, `/work/aster-commerce`, `/work/atlas-logistics`                                                                                          |
+| Company             | `/about`, `/approach`, `/industries`, `/technologies`, `/careers`                                                                                                                             |
+| Insights            | `/insights`                                                                                                                                                                                   |
+| Articles            | `/insights/before-you-build-your-mvp`, `/insights/dashboards-that-drive-decisions`, `/insights/automate-the-right-things`                                                                     |
+| Contact and help    | `/contact`, `/faq`                                                                                                                                                                            |
+| Website information | `/privacy`, `/terms`, `/accessibility`, `/sitemap`                                                                                                                                            |
+| Missing page        | `/404.html`                                                                                                                                                                                   |
 
 ## Design research
 
@@ -91,6 +91,14 @@ Comparable sites reviewed on 29 October 2026:
 - [Netguru](https://www.netguru.com/): service, technology, industry, and client navigation. [Their resources](https://www.netguru.com/resources) add practical guides and insights beyond a brochure homepage.
 - [Atlassian company](https://www.atlassian.com/company): company storytelling and pathways into solutions, resources, and customer stories.
 
+Award-winning and agency references reviewed for the redesign:
+
+- [Active Theory v5 on Awwwards](https://www.awwwards.com/sites/active-theory-v5): real-time environments and full-screen interaction informed the idea of an original animated technology scene.
+- [Unseen Studio on Awwwards](https://www.awwwards.com/sites/unseen-studio): immersive visual storytelling informed the stronger art direction and deliberate transitions.
+- [Instrument](https://www.instrument.com/): the agency’s use of large typography, visual project narratives, and technology-focused storytelling informed the editorial page rhythm.
+
+SimpTech’s layout, copy, artwork, product concepts, and animation implementation are original. This site does not claim an award or reuse those studios’ assets.
+
 Those observations informed the additional approach, industries, technology toolkit, careers, insights, FAQ, and detailed project pages. Security certifications, customer proof, and hiring claims were omitted because no substantiating company information was supplied.
 
 ## Verification
@@ -101,7 +109,7 @@ After building, run:
 npm test
 ```
 
-The browser verification script checks all 27 routes, page metadata, a single main heading, internal links, desktop/mobile overflow, and automated WCAG A/AA rules. It also checks keyboard navigation, the mobile services menu, project filtering, insight search and reset, FAQs, form validation, download contents, saved draft lifecycle, query parameter preselection, and the custom 404.
+The browser verification script checks all 32 routes, page metadata, a single main heading, internal links, desktop/mobile overflow, and automated WCAG A/AA rules. It also checks image loading, solution-tab keyboard controls, connected-system selection, global motion pause/resume, reduced-motion preferences, keyboard navigation, the mobile services menu, project filtering, insight search and reset, FAQs, form validation, download contents, saved draft lifecycle, query parameter preselection, and the custom 404.
 
 The script uses Google Chrome at `/usr/bin/google-chrome` by default. Set `SIMPTECH_CHROME` to another Chromium-compatible executable when needed. It starts a temporary localhost server and closes both the server and browser when complete. Reports and screenshots are written to ignored `test-results/`. Automated accessibility checks complement, rather than replace, assistive-technology and human review.
 
@@ -113,4 +121,26 @@ For another static host, serve extensionless routes from the corresponding `dist
 
 ## Assets and licenses
 
-The product interfaces, article art, logo, and abstract company artwork are built with HTML, CSS, and SVG in this repository. `public/social-card.png` is the original share image. Lucide supplies the interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
+The product interfaces, journal covers, and logo are built with HTML, CSS, and SVG in this repository. The connected-systems wireframe is drawn with Canvas. The two architectural images are original AI-generated artwork, converted to WebP without visual edits. `public/social-card.png` is the original share image. Lucide supplies the interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
+
+## Redesigned experience
+
+The six primary solution pages are Website Development; CRM; ERP; Dashboards & Business Analytics; E-commerce & Order Management; and Inventory & Logistics Management. The earlier `/services/web-applications`, `/services/admin-dashboards`, `/services/saas-products`, and `/services/workflow-automation` pages remain available, including existing contact deep links.
+
+- `src/components/SolutionExperiences.jsx` contains the keyboard-accessible six-tab explorer, the interactive connected-systems story, and the original project showcase.
+- `src/components/MotionSystem.jsx` contains the shared motion provider, pause control, scroll progress, viewport reveals, magnetic links, parallax media, and real-time wireframe renderer.
+- `src/components/EnterpriseVisuals.jsx` contains reusable website, CRM, ERP, analytics, commerce, and logistics interface concepts. All data is illustrative.
+- `src/redesign.css` is the new design layer. Its sections cover the homepage, product interfaces, editorial content, inner pages, and responsive breakpoints.
+
+All core content is present in the rendered HTML. The operating-system reduced-motion preference disables continuous animation and parallax; the navigation also provides an explicit pause/resume control. The canvas suspends animation outside the viewport and when the document is hidden. The interactive solution tabs do not auto-advance. Page transitions use native links so URLs, history, open-in-new-tab, and pre-rendered SEO remain predictable.
+
+### Original artwork
+
+The built-in image generation tool created two original images for this redesign:
+
+| Asset                                       | Creation prompt / direction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `public/images/connected-architecture.webp` | Wide 16:9 premium editorial architectural artwork. A refined photorealistic modular sculpture made from translucent cobalt glass, matte ultramarine blocks, clear optical glass fins, and brushed aluminium connection bridges. Three tiers with an open rectangular portal, pale blue-white ground, long directional afternoon shadows, elevated three-quarter 70 mm perspective. High-end industrial photography. No people, text, logos, screens, dashboards, floating icons, spheres, purple gradients, or sci-fi neon. |
+| `public/images/logistics-architecture.webp` | Original premium editorial architectural photograph of a modern, spacious fulfillment center. Tall blue steel shelving, beige cartons, a blue autonomous mobile robot in the foreground, strong daylight through clerestory windows, and an elevated view down a long central aisle. Cobalt, white, charcoal, and beige palette. No people, text, logos, or brand marks. Leave space in the upper left for an editorial overlay.                                                                                            |
+
+These assets are approximately 178 KB and 301 KB. `public/social-card.png` is generated locally from the new hero artwork and typography using `npm run social-card`. The original full-resolution generated PNGs remain in the local image-generation output directory; the site serves only the optimized WebP files.

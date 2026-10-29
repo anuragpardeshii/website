@@ -1,6 +1,9 @@
-import { services, steps } from "../data/content";
-import { ServiceGrid } from "../components/Sections";
-import { Board, Dashboard } from "../components/ProductVisuals";
+import { services } from "../data/content";
+import {
+  SolutionExplorer,
+  ConnectedSystems,
+} from "../components/SolutionExperiences";
+import { SystemPreview } from "../components/EnterpriseVisuals";
 import {
   Breadcrumb,
   Button,
@@ -25,11 +28,8 @@ export function Services() {
         }
         description="One thoughtful partner for the websites, applications, and systems that move your business forward."
       />
-      <section className="section section-top-small">
-        <div className="container">
-          <ServiceGrid />
-        </div>
-      </section>
+      <SolutionExplorer />
+      <ConnectedSystems />
       <section className="section soft-section">
         <div className="container split-editorial">
           <div>
@@ -117,15 +117,12 @@ export function ServiceDetail({ service }) {
               <Icon name={service.icon} />
               {service.title}
             </span>
-            {[
-              "workflow-automation",
-              "saas-products",
-              "web-applications",
-            ].includes(service.slug) ? (
-              <Board />
-            ) : (
-              <Dashboard compact />
-            )}
+            <SystemPreview
+              mode={
+                service.visual ||
+                (service.slug === "workflow-automation" ? "erp" : "analytics")
+              }
+            />
             <span className="detail-art-caption">
               An original interface concept. A world of possibilities.
             </span>

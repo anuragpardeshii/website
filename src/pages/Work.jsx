@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { projects } from "../data/content";
 import { ProjectGrid } from "../components/Sections";
-import { ProjectVisual } from "../components/ProductVisuals";
+import { SystemPreview } from "../components/EnterpriseVisuals";
 import {
   Breadcrumb,
   Button,
@@ -31,16 +31,18 @@ export function Work() {
       <section className="section section-top-small">
         <div className="container">
           <div className="filter-row" aria-label="Filter projects">
-            {["All projects", "Analytics", "SaaS", "Websites"].map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                aria-pressed={filter === f}
-                className={filter === f ? "selected" : ""}
-              >
-                {f}
-              </button>
-            ))}
+            {["All projects", "Analytics", "CRM", "Commerce", "Logistics"].map(
+              (f) => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  aria-pressed={filter === f}
+                  className={filter === f ? "selected" : ""}
+                >
+                  {f}
+                </button>
+              ),
+            )}
           </div>
           <div aria-live="polite" className="sr-only">
             {
@@ -98,7 +100,7 @@ export function ProjectDetail({ project }) {
             {project.name}
             <span>DESIGNED TO MAKE A DIFFERENCE.</span>
           </div>
-          <ProjectVisual type={project.visual} />
+          <SystemPreview mode={project.visual} />
         </div>
       </div>
       <section className="section">

@@ -1,3 +1,4 @@
+import { solutions } from "./solutions.js";
 // Edit the site here. Project concepts are intentionally distinguished from client work.
 export const site = {
   name: "SimpTech",
@@ -5,14 +6,14 @@ export const site = {
   origin: "https://simptech-digital-studio.teethfast.chatgpt.site",
   contactEmail: "", // Add a verified public email to enable the email handoff.
   description:
-    "Thoughtfully designed websites, web applications, and business software. SimpTech turns complex challenges into simple, useful digital experiences.",
+    "Distinctive websites. Connected business software. SimpTech designs and engineers CRM, ERP, analytics, commerce, and logistics platforms that move businesses forward.",
 };
 
 // Add only approved, attributable client quotes. The section appears automatically.
 export const testimonials = [];
 // Example shape: { quote: 'Approved quote', name: 'Full name', role: 'Role', company: 'Company' }
 
-export const services = [
+export const legacyServices = [
   {
     slug: "website-development",
     icon: "globe",
@@ -222,21 +223,21 @@ export const projects = [
   {
     slug: "orbit-workspace",
     name: "Orbit",
-    category: "SaaS & workflow automation",
-    type: "SaaS",
-    title: "Less busywork. More forward motion.",
+    category: "CRM & customer experience",
+    type: "CRM",
+    title: "Make every relationship count.",
     description:
-      "A shared workspace for projects, people, and the little things that keep great teams moving.",
-    theme: "lavender",
-    visual: "board",
-    tags: ["SaaS", "Web application", "Automation"],
+      "A considered CRM workspace that brings contacts, conversations, and the next opportunity into one clear view.",
+    theme: "cobalt",
+    visual: "crm",
+    tags: ["CRM", "Web application", "Automation"],
     challenge:
-      "Project information often lives in one tool while decisions happen somewhere else. This concept brings tasks, ownership, and progress into a single approachable workspace.",
+      "Customer context often lives across inboxes, spreadsheets, and individual memory. This concept brings opportunities, ownership, and conversations into one approachable workspace.",
     approach:
-      "The design uses familiar boards, visible ownership, and focused project views. Automation is introduced at common handoff points, with clear status changes and room for human judgment.",
+      "The design makes pipeline stages and relationship ownership visible. Focused contact records and clear next actions help sales teams keep context through every handoff.",
     features: [
-      "Flexible project boards with clear stages",
-      "Task context, ownership, and due dates in one view",
+      "A clear opportunity pipeline with meaningful stages",
+      "Contact context, ownership, and follow-ups in one view",
       "Rules for routine notifications and handoffs",
       "A consistent workspace across teams",
     ],
@@ -245,25 +246,48 @@ export const projects = [
   {
     slug: "aster-commerce",
     name: "Aster",
-    category: "Website & customer experience",
-    type: "Websites",
+    category: "E-commerce & order management",
+    type: "Commerce",
     title: "An everyday brand. An exceptional experience.",
     description:
-      "A considered storefront concept that makes exploring beautiful everyday objects feel simple and natural.",
+      "A connected commerce workspace that brings orders, stock availability, and fulfillment progress into focus.",
     theme: "sand",
     visual: "commerce",
     tags: ["Web design", "E-commerce", "Development"],
     challenge:
-      "A storefront needs to communicate a point of view while helping people find what suits them. This concept explores a balance between editorial storytelling and practical shopping journeys.",
+      "A growing storefront needs a dependable operation behind it. This concept connects the order record to stock allocation, fulfillment progress, and the information customer support needs to help.",
     approach:
-      "Generous space, tactile product visuals, and quiet typography give the products room to speak. Clear categories and concise information support the journey from discovery to consideration.",
+      "Clear order stages, consistent product information, and operational context support the complete journey from product discovery to fulfillment. The workspace connects a considered storefront to the people delivering each order.",
     features: [
-      "An editorial storefront with a distinct visual identity",
-      "Clear collections and considered product details",
-      "A responsive experience built for browsing on the go",
-      "Reusable sections for seasonal stories and releases",
+      "A clear overview of orders and fulfillment status",
+      "Consistent product information and stock availability",
+      "Focused views for commerce and operations teams",
+      "Reusable patterns for order details and customer context",
     ],
     stack: ["React", "Next.js", "TypeScript", "Headless CMS"],
+  },
+  {
+    slug: "atlas-logistics",
+    name: "Atlas",
+    category: "Inventory & logistics",
+    type: "Logistics",
+    title: "A business that keeps moving.",
+    description:
+      "An operations platform concept that connects warehouse stock, order preparation, and shipment visibility in one focused workspace.",
+    theme: "ice",
+    visual: "logistics",
+    tags: ["Inventory", "Logistics", "Operations"],
+    challenge:
+      "Warehouse teams need to know what is available, what is allocated, and what needs attention. When stock and shipment records live separately, every handoff introduces another opportunity for confusion.",
+    approach:
+      "The concept follows the movement of an order from allocation to dispatch. Shared stock records, clear status changes, and exception-first views give teams useful context without overwhelming them with data.",
+    features: [
+      "Stock visibility across locations and storage zones",
+      "Order allocation, picking, and dispatch stages",
+      "Shipment progress and delivery exceptions",
+      "Clear activity records for operational handoffs",
+    ],
+    stack: ["React", "Node.js", "PostgreSQL", "REST APIs"],
   },
 ];
 
@@ -502,4 +526,10 @@ export const industries = [
       "Practical software for the point where spreadsheets and disconnected tools stop keeping up with your team.",
     needs: ["Internal applications", "Business websites", "Custom reporting"],
   },
+];
+
+export const services = solutions;
+export const allServices = [
+  ...services,
+  ...legacyServices.filter((s) => !services.some((p) => p.slug === s.slug)),
 ];

@@ -1,3 +1,4 @@
+import { Reveal } from "./MotionSystem";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -138,12 +139,12 @@ export function PageHero({
 }) {
   return (
     <section className={`page-hero ${className}`}>
-      <div className="container">
+      <Reveal className="container">
         <Eyebrow>{eyebrow}</Eyebrow>
         <h1>{title}</h1>
         <p className="page-intro">{description}</p>
         {children}
-      </div>
+      </Reveal>
     </section>
   );
 }

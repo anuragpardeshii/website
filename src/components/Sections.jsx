@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { articles, projects, services, testimonials } from "../data/content";
-import { ArticleArt, ProjectVisual } from "./ProductVisuals";
+import { SystemPreview } from "./EnterpriseVisuals";
+import { ArticleArt } from "./ProductVisuals";
 import { Eyebrow, Icon, SectionHeading, Tag, TextLink } from "./ui";
 
 export function ServiceGrid({ limit }) {
@@ -42,7 +43,7 @@ export function ProjectCard({ project, featured = false }) {
           <span>CONCEPT EXPLORATION</span>
         </div>
         <div className="project-ui">
-          <ProjectVisual type={project.visual} />
+          <SystemPreview mode={project.visual} />
         </div>
         <span className="project-open">
           <Icon name="diagonal" size={22} />

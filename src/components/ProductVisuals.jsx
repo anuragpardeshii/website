@@ -377,49 +377,46 @@ export function ProjectVisual({ type }) {
 }
 
 export function ArticleArt({ type }) {
+  const labels = {
+    blocks: ["01", "A better beginning.", "PRODUCT THINKING"],
+    chart: ["02", "Clarity is a competitive edge.", "BUSINESS INTELLIGENCE"],
+    flow: ["03", "Make room for the human.", "CONNECTED WORKFLOWS"],
+  };
+  const [number, title, label] = labels[type] || labels.blocks;
   return (
-    <div className={`article-art art-${type}`} aria-hidden="true">
-      {type === "blocks" ? (
-        <>
-          <span />
-          <span />
-          <span />
-          <div className="art-plus">+</div>
-        </>
-      ) : type === "chart" ? (
-        <>
-          <div className="art-chart">
-            <i />
-            <i />
-            <i />
-            <i />
-            <i />
-            <i />
-          </div>
-          <svg viewBox="0 0 240 100">
+    <div className={`journal-art journal-${type}`} aria-hidden="true">
+      <div className="journal-top">
+        <span>SIMPTECH / PERSPECTIVES</span>
+        <span>{number}</span>
+      </div>
+      <strong>{title}</strong>
+      <div className="journal-graphic">
+        {type === "blocks" ? (
+          <span className="journal-asterisk">✳</span>
+        ) : type === "chart" ? (
+          <svg viewBox="0 0 360 150">
             <path
-              d="m10 80 45-25 35 12 45-44 35 10 60-28"
+              d="M0 140 40 110 80 125 120 75 160 90 200 35 240 60 290 15 360 0"
               fill="none"
               stroke="currentColor"
-              strokeWidth="3"
+              strokeWidth="2"
+            />
+            <path
+              d="M0 150H360M0 100H360M0 50H360"
+              stroke="currentColor"
+              opacity=".15"
             />
           </svg>
-        </>
-      ) : (
-        <>
-          <div className="art-node">
-            <Icon name="layers" size={26} />
+        ) : (
+          <div className="journal-orbits">
+            <i />
+            <i />
+            <i />
+            <span>↗</span>
           </div>
-          <span className="art-line" />
-          <div className="art-node">
-            <Icon name="workflow" size={28} />
-          </div>
-          <span className="art-line" />
-          <div className="art-node">
-            <Icon name="check" size={26} />
-          </div>
-        </>
-      )}
+        )}
+      </div>
+      <span className="journal-bottom">{label}</span>
     </div>
   );
 }
