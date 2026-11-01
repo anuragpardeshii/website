@@ -10,22 +10,22 @@ function Chart({ small = false }) {
     >
       <path
         d="M0 20H440M0 60H440M0 100H440"
-        stroke="#f1f0ef"
+        stroke="#f0f0f0"
         strokeDasharray="4 4"
       />
       <path
         d="m0 113 24-10 20 8 24-26 25 8 26-28 22 6 25-15 22 8 25-28 23 7 24-24 20 9 25-25 23 5 24-18 18 7 25-23v131H0Z"
-        fill="#f5f5f4"
+        fill="#f5f5f5"
       />
       <path
         d="m0 113 24-10 20 8 24-26 25 8 26-28 22 6 25-15 22 8 25-28 23 7 24-24 20 9 25-25 23 5 24-18 18 7 25-23"
-        stroke="#9a9893"
+        stroke="#989898"
         strokeWidth={small ? 3 : 2.6}
         strokeLinejoin="round"
       />
       <path
         d="m0 119 24-1 20-8 24 4 25-12 26 8 22-16 25 5 22-10 25 4 23-12 24 5 20-8 25 1 23-11 24 5 18-10 25 3"
-        stroke="#d8d8d6"
+        stroke="#d8d8d8"
         strokeWidth="2"
         strokeDasharray="5 5"
       />

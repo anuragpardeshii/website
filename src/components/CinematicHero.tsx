@@ -1,132 +1,104 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Button, Icon } from "./ui";
 import { useSiteMotion } from "./MotionSystem";
+import { MotionSurface } from "./MotionSurface";
 
-/** The image is always present. Video loads only with motion enabled on desktop. */
 export function CinematicHero() {
+  const ref = useRef<HTMLElement>(null);
   const { disabled } = useSiteMotion();
-  const video = useRef<HTMLVideoElement>(null);
-  const [loadFilm, setLoadFilm] = useState(false);
-
-  useEffect(() => {
-    const screen = window.matchMedia("(min-width: 768px)");
-    const connection = (
-      navigator as Navigator & { connection?: { saveData?: boolean } }
-    ).connection;
-    const sync = () =>
-      setLoadFilm(
-        !disabled &&
-          !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-          screen.matches &&
-          !connection?.saveData,
-      );
-    sync();
-    screen.addEventListener("change", sync);
-    return () => screen.removeEventListener("change", sync);
-  }, [disabled]);
-
-  useEffect(() => {
-    const film = video.current;
-    if (!film || !loadFilm) return;
-    let visible = true;
-    const sync = () => {
-      if (visible && !document.hidden) void film.play().catch(() => {});
-      else film.pause();
-    };
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      sync();
-    });
-    observer.observe(film);
-    document.addEventListener("visibilitychange", sync);
-    return () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", sync);
-      film.pause();
-    };
-  }, [loadFilm]);
-
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 110]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
   return (
-    <section className="cinema-hero" aria-labelledby="hero-title">
-      <div className="cinema-landscape" data-parallax aria-hidden="true">
-        <picture>
-          <source
-            media="(max-width: 767px)"
-            srcSet="/media/mountain-poster-mobile.webp"
-          />
-          <img
-            src="/media/mountain-poster.webp"
-            alt=""
-            width="1280"
-            height="720"
-            fetchPriority="high"
-          />
-        </picture>
-        {loadFilm && (
-          <video
-            ref={video}
-            src="/media/mountain-film.mp4"
-            muted
-            loop
-            playsInline
-            autoPlay
-            preload="none"
-            poster="/media/mountain-poster.webp"
-            tabIndex={-1}
-          />
-        )}
-      </div>
+    <section
+      ref={ref}
+      className="cinema-hero black-hero"
+      aria-labelledby="hero-title"
+    >
+      <motion.div
+        className="hero-scroll-art"
+        style={disabled ? {} : { y, scale }}
+        aria-hidden="true"
+      >
+        <MotionSurface className="hero-intelligence-art">
+          <picture>
+            <source
+              media="(max-width: 767px)"
+              srcSet="/media/intelligence-sculpture-mobile.webp"
+            />
+            <img
+              src="/media/intelligence-sculpture.webp"
+              alt=""
+              width="1536"
+              height="1024"
+              fetchPriority="high"
+            />
+          </picture>
+          <div className="hero-coordinate-lines">
+            <i />
+            <i />
+            <i />
+          </div>
+        </MotionSurface>
+      </motion.div>
       <div className="cinema-hero-shade" aria-hidden="true" />
       <div className="container cinema-hero-content">
         <div className="cinema-eyeline flex items-center justify-between gap-4">
           <span>
-            <i /> INDEPENDENT DIGITAL STUDIO
+            <i /> SIMPTECH / DIGITAL SYSTEMS STUDIO
           </span>
           <span className="hidden md:block">
-            DESIGNED WITH INTENT. BUILT TO LAST.
+            DESIGNED FOR PEOPLE. BUILT FOR POSSIBILITY.
           </span>
         </div>
         <h1 id="hero-title">
           <span className="hero-line">
-            <span data-hero-line>Complexity,</span>
+            <span data-hero-line>Intelligence.</span>
           </span>
           <span className="hero-line">
             <span data-hero-line>
-              made <em>simple.</em>
+              Made <em>useful.</em>
             </span>
           </span>
         </h1>
-        <div className="cinema-hero-bottom grid gap-8 md:grid-cols-2 md:items-end">
-          <div>
-            <p>
-              Better websites. Smarter business software.
-              <br />
-              Thoughtfully built around you.
-            </p>
-            <div className="cinema-actions flex flex-wrap items-center gap-6">
-              <Button href="/contact" icon="diagonal">
-                Start a project
-              </Button>
-              <a href="/work" className="cinema-work-link">
-                Explore our work <Icon name="arrow" size={17} />
-              </a>
-            </div>
-          </div>
-          <div
-            className="hero-coordinate md:justify-self-end"
-            aria-hidden="true"
-          >
-            <span>STRATEGY / DESIGN / DEVELOPMENT</span>
-            <div>
-              Less friction.
-              <br />
-              More possibility.
-            </div>
+        <div className="cinema-hero-bottom">
+          <p>
+            AI systems. Thoughtful websites. Connected software.
+            <br />
+            Built to make your business work better.
+          </p>
+          <div className="cinema-actions flex flex-wrap items-center gap-6">
+            <Button href="/contact" icon="diagonal">
+              Start a project
+            </Button>
+            <a href="#intelligence-flow" className="cinema-work-link">
+              Explore AI systems <Icon name="arrow" size={17} />
+            </a>
           </div>
         </div>
+        <MotionSurface className="hero-node">
+          <div className="hero-node-top">
+            <Icon name="sparkle" size={16} />
+            <span>THE INTELLIGENCE LAYER</span>
+            <i />
+          </div>
+          <strong>Everything, in context.</strong>
+          <div className="hero-node-flow">
+            <span>Knowledge</span>
+            <Icon name="arrow" size={12} />
+            <span>Reasoning</span>
+            <Icon name="arrow" size={12} />
+            <span>Review</span>
+          </div>
+          <small>AN ORIGINAL SYSTEM CONCEPT</small>
+        </MotionSurface>
         <div className="cinema-hero-footer flex items-center justify-between gap-4">
-          <a href="#studio-workspace">
-            A clearer perspective <span>↓</span>
+          <a href="#intelligence-flow">
+            Discover what connects us <span>↓</span>
           </a>
           <span>SCROLL TO EXPLORE</span>
         </div>

@@ -428,7 +428,6 @@ try {
         })),
       });
   }
-  assert.equal(await page.locator(".cinema-landscape video").count(), 0);
   for (const scene of await page.locator(".showreel-image").all()) {
     assert(
       await scene.evaluate((element) => {
@@ -447,32 +446,166 @@ try {
   report.interactions.push(
     "AI concept keyboard tabs, sample action plans, reset, mobile containment and accessibility",
   );
+  const journeyTabs = page.getByRole("tablist", { name: "AI system chapters" });
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 1000 });
+    assert.equal(
+      await page.locator(".ai-journey").getAttribute("data-scroll-scene"),
+      "false",
+    );
+    for (const [index, name] of ["Connect", "Understand", "Review"].entries()) {
+      const tab = journeyTabs.getByRole("tab", { name: new RegExp(name) });
+      await tab.click();
+      await page.waitForFunction(
+        (i) =>
+          document
+            .querySelector(`#journey-tab-${i}`)
+            ?.getAttribute("aria-selected") === "true",
+        index,
+      );
+      const headings = [
+        "Your knowledge. Connected.",
+        "Answers with a point of view.",
+        "A clear handoff. On your terms.",
+      ];
+      await page
+        .getByRole("heading", { name: headings[index], exact: true })
+        .waitFor();
+      assert(
+        await page
+          .locator(".journey-browser")
+          .evaluate((el) => el.scrollWidth <= el.clientWidth + 1),
+        "AI interface fits its frame",
+      );
+      const result = await new AxeBuilder({ page })
+        .include(".ai-journey")
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze();
+      if (result.violations.length)
+        report.accessibility.push({
+          path: `/#journey-${width}-${name}`,
+          violations: result.violations.map((v) => ({
+            id: v.id,
+            nodes: v.nodes.map((n) => ({
+              target: n.target,
+              summary: n.failureSummary,
+            })),
+          })),
+        });
+    }
+    await page.getByRole("button", { name: "Review this sample plan" }).click();
+    assert(
+      await page
+        .getByText(
+          "Sample reviewed. No messages sent or business actions taken.",
+        )
+        .isVisible(),
+    );
+    await page.getByRole("button", { name: "Reset sample review" }).click();
+    assert(
+      await page
+        .getByText("An interface demonstration. You stay in control.")
+        .isVisible(),
+    );
+    await journeyTabs.getByRole("tab", { name: /Review/ }).focus();
+    await page.keyboard.press("Home");
+    await page
+      .getByRole("heading", { name: "Your knowledge. Connected.", exact: true })
+      .waitFor();
+    await page.keyboard.press("ArrowRight");
+    await page
+      .getByRole("heading", {
+        name: "Answers with a point of view.",
+        exact: true,
+      })
+      .waitFor();
+    await page.locator(".journey-stage").screenshot({
+      path: resolve(
+        output,
+        `ai-journey-${width === 1440 ? "desktop" : "mobile"}.png`,
+      ),
+    });
+  }
+  report.interactions.push(
+    "AI chapters: keyboard, mobile, sample review/reset, containment and accessibility",
+  );
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
-  await page.waitForFunction(() => {
-    const film = document.querySelector(".cinema-landscape video");
-    return film && film.readyState >= 2 && !film.paused;
-  });
-  await page.locator(".intelligence-section").scrollIntoViewIfNeeded();
   await page.waitForFunction(
-    () => document.querySelector(".cinema-landscape video")?.paused,
+    () =>
+      document
+        .querySelector(".ai-journey")
+        ?.getAttribute("data-scroll-scene") === "true",
+  );
+  for (const index of [0, 1, 2]) {
+    await page.evaluate((i) => {
+      const el = document.querySelector(".ai-journey");
+      window.scrollTo({
+        top:
+          el.getBoundingClientRect().top +
+          scrollY +
+          (el.offsetHeight - innerHeight) * ((i + 0.45) / 3),
+        behavior: "instant",
+      });
+    }, index);
+    await page.waitForFunction(
+      (i) =>
+        document
+          .querySelector(`#journey-tab-${i}`)
+          ?.getAttribute("aria-selected") === "true",
+      index,
+    );
+    const scene = await page.locator(".journey-browser").boundingBox();
+    assert(
+      scene.y >= 70 && scene.y + scene.height <= 1000,
+      "Sticky AI interface stays visible during scroll",
+    );
+  }
+  await page.locator(".journey-browser").hover({ position: { x: 40, y: 50 } });
+  await page.waitForFunction(() =>
+    document
+      .querySelector(".journey-browser")
+      .style.transform.includes("rotateY"),
+  );
+  await page.mouse.move(0, 0);
+  await page.locator(".signal-section").scrollIntoViewIfNeeded();
+  await page.waitForFunction(
+    () => document.querySelectorAll(".signal-particle").length === 4,
   );
   await page
     .getByRole("button", { name: "Pause animations", exact: true })
     .click();
   assert.equal(await page.locator("html").getAttribute("data-motion"), "off");
-  assert.equal(await page.locator(".cinema-landscape video").count(), 0);
+  await page.waitForFunction(
+    () => document.querySelectorAll(".signal-particle").length === 0,
+  );
+  assert.equal(
+    await page.locator(".ai-journey").getAttribute("data-scroll-scene"),
+    "false",
+  );
+  assert.equal(
+    await page
+      .locator(".journey-browser")
+      .evaluate((el) => getComputedStyle(el).transform),
+    "none",
+  );
   await page
     .getByRole("button", { name: "Enable animations", exact: true })
     .click();
   assert.equal(await page.locator("html").getAttribute("data-motion"), "on");
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForFunction(
+    () => document.querySelectorAll(".signal-particle").length === 0,
+  );
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.waitForFunction(
-    () => !document.querySelector(".cinema-landscape video"),
+    () =>
+      document
+        .querySelector(".ai-journey")
+        ?.getAttribute("data-scroll-scene") === "false",
   );
   report.interactions.push(
-    "Video plays on desktop, pauses offscreen, respects reduced motion and global pause/resume",
+    "Desktop native-scroll chapters, visible sticky scene, hover depth, offscreen particle suspension and motion pause/resume",
   );
 
   await page.setViewportSize({ width: 1440, height: 1000 });

@@ -1,12 +1,11 @@
-Mountain film and posters
-Source: A drone flights above the mountains in the forest
-Creator: Ruben Velasco / Mixkit
-https://mixkit.co/free-stock-video/a-drone-flights-above-the-mountains-in-the-forest-50585/
-License: Mixkit Stock Video Free License
-https://mixkit.co/license/#videoFree
-Downloaded: 2026-11-01
-Adaptation: 12-second excerpt, muted colour grade, 1280px H.264 encode, WebP poster frames.
-Used as decorative editorial scenery; no affiliation or endorsement implied.
+Original SimpTech intelligence artwork
+Created: 2026-11-01 with the built-in image-generation tool.
+Web assets: intelligence-sculpture.webp (1536 x 1024), intelligence-sculpture-mobile.webp (768 x 512).
+Adaptation: WebP conversion and responsive resizing only.
+The full-resolution generated PNG is retained in the local image-generation output directory.
+
+Generation prompt:
+Use case: stylized-concept. Asset type: premium cinematic AI studio website hero artwork, landscape 1536x1024. Create an original monumental sculpture representing connected intelligence: thousands of extremely fine silver metallic filaments form a complex flowing folded ribbon, twisting through space into a tall open architectural loop. Its silhouette is asymmetric, sculptural and elegant, with intricate woven strands visible in the silver rim light. The sculpture occupies the RIGHT TWO THIRDS of a wide frame; the LEFT THIRD and outer edges fade into deep pure black negative space for overlaid webpage typography. A black void studio, very subtle smoky depth only around the sculpture and an almost invisible black obsidian floor reflection. Photorealistic high-end industrial art photography, precise fiber detail, low key dramatic rim lighting, restrained exposure, black on black aesthetic, refined editorial atmosphere. STRICTLY monochrome black, graphite, silver, white. No blue, no green, no orange, no colored glow. No text, no letters, no logos, no screens, no UI, no people, no sphere, no brain, no robot, no neon, no generic gradient. The sculptural object must be striking and substantial, not a thin outline. Rich black negative space is essential. Original design, not a copy of any reference image.
 
 The connected-architecture and logistics-architecture images in /images are
 existing original SimpTech artwork from this repository. Product interfaces

@@ -308,7 +308,7 @@ export function ProjectShowreel() {
                   className="showreel-backdrop"
                   src={
                     i === 0
-                      ? "/media/mountain-poster.webp"
+                      ? "/media/intelligence-sculpture.webp"
                       : "/images/connected-architecture.webp"
                   }
                   alt=""

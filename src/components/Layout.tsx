@@ -105,12 +105,7 @@ export function Header({ path }: { path: string }) {
           >
             Work
           </a>
-          <a
-            href="/approach"
-            aria-current={path === "/approach" ? "page" : undefined}
-          >
-            Approach
-          </a>
+          <a href="/#intelligence-flow">AI systems</a>
           <details
             className="nav-dropdown company-dropdown"
             name="primary-menu"
@@ -155,6 +150,15 @@ export function Header({ path }: { path: string }) {
 export function ContactCTA() {
   return (
     <section className="contact-cta">
+      <div className="cta-intelligence-art" aria-hidden="true">
+        <img
+          src="/media/intelligence-sculpture.webp"
+          alt=""
+          loading="lazy"
+          width="1536"
+          height="1024"
+        />
+      </div>
       <div className="container">
         <Reveal className="v2-cta-content">
           <Eyebrow>LET’S MAKE SOMETHING USEFUL</Eyebrow>

@@ -1,3 +1,4 @@
+import { MotionSurface } from "./MotionSurface";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Eyebrow, Icon, TextLink } from "./ui";
@@ -70,9 +71,9 @@ export function IntelligenceStudio() {
         <Reveal className="intelligence-copy">
           <Eyebrow>AN EXPLORATION IN APPLIED AI</Eyebrow>
           <h2 id="intelligence-title">
-            A little intelligence.
+            A conversation.
             <br />
-            <span className="quiet-text">A lot more clarity.</span>
+            <span className="quiet-text">A clearer next step.</span>
           </h2>
           <p>
             Imagine asking your business a question—and finding the context, the
@@ -94,7 +95,7 @@ export function IntelligenceStudio() {
             </span>
           </div>
         </Reveal>
-        <div className="intelligence-console" data-image-reveal>
+        <MotionSurface className="intelligence-console">
           <div className="intelligence-console-bar flex items-center justify-between">
             <span>
               <Icon name="sparkle" size={18} /> SimpTech intelligence
@@ -211,7 +212,7 @@ export function IntelligenceStudio() {
           <div className="intelligence-console-footer">
             <span className="online-dot" /> Human judgment, built into the loop.
           </div>
-        </div>
+        </MotionSurface>
       </div>
     </section>
   );

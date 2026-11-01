@@ -1,3 +1,5 @@
+import { AIJourney } from "../components/AIJourney";
+import { SignalField } from "../components/SignalField";
 import { faqs } from "../data/content";
 import { CinematicHero } from "../components/CinematicHero";
 import { CinematicMotion } from "../components/CinematicMotion";
@@ -43,11 +45,14 @@ export default function Home() {
     <>
       <CinematicMotion />
       <CinematicHero />
+      <AIJourney />
+      <SignalField />
+      <IntelligenceStudio />
       <section className="workspace-section section" id="studio-workspace">
         <div className="container">
           <Reveal className="cinema-section-heading">
             <div>
-              <Eyebrow>01 / SOFTWARE, MADE HUMAN</Eyebrow>
+              <Eyebrow>02 / THE CONNECTED BUSINESS</Eyebrow>
               <h2>
                 One business.
                 <br />
@@ -65,27 +70,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="v2-intro">
-        <div className="container v2-intro-layout">
-          <Eyebrow>LESS FRICTION. MORE POSSIBILITY.</Eyebrow>
-          <Reveal>
-            <h2>
-              Your next stage deserves
-              <br />
-              <span className="quiet-text">a better way to work.</span>
-            </h2>
-            <p>
-              A website that tells your story. A CRM your team actually enjoys.
-              Operations that stay in sync. We turn the complicated parts of
-              your business into simple, useful experiences.
-            </p>
-            <TextLink href="/about">Get to know SimpTech</TextLink>
-          </Reveal>
-        </div>
-      </section>
       <ProjectShowreel />
       <SolutionExplorer />
-      <IntelligenceStudio />
       <ConnectedSystems />
       <section className="v2-process section">
         <div className="container">

@@ -76,22 +76,22 @@ function AnalyticsBody() {
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <path d="M0 30H600M0 80H600M0 130H600" stroke="#343331" fill="none" />
+          <path d="M0 30H600M0 80H600M0 130H600" stroke="#333333" fill="none" />
           <path
             d="M0 150 35 125 70 133 110 92 150 105 195 75 240 86 275 49 320 58 355 34 395 57 440 21 480 31 525 9 565 18 600 0V170H0Z"
-            fill="#2e2d2b"
+            fill="#2d2d2d"
           />
           <path
             d="M0 150 35 125 70 133 110 92 150 105 195 75 240 86 275 49 320 58 355 34 395 57 440 21 480 31 525 9 565 18 600 0"
             fill="none"
-            stroke="#b1afab"
+            stroke="#afafaf"
             strokeWidth="3"
             strokeLinejoin="round"
           />
           <path
             d="M0 158 60 145 120 149 180 125 240 135 300 104 360 112 420 94 480 105 540 80 600 87"
             fill="none"
-            stroke="#77756f"
+            stroke="#757575"
             strokeWidth="2"
             strokeDasharray="6 5"
           />

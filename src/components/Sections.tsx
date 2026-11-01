@@ -145,13 +145,13 @@ export function InsightsSection() {
 }
 
 const tech = [
-  { name: "React", symbol: "⚛", color: "#565450" },
-  { name: "Next.js", symbol: "N", color: "#201f1d" },
-  { name: "TypeScript", symbol: "TS", color: "#77746e" },
-  { name: "Node.js", symbol: "JS", color: "#4e6c4a" },
-  { name: "Python", symbol: "Py", color: "#6e6c67" },
-  { name: "PostgreSQL", symbol: "P", color: "#64625e" },
-  { name: "AWS", symbol: "aws", color: "#3c3a37" },
+  { name: "React", symbol: "⚛", color: "#545454" },
+  { name: "Next.js", symbol: "N", color: "#1f1f1f" },
+  { name: "TypeScript", symbol: "TS", color: "#747474" },
+  { name: "Node.js", symbol: "JS", color: "#636363" },
+  { name: "Python", symbol: "Py", color: "#6c6c6c" },
+  { name: "PostgreSQL", symbol: "P", color: "#626262" },
+  { name: "AWS", symbol: "aws", color: "#3a3a3a" },
 ];
 export function TechStrip() {
   return (
