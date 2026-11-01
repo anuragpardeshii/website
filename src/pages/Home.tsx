@@ -1,4 +1,5 @@
-import { BusinessStory, ScrollStatement } from "../components/BusinessStory";
+import { BusinessHub } from "../components/BusinessHub";
+import { BusinessStory } from "../components/BusinessStory";
 import { AIJourney } from "../components/AIJourney";
 import { SignalField } from "../components/SignalField";
 import { faqs } from "../data/content";
@@ -7,7 +8,6 @@ import { CinematicMotion } from "../components/CinematicMotion";
 import { IntelligenceStudio } from "../components/IntelligenceStudio";
 import { WorkspacePreview } from "../components/WorkspacePreview";
 import {
-  ConnectedSystems,
   ProjectShowreel,
   SolutionExplorer,
 } from "../components/SolutionExperiences";
@@ -46,16 +46,15 @@ export default function Home() {
     <>
       <CinematicMotion />
       <CinematicHero />
-      <BusinessStory />
       <section className="workspace-section section" id="studio-workspace">
         <div className="container">
           <Reveal className="cinema-section-heading">
             <div>
               <Eyebrow>BUSINESS SOFTWARE, BEAUTIFULLY CONNECTED</Eyebrow>
               <h2>
-                One business.
+                One workspace.
                 <br />
-                <span className="quiet-text">A clearer picture.</span>
+                <span className="quiet-text">Every possibility.</span>
               </h2>
             </div>
             <p>
@@ -69,13 +68,13 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <ScrollStatement />
+      <BusinessStory />
+      <ProjectShowreel />
+      <BusinessHub />
       <SignalField />
       <AIJourney />
       <IntelligenceStudio />
-      <ProjectShowreel />
       <SolutionExplorer />
-      <ConnectedSystems />
       <section className="v2-process section">
         <div className="container">
           <div className="work-section-heading">

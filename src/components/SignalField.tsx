@@ -44,7 +44,7 @@ export function SignalField() {
                 key={i}
                 d={`M0 ${y} C280 ${y}, 340 ${middle}, 600 ${middle} S930 ${340 - y},1200 ${340 - y}`}
                 fill="none"
-                stroke={i % 5 === 0 ? "#ff794b" : "#542216"}
+                stroke={i % 5 === 0 ? "#a28aff" : "#3e306c"}
                 strokeWidth={i % 5 === 0 ? 1 : 0.6}
                 style={{ pathLength: disabled ? 1 : pathLength }}
               />
@@ -58,7 +58,7 @@ export function SignalField() {
                 cx="0"
                 cy="0"
                 r="2"
-                fill="#ffc3a5"
+                fill="#c4baff"
               >
                 <animateMotion
                   dur={`${7 + i * 2}s`}

@@ -202,7 +202,7 @@ export const solutions = [
     title: "AI Engine Development",
     label: "AI Engines",
     icon: "sparkle",
-    accent: "ember",
+    accent: "violet",
     visual: "ai",
     short: "Turn business knowledge into useful intelligence.",
     description:
@@ -235,7 +235,7 @@ export const solutions = [
     title: "Intelligent Chatbots",
     label: "Chatbots",
     icon: "message",
-    accent: "ember",
+    accent: "violet",
     visual: "chatbot",
     short: "Make the next answer easier to find.",
     description:

@@ -10,3 +10,11 @@ Use case: stylized-concept. Asset type: premium cinematic AI studio website hero
 The connected-architecture and logistics-architecture images in /images are
 existing original SimpTech artwork from this repository. Product interfaces
 are original React, HTML, CSS, and SVG compositions, with illustrative data.
+
+
+Original SimpTech violet chrome artwork
+Created: 2026-11-01 with the built-in image-generation tool.
+Web assets: violet-sculpture.webp (1024 x 1024, 136 KB), violet-sculpture-mobile.webp (640 x 640, 65 KB).
+Adaptation: responsive resizing and WebP conversion; transparent alpha preserved.
+Generation prompt:
+Use case: stylized-concept. Asset type: isolated premium 3D sculpture for a creative business technology website hero. Create one striking abstract ribbon sculpture: two broad, thick, flowing interwoven bands folded into a dynamic open S-like silhouette, asymmetric and architectural, not a readable letter or logo. Reflective liquid chrome and glossy obsidian black surfaces, sharp clean edges, sweeping rounded bends, luminous electric blue and violet reflections, small cyan edge highlights. High-end CGI studio product photography with precise specular reflections and dimensional depth. View at a dramatic three-quarter angle, object upright tilted slightly left. Composition: centered single sculpture fully in frame, no cropping, square 1024x1024. TRANSPARENT background, clean cutout, no floor or scenery. Inspiration: futuristic editorial technology campaigns with glossy dark 3D forms and blue-violet light. No text, no branding, no orange, no red, no gold, no particles, no wireframe, no screens, no UI, no spheres. It should feel substantial, expertly modeled, polished, and sculptural. Preserve usable translucent or antialiased edges on transparent alpha.

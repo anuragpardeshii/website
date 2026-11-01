@@ -152,10 +152,10 @@ export function ContactCTA() {
     <section className="contact-cta">
       <div className="cta-intelligence-art" aria-hidden="true">
         <img
-          src="/media/intelligence-sculpture.webp"
+          src="/media/violet-sculpture.webp"
           alt=""
           loading="lazy"
-          width="1536"
+          width="1024"
           height="1024"
         />
       </div>

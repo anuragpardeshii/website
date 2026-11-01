@@ -1,9 +1,7 @@
+import { BusinessHub } from "../components/BusinessHub";
 import type { Service } from "../types";
 import { services } from "../data/content";
-import {
-  SolutionExplorer,
-  ConnectedSystems,
-} from "../components/SolutionExperiences";
+import { SolutionExplorer } from "../components/SolutionExperiences";
 import { SystemPreview } from "../components/EnterpriseVisuals";
 import {
   Breadcrumb,
@@ -30,7 +28,7 @@ export function Services() {
         description="One thoughtful partner for the websites, applications, and systems that move your business forward."
       />
       <SolutionExplorer />
-      <ConnectedSystems />
+      <BusinessHub />
       <section className="section soft-section">
         <div className="container split-editorial">
           <div>

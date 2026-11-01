@@ -27,7 +27,7 @@ export function CinematicMotion() {
             });
             media.add("(min-width: 768px)", () => {
               gsap.utils
-                .toArray<HTMLElement>(".showreel-card")
+                .toArray<HTMLElement>(".showreel-project .showreel-image")
                 .forEach((element, index) => {
                   gsap.from(element, {
                     y: index % 2 ? 90 : 45,

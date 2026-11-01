@@ -1,32 +1,12 @@
 import { chromium } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
-
 const font = (await readFile("public/fonts/inter-latin.woff2")).toString(
   "base64",
 );
-// An original still of the same toroidal particle construction used by NeuralEngine.
-const particles = Array.from({ length: 144 * 40 }, (_, i) => {
-  const u = ((i % 144) / 144) * Math.PI * 2,
-    v = (Math.floor(i / 144) / 40) * Math.PI * 2;
-  const r = 1.62 + 0.54 * Math.cos(v),
-    x = r * Math.cos(u),
-    y = r * Math.sin(u),
-    z = 0.54 * Math.sin(v);
-  const ry = y * Math.cos(0.65) - z * Math.sin(0.65),
-    rz = y * Math.sin(0.65) + z * Math.cos(0.65),
-    perspective = 4.6 / (4.6 - rz);
-  const xx =
-      385 + (x * Math.cos(-0.5) - ry * Math.sin(-0.5)) * 140 * perspective,
-    yy = 355 + (x * Math.sin(-0.5) + ry * Math.cos(-0.5)) * 140 * perspective;
-  const light = (Math.sin(u * 3 + v * 2) + 1) * 0.5,
-    colors = ["#8b2712", "#cf4219", "#ff6c31", "#ffa16d", "#ffe3c7"];
-  const color =
-    colors[
-      Math.min(4, Math.max(0, Math.floor((rz + 2.1) * 0.7 + light * 1.7)))
-    ];
-  return `<circle cx="${xx.toFixed(2)}" cy="${yy.toFixed(2)}" r="${((0.5 + light * 0.5) * perspective).toFixed(2)}" fill="${color}"/>`;
-}).join("");
+const artwork = (await readFile("public/media/violet-sculpture.webp")).toString(
+  "base64",
+);
 const browser = await chromium.launch({
   executablePath: process.env.SIMPTECH_CHROME || "/usr/bin/google-chrome",
   args: ["--no-sandbox"],
@@ -36,15 +16,12 @@ try {
     viewport: { width: 1200, height: 630 },
   });
   await page.setContent(`<style>
-  @font-face{font-family:Inter;src:url('data:font/woff2;base64,${font}');font-weight:100 900}
-  *{box-sizing:border-box}body{margin:0;width:1200px;height:630px;background:#000;color:#f4f4f4;font-family:Inter,Arial,sans-serif;padding:40px 60px;overflow:hidden}
-  .art{position:absolute;right:-80px;top:-25px;width:750px;height:700px;z-index:-1}.brand{font-size:29px;font-weight:550;letter-spacing:-1.5px}.kicker{position:absolute;right:60px;top:55px;font-size:9px;letter-spacing:1px;color:#aaa}
-  h1{font-size:93px;line-height:1.01;letter-spacing:-6px;font-weight:450;margin:68px 0 22px}h1 span{color:#a6a6a6}p{font-size:15px;color:#bbb;letter-spacing:-.3px;line-height:1.8}
-  .footer{position:absolute;bottom:30px;left:60px;right:60px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #ffffff33;padding-top:18px;font-size:9px;letter-spacing:1px;color:#aaa}.cta{color:#080808;background:#eee;border-radius:4px;padding:12px 18px;letter-spacing:0;font-size:12px}
-  </style><svg class="art" viewBox="0 0 750 700">${particles}</svg><div class="brand">ϟ SimpTech.</div><div class="kicker">DESIGN & TECHNOLOGY / BUILT WITH INTENT.</div>
-  <h1>Built to move<br/>business <span>forward.</span></h1><p>Websites. Dashboards. Analytics. AI engines.<br/>Designed with passion. Engineered with purpose.</p>
-  <div class="footer"><span>WEBSITES / SOFTWARE / INTELLIGENCE</span><span class="cta">Let’s build your next chapter ↗</span></div>`);
-  await page.evaluate(() => document.fonts.ready);
+ @font-face{font-family:Inter;src:url('data:font/woff2;base64,${font}');font-weight:100 900}*{box-sizing:border-box}body{margin:0;width:1200px;height:630px;background:radial-gradient(ellipse at 5% 75%,#7764f5,transparent 48%),radial-gradient(ellipse at 105% 105%,#7acbff,#4536bb66 40%,transparent 60%),#160d2c;color:#f5f0ff;font-family:Inter,Arial,sans-serif;padding:38px 58px;overflow:hidden}.brand{font-size:26px;font-weight:550;letter-spacing:-1.2px}.kicker{position:absolute;right:58px;top:48px;font-size:9px;letter-spacing:1px;color:#cebcec}h1{position:relative;font-size:77px;font-weight:450;line-height:1.06;letter-spacing:-4px;margin:39px 0 0 90px;z-index:2}h1>span{display:block;margin-left:160px}em{font-family:Georgia;font-weight:400;color:#e3ceff}.outline{display:inline-block;font-size:37px;letter-spacing:-1.7px;border:1px solid #be9dfb90;border-radius:100px;padding:9px 23px;margin:13px 0 0 332px;background:#25143c66}.art{position:absolute;width:330px;height:330px;left:70px;top:255px;transform:rotate(-7deg)}.copy{position:absolute;left:600px;top:374px;font-size:19px;line-height:1.5;letter-spacing:-.5px}.copy small{display:block;color:#d2c2eb;font-size:11px;letter-spacing:0;margin-top:20px}.footer{position:absolute;left:58px;right:58px;bottom:25px;display:flex;justify-content:space-between;border-top:1px solid #decaff40;padding-top:17px;font-size:8px;letter-spacing:1px;color:#e5d9fa}.cta{color:#28153c;background:#eee5ff;border-radius:100px;padding:11px 19px;font-size:11px;display:inline-block;margin-top:20px;letter-spacing:0}
+ </style><div class="brand">ϟ SimpTech.</div><div class="kicker">YOUR AMBITION. OUR CRAFT.</div><h1>Big ideas.<span>Beautifully <em>built.</em></span></h1><div class="outline">✧ Intelligently connected.</div><img class="art" src="data:image/webp;base64,${artwork}" alt=""/><div class="copy">Distinctive websites. Clearer dashboards.<br/>AI that works for your business.<br/><span class="cta">Let’s build something great ↗</span></div><div class="footer"><span>DESIGN MEETS TECHNOLOGY</span><span>WEBSITES / BUSINESS SOFTWARE / AI SYSTEMS</span></div>`);
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await Promise.all([...document.images].map((i) => i.decode()));
+  });
   await page.screenshot({ path: resolve("public/social-card.png") });
 } finally {
   await browser.close();

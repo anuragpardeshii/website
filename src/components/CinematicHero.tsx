@@ -1,86 +1,115 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useInView, useScroll, useTransform } from "motion/react";
 import { Button, Icon } from "./ui";
 import { useSiteMotion } from "./MotionSystem";
-import { NeuralEngine } from "./NeuralEngine";
+import { MotionSurface } from "./MotionSurface";
 
 export function CinematicHero() {
   const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref);
   const { disabled } = useSiteMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 180]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 12]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.82]);
-  const titleY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 110]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [-8, 8]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
   return (
-    <section ref={ref} className="business-hero" aria-labelledby="hero-title">
-      <div className="container business-hero-top">
-        <span>
-          <i /> SIMPTECH — DESIGN & TECHNOLOGY
-        </span>
-        <span>BUILT WITH INTENT. MADE TO MATTER.</span>
+    <section
+      ref={ref}
+      className="luminous-hero"
+      aria-labelledby="hero-title"
+      data-active={inView && !disabled}
+    >
+      <div className="hero-aurora" aria-hidden="true">
+        <i />
+        <i />
+        <i />
       </div>
-      <motion.div
-        className="business-hero-art"
-        style={disabled ? {} : { y, rotate, scale }}
-      >
-        <NeuralEngine />
-        <div className="engine-coordinate">
-          <span>01 / INTELLIGENCE IN MOTION</span>
-          <span>AN ORIGINAL GENERATIVE STUDY</span>
-        </div>
-        <div className="engine-cross cross-a">+</div>
-        <div className="engine-cross cross-b">+</div>
-      </motion.div>
-      <div className="container business-hero-main">
+      <div className="container luminous-top">
+        <span>
+          <i /> SIMPTECH / DESIGN MEETS TECHNOLOGY
+        </span>
+        <span>YOUR AMBITION. OUR CRAFT.</span>
+      </div>
+      <div className="container luminous-composition">
+        <h1 id="hero-title">
+          <span className="hero-line">
+            <span data-hero-line>Big ideas.</span>
+          </span>
+          <span className="hero-line">
+            <span data-hero-line>
+              Beautifully <em>built.</em>
+            </span>
+          </span>
+          <span className="hero-line">
+            <span className="hero-outline" data-hero-line>
+              <Icon name="sparkle" size={44} />
+              Intelligently connected.
+            </span>
+          </span>
+        </h1>
         <motion.div
-          className="business-hero-copy"
-          style={disabled ? {} : { y: titleY }}
+          className="luminous-sculpture"
+          style={disabled ? {} : { y, rotate, scale }}
+          aria-hidden="true"
         >
-          <div className="hero-overline">
-            <span>FOR AMBITIOUS BUSINESSES</span>
-            <i />
-          </div>
-          <h1 id="hero-title">
-            <span className="hero-line">
-              <span data-hero-line>Built to move</span>
-            </span>
-            <span className="hero-line">
-              <span data-hero-line>business</span>
-            </span>
-            <span className="hero-line">
-              <span data-hero-line>
-                <em>forward.</em>
-              </span>
-            </span>
-          </h1>
+          <MotionSurface className="sculpture-surface">
+            <div className="sculpture-float">
+              <picture>
+                <source
+                  media="(max-width:767px)"
+                  srcSet="/media/violet-sculpture-mobile.webp"
+                />
+                <img
+                  src="/media/violet-sculpture.webp"
+                  alt=""
+                  width="1024"
+                  height="1024"
+                  fetchPriority="high"
+                />
+              </picture>
+            </div>
+          </MotionSurface>
+        </motion.div>
+        <div className="luminous-copy">
+          <span className="luminous-copy-index">01 / A BETTER WAY FORWARD</span>
           <p>
-            Exceptional websites. Connected dashboards.
-            <br className="desktop-break" /> AI that works for your business.
+            Distinctive websites. Clearer dashboards.
             <br />
-            <span>Designed with passion. Engineered with purpose.</span>
+            AI that works for your business.
           </p>
-          <div className="business-hero-actions">
+          <p className="luminous-description">
+            We bring design, software, and intelligence together to turn your
+            next big idea into something people love to use.
+          </p>
+          <div className="luminous-actions">
             <Button href="/contact" icon="diagonal">
-              Let’s build your next chapter
+              Let’s build something great
             </Button>
-            <a href="#business-solutions">
-              Explore what we build <Icon name="arrow" size={17} />
+            <a href="#studio-workspace">
+              Explore the possibilities <Icon name="arrow" size={16} />
             </a>
           </div>
-        </motion.div>
+        </div>
+        <div className="hero-art-note">
+          <span>DESIGNED WITH INTENTION.</span>
+          <span>BUILT FOR YOUR BUSINESS.</span>
+        </div>
       </div>
-      <div className="container business-hero-footer">
-        <a href="#business-solutions">
-          <span className="hero-scroll-icon">↓</span> SCROLL INTO POSSIBILITY
+      <div className="container luminous-footer">
+        <a href="#studio-workspace">
+          <span>↓</span> THERE’S MORE BELOW
         </a>
-        <span>WEBSITES / SOFTWARE / INTELLIGENCE</span>
-        <a href="/approach">
-          THE SIMPTECH APPROACH <Icon name="diagonal" size={13} />
-        </a>
+        <div>
+          <span>WEBSITES</span>
+          <i />
+          <span>BUSINESS SOFTWARE</span>
+          <i />
+          <span>AI SYSTEMS</span>
+        </div>
+        <span>STRATEGY → DESIGN → DEVELOPMENT</span>
       </div>
     </section>
   );

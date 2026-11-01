@@ -2,9 +2,9 @@
 
 A React + TypeScript + Vite company website with 34 prerendered pages, reusable software interface concepts, and accessible browser interactions.
 
-Version 2 uses a pure `#000000` canvas, off-white typography, and ember-colored generative AI artwork. It leads with the business offering: websites, dashboards, analytics, chatbots, AI engines, CRM, ERP, and connected operations. The homepage combines an original animated particle sculpture, an editorial capability index, scroll-linked typography and interface reveals, native-scroll AI chapters, an animated signal field, and interactive product concepts. Shared black surfaces carry the direction across the existing inner pages. React components use strict TypeScript; Tailwind CSS provides compositional utilities alongside shared styles.
+Version 2 pairs deep indigo surfaces with electric-blue and violet light, a glossy original chrome sculpture, and contrasting pearl editorial sections. It presents SimpTech’s business offering: websites, dashboards, analytics, chatbots, AI engines, CRM, ERP, and connected operations. React components use strict TypeScript; Tailwind CSS provides compositional utilities alongside shared styles.
 
-Version 2 is developed on the `version-2` branch. The reference at [Rightfit](https://www.rightfit.so/) informed spacing, visual restraint, and interface storytelling; SimpTech’s composition, copy, components, and interface concepts are original.
+All changes remain on the `version-2` branch. The latest art direction follows the user-provided references: sculptural editorial typography, illuminated product interfaces, and rounded light/dark compositions. The former connection diagram and orange particle artwork have been replaced. The composition, copy, interfaces, and generated artwork are original to SimpTech.
 
 ## Run locally
 
@@ -26,21 +26,21 @@ npm run preview
 
 ## Edit the website
 
-| What to change                                                   | Where                                                                                                                       |
-| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Company name, description, deployed origin, public contact email | `src/data/content.js` → `site`                                                                                              |
-| Services and their detail pages                                  | `src/data/solutions.js` → `solutions`                                                                                       |
-| Project concepts and detail stories                              | `src/data/content.js` → `projects`                                                                                          |
-| Articles and full article text                                   | `src/data/content.js` → `articles`                                                                                          |
-| Approved client testimonials                                     | `src/data/content.js` → `testimonials`                                                                                      |
-| FAQs, process steps, and industry content                        | `src/data/content.js`                                                                                                       |
-| Homepage composition and main headline                           | `src/pages/Home.tsx`                                                                                                        |
-| Navbar, footer, and shared contact CTA                           | `src/components/Layout.tsx`                                                                                                 |
-| Buttons, headings, icons, and accordion                          | `src/components/ui.tsx`                                                                                                     |
-| Product interfaces and journal covers                            | `src/components/WorkspacePreview.tsx`, `src/components/EnterpriseVisuals.tsx`, `src/components/ProductVisuals.tsx`          |
-| Colors, typography, spacing, and responsive rules                | `src/cinematic.css` (current tokens and compositions), `src/styles.css` (shared components), `src/tailwind.css` (utilities) |
-| Routing and page search metadata                                 | `src/App.tsx`                                                                                                               |
-| Production pre-rendering                                         | `scripts/prerender.mjs`                                                                                                     |
+| What to change                                                   | Where                                                                                                                         |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Company name, description, deployed origin, public contact email | `src/data/content.js` → `site`                                                                                                |
+| Services and their detail pages                                  | `src/data/solutions.js` → `solutions`                                                                                         |
+| Project concepts and detail stories                              | `src/data/content.js` → `projects`                                                                                            |
+| Articles and full article text                                   | `src/data/content.js` → `articles`                                                                                            |
+| Approved client testimonials                                     | `src/data/content.js` → `testimonials`                                                                                        |
+| FAQs, process steps, and industry content                        | `src/data/content.js`                                                                                                         |
+| Homepage composition and main headline                           | `src/pages/Home.tsx`                                                                                                          |
+| Navbar, footer, and shared contact CTA                           | `src/components/Layout.tsx`                                                                                                   |
+| Buttons, headings, icons, and accordion                          | `src/components/ui.tsx`                                                                                                       |
+| Product interfaces and journal covers                            | `src/components/WorkspacePreview.tsx`, `src/components/EnterpriseVisuals.tsx`, `src/components/ProductVisuals.tsx`            |
+| Colors, typography, spacing, and responsive rules                | `src/business.css` (design tokens, hero, dashboard), `src/cinematic.css` (compositions), `src/styles.css` (shared components) |
+| Routing and page search metadata                                 | `src/App.tsx`                                                                                                                 |
+| Production pre-rendering                                         | `scripts/prerender.mjs`                                                                                                       |
 
 The content arrays generate their corresponding detail routes automatically. To add a service, project, or article, copy an existing object, choose a unique slug, and update its content. Rebuild to generate the new HTML and sitemap entry. For a new standalone page, add a React component and register it in `basePages` in `src/App.tsx`.
 
@@ -87,7 +87,7 @@ The reusable `PartnershipSection` supports approved testimonials. It is not moun
 
 ## Design research
 
-Rightfit was reviewed again on desktop and mobile for the cinematic revision. Its quiet navigation, typography, spacing, and large dashboard compositions informed the art direction. SimpTech uses its own content, layouts, original interfaces, and licensed landscape footage. Earlier research for the original site is retained below for context.
+Rightfit was reviewed again on desktop and mobile for the cinematic revision. Its quiet navigation, typography, spacing, and large dashboard compositions informed the art direction. The latest revision follows the supplied violet, blue, and pearl visual references. SimpTech uses its own content, layouts, original interfaces, and generated artwork. No video is downloaded by the current site. Earlier research for the original site is retained below for context.
 
 Comparable sites reviewed on 29 October 2026:
 
@@ -125,33 +125,33 @@ For another static host, serve extensionless routes from the corresponding `dist
 
 ## Assets and licenses
 
-The product interfaces, journal covers, logo, and animated signal field are built with HTML, CSS, and SVG in this repository. The particle engine is original Canvas and SVG artwork, generated in the browser without image or video downloads. The architectural and silver filament images elsewhere on the site are original AI-generated artwork, served as optimized WebP files. The new sculpture's complete generation prompt and asset details are recorded in `public/media/CREDITS.txt`. `public/social-card.png` is the matching original share image. Lucide supplies interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
+The product interfaces, journal covers, logo, and animated signal field are built with HTML, CSS, and SVG in this repository. The hero uses an original generated chrome sculpture, served as responsive transparent WebP artwork. The architectural and silver filament images elsewhere on the site are original AI-generated artwork, served as optimized WebP files. The new sculpture's complete generation prompt and asset details are recorded in `public/media/CREDITS.txt`. `public/social-card.png` is the matching original share image. Lucide supplies interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
 
 ## Version 2 design and interaction
 
 - `src/components/WorkspacePreview.tsx` supplies the homepage’s Business overview, Sales pipeline, and Operations tabs. Arrow keys, Home, and End update the selected interface and corresponding service link.
-- `src/components/SolutionExperiences.tsx` supplies the eight-service explorer, interactive SVG systems diagram, and project previews.
+- `src/components/SolutionExperiences.tsx` supplies the eight-service explorer and project previews. `src/components/BusinessHub.tsx` replaces the former systems diagram with an interactive business dashboard: six areas, weekly/monthly sample data, keyboard-accessible tabs, and contextual service links.
 - `src/components/EnterpriseVisuals.tsx` contains the original website, CRM, ERP, analytics, commerce, and logistics concepts. All names, figures, and records are illustrative. Mobile previews prioritize readable key metrics and records.
-- `src/business.css` defines the business hero, capability index, typography sequence, and AI service previews. `src/intelligence.css` supplies responsive AI scenes, signal artwork, and interaction styling. `src/cinematic.css` supplies the editorial composition; `src/styles.css` retains shared inner-page components. Existing colors have been neutralized across the application.
+- `src/business.css` defines the shared color tokens, luminous hero, pearl capability index, business dashboard, and AI service previews. `src/intelligence.css` supplies responsive AI scenes, signal artwork, and interaction styling. `src/cinematic.css` supplies the editorial composition; `src/styles.css` retains shared inner-page components. Violet and indigo surfaces carry the design through the inner pages.
 - `src/components/MotionSystem.tsx` provides motion preferences and pause controls. Content remains available in prerendered HTML; reduced-motion preferences and the pause control disable nonessential motion.
-- `src/components/CinematicHero.tsx` leads with the business value and scroll-linked artwork. `NeuralEngine.tsx` renders the original ember particle sculpture with a procedural SVG fallback. `MotionSurface.tsx` adds spring-driven pointer depth and lighting to the AI workspace and assistant console.
-- `src/components/BusinessStory.tsx` presents four business practice areas and a scroll-driven typographic statement. All capability links point to working service pages.
+- `src/components/CinematicHero.tsx` pairs staggered typography with scroll-linked sculpture depth, gentle floating motion, and drifting blue-violet light. `MotionSurface.tsx` adds spring-driven pointer depth and lighting to the AI workspace and assistant console.
+- `src/components/BusinessStory.tsx` presents four business practice areas in a contrasting pearl editorial section. All capability links point to working service pages.
 - `src/components/AIServicePreview.tsx` provides original AI-engine and customer-support interfaces. `src/data/solutions.js` includes dedicated chatbot and AI-engine services; navigation, the explorer, contact preselection, prerendering, and sitemap include them automatically.
 - `src/components/AIJourney.tsx` presents Connect, Understand, and Review chapters. On sufficiently large desktop viewports, native scrolling advances the chapters inside a sticky composition. Tabs and keyboard navigation remain available. Small screens, paused motion, and reduced motion use the same content without the extended scroll scene.
 - `src/components/SignalField.tsx` draws the original SVG connection artwork. Scroll progress reveals the filaments; particles and ambient motion run only while the scene is nearby and motion is enabled.
 - `src/components/CinematicMotion.tsx` lazily loads GSAP and ScrollTrigger for staggered headline reveals, scroll-linked interface perspective and masking, and project-preview parallax. Context cleanup handles navigation, pause, and preference changes. Motion (formerly Framer Motion) handles scroll scenes, spring interactions, interface transitions, and reveals without a duplicate animation dependency. Native scrolling is retained.
 - `src/components/IntelligenceStudio.tsx` contains three scripted, local-only AI interface explorations with accessible tabs and expandable sample action plans. Neither AI interface calls a model or executes business actions.
-- `scripts/social-card.mjs` generates the matching social image from original particle geometry, HTML, CSS, and the bundled Inter font. Run `npm run social-card` before building when changing the social design.
+- `scripts/social-card.mjs` generates the matching social image from the original chrome artwork, HTML, CSS, and the bundled Inter font. Run `npm run social-card` before building when changing the social design.
 
-The particle engine targets at most 30 frames per second, caps pixel density, uses fewer points on small screens, and stops when offscreen, the document is hidden, motion is paused, reduced motion is requested, or data saving is enabled. Reduced-motion users get the full content and a static artwork. The scene adds no 3D engine dependency. GSAP remains lazy-loaded; React and Motion use separate cacheable chunks. Hero art requires no media download, and supporting images remain lazy-loaded.
+The hero artwork is approximately 136 KB on desktop and 65 KB on mobile, with alpha preserved. It loads eagerly; supporting images are lazy-loaded. Ambient hero motion pauses offscreen and all nonessential motion respects the global pause control and reduced-motion preferences. Hover tilt runs only for a mouse pointer. Native scrolling is retained. GSAP is lazy-loaded; React and Motion use separate cacheable chunks. No video or 3D engine dependency is required.
 
 The existing contact flow still validates the brief, supports an optional local draft, and downloads the brief. It does not submit inquiries to a backend. Existing service URLs, legacy routes, project and article URLs, metadata, and prerendering are retained.
 
-Verification includes real canvas frame changes, complete pause/resume, pure-black page color, offscreen suspension, both new service destinations, desktop scroll chapters, keyboard and touch-accessible chapter tabs, sample review/reset, hover depth, offscreen particle suspension, motion pause/resume, mobile interface containment, and AI accessibility. It also covers existing route metadata, navigation, filtering, contact downloads, and local drafts. Screenshots and the JSON report are in ignored `test-results/`.
+Verification includes visible sculpture motion, complete pause/resume, offscreen suspension, six dashboard systems, reporting-period updates, both new service destinations, desktop scroll chapters, keyboard and touch-accessible chapter tabs, sample review/reset, hover depth, offscreen particle suspension, motion pause/resume, mobile interface containment, and AI accessibility. It also covers existing route metadata, navigation, filtering, contact downloads, and local drafts. Screenshots and the JSON report are in ignored `test-results/`.
 
 ### Original artwork
 
-The built-in image generation tool created the silver filament sculpture in `public/media/intelligence-sculpture.webp` and its mobile variant. See `public/media/CREDITS.txt` for the exact prompt. Earlier original architectural artwork is also retained:
+The built-in image generation tool created the current chrome artwork in `public/media/violet-sculpture.webp` (1024 × 1024) and `violet-sculpture-mobile.webp` (640 × 640). The previous silver filament illustration is retained for existing project concepts. See `public/media/CREDITS.txt` for the exact prompt. Earlier original architectural artwork is also retained:
 
 | Asset                                       | Creation prompt / direction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

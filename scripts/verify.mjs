@@ -348,11 +348,78 @@ try {
   report.interactions.push(
     "All eight mobile solution previews, destination links, and accessibility checks",
   );
-  await page.getByRole("button", { name: "Logistics", exact: true }).click();
-  assert(
-    (await page.locator(".connection-detail").innerText()).includes(
-      "Everything moving in the right direction.",
-    ),
+  const hubTabs = page.getByRole("tablist", {
+    name: "Explore connected business systems",
+  });
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 1000 });
+    for (const name of [
+      "Website",
+      "CRM",
+      "ERP",
+      "Analytics",
+      "Commerce",
+      "Logistics",
+    ]) {
+      await hubTabs.getByRole("tab", { name, exact: true }).click();
+      await page
+        .getByRole("heading", { name: `${name} overview`, exact: false })
+        .waitFor();
+      assert(
+        await page
+          .locator(".hub-dashboard")
+          .evaluate((el) => el.scrollWidth <= el.clientWidth + 1),
+        "Dashboard remains contained",
+      );
+      const result = await new AxeBuilder({ page })
+        .include(".business-hub")
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze();
+      if (result.violations.length)
+        report.accessibility.push({
+          path: `/#hub-${width}-${name}`,
+          violations: result.violations.map((v) => ({
+            id: v.id,
+            nodes: v.nodes.map((n) => ({
+              target: n.target,
+              summary: n.failureSummary,
+            })),
+          })),
+        });
+    }
+    await page.getByRole("button", { name: "7 days", exact: true }).click();
+    assert.equal(await page.locator("[data-hub-metric]").innerText(), "176");
+    await page.getByRole("button", { name: "30 days", exact: true }).click();
+    assert.equal(await page.locator("[data-hub-metric]").innerText(), "704");
+    assert.equal(
+      await page.locator(".hub-description a").getAttribute("href"),
+      "/services/inventory-logistics",
+    );
+    await hubTabs.getByRole("tab", { name: "Logistics", exact: true }).focus();
+    await page.keyboard.press("Home");
+    assert.equal(
+      await hubTabs
+        .getByRole("tab", { name: "Website", exact: true })
+        .getAttribute("aria-selected"),
+      "true",
+    );
+    await page.keyboard.press("ArrowRight");
+    assert.equal(
+      await hubTabs
+        .getByRole("tab", { name: "CRM", exact: true })
+        .getAttribute("aria-selected"),
+      "true",
+    );
+    await page.keyboard.press("End");
+    assert.equal(
+      await hubTabs
+        .getByRole("tab", { name: "Logistics", exact: true })
+        .getAttribute("aria-selected"),
+      "true",
+    );
+  }
+  report.interactions.push(
+    "Connected dashboard: six systems, reporting periods, service destinations, keyboard controls, mobile containment and accessibility",
   );
   assert.equal(await page.locator("html").getAttribute("data-motion"), "off");
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -535,51 +602,46 @@ try {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
   await page.waitForFunction(
-    () => document.querySelector(".neural-engine")?.dataset.running === "true",
+    () => document.querySelector(".luminous-hero")?.dataset.active === "true",
   );
-  const liveFrame = await page
-    .locator(".neural-engine canvas")
-    .evaluate((el) => el.toDataURL());
-  await page.waitForTimeout(180);
-  assert.notEqual(
-    await page
-      .locator(".neural-engine canvas")
-      .evaluate((el) => el.toDataURL()),
-    liveFrame,
-    "AI engine renders changing frames",
+  await page.waitForFunction(() => {
+    const style = getComputedStyle(document.querySelector(".sculpture-float"));
+    return (
+      style.animationName === "sculpture-float" &&
+      style.animationPlayState === "running"
+    );
+  });
+  const liveTransform = await page
+    .locator(".sculpture-float")
+    .evaluate((el) => getComputedStyle(el).transform);
+  // Wait for an actual rendered change instead of assuming a fixed frame rate.
+  await page.waitForFunction(
+    (previous) =>
+      getComputedStyle(document.querySelector(".sculpture-float")).transform !==
+      previous,
+    liveTransform,
+    { timeout: 5000 },
   );
   await page
     .getByRole("button", { name: "Pause animations", exact: true })
     .click();
-  await page.waitForFunction(
-    () => document.querySelector(".neural-engine")?.dataset.running === "false",
-  );
-  const pausedFrame = await page
-    .locator(".neural-engine canvas")
-    .evaluate((el) => el.toDataURL());
-  await page.waitForTimeout(180);
   assert.equal(
     await page
-      .locator(".neural-engine canvas")
-      .evaluate((el) => el.toDataURL()),
-    pausedFrame,
-    "Paused engine is genuinely static",
-  );
-  assert.equal(
-    await page
-      .locator("body")
-      .evaluate((el) => getComputedStyle(el).backgroundColor),
-    "rgb(0, 0, 0)",
-    "Pure black page canvas",
+      .locator(".sculpture-float")
+      .evaluate((el) => getComputedStyle(el).animationName),
+    "none",
+    "Pause stops decorative animation",
   );
   await page
     .getByRole("button", { name: "Enable animations", exact: true })
     .click();
   await page.waitForFunction(
-    () => document.querySelector(".neural-engine")?.dataset.running === "true",
+    () =>
+      getComputedStyle(document.querySelector(".sculpture-float"))
+        .animationPlayState === "running",
   );
   report.interactions.push(
-    "Generative AI engine changes frames, pauses completely, resumes and uses a pure black page canvas",
+    "Sculpture animation runs only when visible and motion is enabled; global pause and resume work",
   );
   await page.waitForFunction(
     () =>
@@ -612,9 +674,9 @@ try {
     );
   }
   assert.equal(
-    await page.locator(".neural-engine").getAttribute("data-running"),
+    await page.locator(".luminous-hero").getAttribute("data-active"),
     "false",
-    "Offscreen AI engine stops rendering",
+    "Offscreen hero pauses ambient animation",
   );
   await page.locator(".journey-browser").hover({ position: { x: 40, y: 50 } });
   await page.waitForFunction(() =>
