@@ -1,3 +1,4 @@
+import type { Service } from "../types";
 import { services } from "../data/content";
 import {
   SolutionExplorer,
@@ -23,7 +24,7 @@ export function Services() {
           <>
             Built for your business.
             <br />
-            <span className="blue-text">Designed for what’s next.</span>
+            <span className="accent-text">Designed for what’s next.</span>
           </>
         }
         description="One thoughtful partner for the websites, applications, and systems that move your business forward."
@@ -91,7 +92,7 @@ export function Services() {
   );
 }
 
-export function ServiceDetail({ service }) {
+export function ServiceDetail({ service }: { service: Service }) {
   return (
     <>
       <div className="container">

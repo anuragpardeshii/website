@@ -17,7 +17,7 @@ export function FAQ() {
           <>
             Good questions.
             <br />
-            <span className="blue-text">Straight answers.</span>
+            <span className="accent-text">Straight answers.</span>
           </>
         }
         description="What to expect, how we work, and a few things to know before starting a project together."
@@ -152,7 +152,7 @@ const policies = {
   },
 };
 
-export function Policy({ kind }) {
+export function Policy({ kind }: { kind: keyof typeof policies }) {
   const p = policies[kind];
   return (
     <>
@@ -246,7 +246,7 @@ export function NotFound() {
       <p>This page isn’t here, but there’s plenty more to explore.</p>
       <div>
         <Button href="/">Back to the homepage</Button>
-        <Button variant="secondary" href="/services" icon={null}>
+        <Button variant="secondary" href="/services" icon={false}>
           Explore our services
         </Button>
       </div>

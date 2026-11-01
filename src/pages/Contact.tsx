@@ -1,3 +1,4 @@
+import type { ChangeEvent, FormEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { allServices as services, site } from "../data/content";
 import { Button, Eyebrow, Icon, TextLink } from "../components/ui";
@@ -17,11 +18,11 @@ export function Contact() {
   const [saveDraft, setSaveDraft] = useState(false);
   const [notice, setNotice] = useState("");
   const [inquiry, setInquiry] = useState("project");
-  const successRef = useRef(null);
+  const successRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const service = params.get("service");
-    if (services.some((s) => s.slug === service))
+    if (service && services.some((s) => s.slug === service))
       setForm((v) => ({ ...v, service }));
     if (params.get("industry"))
       setForm((v) => ({
@@ -31,7 +32,7 @@ export function Contact() {
     if (params.get("project"))
       setForm((v) => ({
         ...v,
-        message: `I’m interested in an experience similar to the ${params.get("project").split("-")[0]} concept. `,
+        message: `I’m interested in an experience similar to the ${params.get("project")?.split("-")[0]} concept. `,
       }));
     if (params.get("interest") === "careers") {
       setInquiry("careers");
@@ -41,11 +42,15 @@ export function Contact() {
   useEffect(() => {
     if (ready) successRef.current?.focus();
   }, [ready]);
-  function update(event) {
+  function update(
+    event: ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) {
     const { name, value } = event.target;
     setForm((v) => ({ ...v, [name]: value }));
   }
-  function submit(event) {
+  function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setNotice("");
     if (saveDraft) {
@@ -62,7 +67,9 @@ export function Contact() {
   }
   function restore() {
     try {
-      const saved = JSON.parse(localStorage.getItem("simptech-project-draft"));
+      const saved = JSON.parse(
+        localStorage.getItem("simptech-project-draft") || "null",
+      );
       if (saved && typeof saved === "object") {
         setForm({
           ...emptyForm,
@@ -112,7 +119,7 @@ export function Contact() {
             <br />
             Small question?
             <br />
-            <span className="blue-text">We’re all ears.</span>
+            <span className="accent-text">We’re all ears.</span>
           </h1>
           <p>
             Tell us a little about what you have in mind. A clear brief is the

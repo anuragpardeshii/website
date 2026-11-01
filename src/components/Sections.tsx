@@ -1,10 +1,11 @@
+import type { Project, Article } from "../types";
 import { useState } from "react";
 import { articles, projects, services, testimonials } from "../data/content";
 import { SystemPreview } from "./EnterpriseVisuals";
 import { ArticleArt } from "./ProductVisuals";
 import { Eyebrow, Icon, SectionHeading, Tag, TextLink } from "./ui";
 
-export function ServiceGrid({ limit }) {
+export function ServiceGrid({ limit }: { limit?: number }) {
   return (
     <div className="services-grid">
       {services.slice(0, limit).map((service, i) => (
@@ -30,7 +31,13 @@ export function ServiceGrid({ limit }) {
   );
 }
 
-export function ProjectCard({ project, featured = false }) {
+export function ProjectCard({
+  project,
+  featured = false,
+}: {
+  project: Project;
+  featured?: boolean;
+}) {
   return (
     <article className={`project-card ${featured ? "project-featured" : ""}`}>
       <a
@@ -67,7 +74,13 @@ export function ProjectCard({ project, featured = false }) {
   );
 }
 
-export function ProjectGrid({ limit, filter = "All projects" }) {
+export function ProjectGrid({
+  limit,
+  filter = "All projects",
+}: {
+  limit?: number;
+  filter?: string;
+}) {
   const list = projects.filter(
     (p) => filter === "All projects" || p.type === filter,
   );
@@ -80,7 +93,7 @@ export function ProjectGrid({ limit, filter = "All projects" }) {
   );
 }
 
-export function ArticleCard({ article }) {
+export function ArticleCard({ article }: { article: Article }) {
   return (
     <article className="article-card">
       <a
@@ -132,13 +145,13 @@ export function InsightsSection() {
 }
 
 const tech = [
-  { name: "React", symbol: "⚛", color: "#087e9e" },
-  { name: "Next.js", symbol: "N", color: "#161c27" },
-  { name: "TypeScript", symbol: "TS", color: "#2876bd" },
-  { name: "Node.js", symbol: "JS", color: "#45783e" },
-  { name: "Python", symbol: "Py", color: "#3e6f97" },
-  { name: "PostgreSQL", symbol: "P", color: "#396989" },
-  { name: "AWS", symbol: "aws", color: "#283b4b" },
+  { name: "React", symbol: "⚛", color: "#565450" },
+  { name: "Next.js", symbol: "N", color: "#201f1d" },
+  { name: "TypeScript", symbol: "TS", color: "#77746e" },
+  { name: "Node.js", symbol: "JS", color: "#4e6c4a" },
+  { name: "Python", symbol: "Py", color: "#6e6c67" },
+  { name: "PostgreSQL", symbol: "P", color: "#64625e" },
+  { name: "AWS", symbol: "aws", color: "#3c3a37" },
 ];
 export function TechStrip() {
   return (

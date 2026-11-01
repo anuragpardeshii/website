@@ -1,4 +1,11 @@
 import { Reveal } from "./MotionSystem";
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+} from "react";
+import type { LucideIcon, LucideProps } from "lucide-react";
+import type { ChildrenProps } from "../types";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -35,7 +42,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-const icons = {
+const icons: Record<string, LucideIcon> = {
   arrow: ArrowRight,
   diagonal: ArrowUpRight,
   back: ArrowLeft,
@@ -70,12 +77,25 @@ const icons = {
   external: ExternalLink,
   success: CheckCircle2,
 };
-export function Icon({ name = "arrow", size = 20, ...props }) {
+export function Icon({
+  name = "arrow",
+  size = 20,
+  ...props
+}: LucideProps & { name?: string }) {
   const Component = icons[name] || ArrowRight;
   return (
     <Component size={size} strokeWidth={1.7} aria-hidden="true" {...props} />
   );
 }
+type ButtonProps = ChildrenProps & {
+  href?: string;
+  variant?: "primary" | "secondary";
+  icon?: string | false;
+} & Omit<
+    ButtonHTMLAttributes<HTMLButtonElement> &
+      AnchorHTMLAttributes<HTMLAnchorElement>,
+    "children"
+  >;
 export function Button({
   href,
   children,
@@ -83,7 +103,7 @@ export function Button({
   icon = "arrow",
   className = "",
   ...props
-}) {
+}: ButtonProps) {
   const Tag = href ? "a" : "button";
   return (
     <Tag
@@ -96,7 +116,12 @@ export function Button({
     </Tag>
   );
 }
-export function TextLink({ href, children, className = "", ...props }) {
+export function TextLink({
+  href,
+  children,
+  className = "",
+  ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement> & ChildrenProps) {
   return (
     <a className={`text-link ${className}`} href={href} {...props}>
       {children}
@@ -104,7 +129,10 @@ export function TextLink({ href, children, className = "", ...props }) {
     </a>
   );
 }
-export function Eyebrow({ children, light = false }) {
+export function Eyebrow({
+  children,
+  light = false,
+}: ChildrenProps & { light?: boolean }) {
   return (
     <span className={`eyebrow ${light ? "eyebrow-light" : ""}`}>
       <span />
@@ -118,6 +146,12 @@ export function SectionHeading({
   description,
   link,
   align = "",
+}: {
+  eyebrow?: string;
+  title: ReactNode;
+  description?: string;
+  link?: { href: string; label: string };
+  align?: string;
 }) {
   return (
     <div className={`section-heading ${align}`}>
@@ -136,6 +170,12 @@ export function PageHero({
   description,
   children,
   className = "",
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  description: string;
+  children?: ReactNode;
+  className?: string;
 }) {
   return (
     <section className={`page-hero ${className}`}>
@@ -148,7 +188,11 @@ export function PageHero({
     </section>
   );
 }
-export function Breadcrumb({ items }) {
+export function Breadcrumb({
+  items,
+}: {
+  items: { label: string; href?: string }[];
+}) {
   return (
     <nav className="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
@@ -184,10 +228,16 @@ export function Logo({ light = false }) {
     </a>
   );
 }
-export function Tag({ children }) {
+export function Tag({ children }: ChildrenProps) {
   return <span className="tag">{children}</span>;
 }
-export function FAQList({ items, prefix = "faq" }) {
+export function FAQList({
+  items,
+  prefix = "faq",
+}: {
+  items: { question: string; answer: string }[];
+  prefix?: string;
+}) {
   return (
     <div className="faq-list">
       {items.map((item, i) => (

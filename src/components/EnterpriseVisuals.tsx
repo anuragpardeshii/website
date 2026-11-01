@@ -1,6 +1,6 @@
 import { Icon } from "./ui";
 
-function ProductBar({ name }) {
+function ProductBar({ name }: { name: string }) {
   return (
     <div className="enterprise-top">
       <div className="enterprise-brand">
@@ -16,7 +16,7 @@ function ProductBar({ name }) {
     </div>
   );
 }
-function Sidebar({ mode }) {
+function Sidebar({ mode }: { mode: string }) {
   return (
     <aside className="enterprise-sidebar">
       <span className="sidebar-caption">WORKSPACE</span>
@@ -71,23 +71,27 @@ function AnalyticsBody() {
             Previous period
           </span>
         </div>
-        <svg viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0 30H600M0 80H600M0 130H600" stroke="#29303c" fill="none" />
+        <svg
+          viewBox="0 0 600 170"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path d="M0 30H600M0 80H600M0 130H600" stroke="#343331" fill="none" />
           <path
             d="M0 150 35 125 70 133 110 92 150 105 195 75 240 86 275 49 320 58 355 34 395 57 440 21 480 31 525 9 565 18 600 0V170H0Z"
-            fill="#122647"
+            fill="#2e2d2b"
           />
           <path
             d="M0 150 35 125 70 133 110 92 150 105 195 75 240 86 275 49 320 58 355 34 395 57 440 21 480 31 525 9 565 18 600 0"
             fill="none"
-            stroke="#5d8dff"
+            stroke="#b1afab"
             strokeWidth="3"
             strokeLinejoin="round"
           />
           <path
             d="M0 158 60 145 120 149 180 125 240 135 300 104 360 112 420 94 480 105 540 80 600 87"
             fill="none"
-            stroke="#626f84"
+            stroke="#77756f"
             strokeWidth="2"
             strokeDasharray="6 5"
           />
@@ -119,32 +123,34 @@ function CRMBody() {
         </div>
       </div>
       <div className="crm-pipeline">
-        {[
+        {(
           [
-            "New leads",
-            "04",
             [
-              ["Northstar Studio", "Website redesign", "₹2,40,000"],
-              ["Bloom & Co.", "Commerce platform", "₹3,80,000"],
+              "New leads",
+              "04",
+              [
+                ["Northstar Studio", "Website redesign", "₹2,40,000"],
+                ["Bloom & Co.", "Commerce platform", "₹3,80,000"],
+              ],
             ],
-          ],
-          [
-            "In conversation",
-            "08",
             [
-              ["Acme Industries", "Connected operations", "₹8,60,000"],
-              ["Waypoint", "Inventory platform", "₹6,20,000"],
+              "In conversation",
+              "08",
+              [
+                ["Acme Industries", "Connected operations", "₹8,60,000"],
+                ["Waypoint", "Inventory platform", "₹6,20,000"],
+              ],
             ],
-          ],
-          [
-            "Proposal sent",
-            "06",
             [
-              ["Layer Digital", "Customer portal", "₹4,20,000"],
-              ["Monogram", "Analytics dashboard", "₹2,80,000"],
+              "Proposal sent",
+              "06",
+              [
+                ["Layer Digital", "Customer portal", "₹4,20,000"],
+                ["Monogram", "Analytics dashboard", "₹2,80,000"],
+              ],
             ],
-          ],
-        ].map(([title, count, cards], i) => (
+          ] as const
+        ).map(([title, count, cards], i) => (
           <div key={title}>
             <div className="pipeline-title">
               <i className={`stage-${i}`} />
@@ -255,7 +261,7 @@ function OperationsBody({ logistics = false, commerce = false }) {
   );
 }
 export function SystemPreview({ mode = "analytics", className = "" }) {
-  const names = {
+  const names: Record<string, string> = {
     crm: "Orbit",
     erp: "Nexus",
     analytics: "Meridian",

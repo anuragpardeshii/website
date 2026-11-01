@@ -1,0 +1,13 @@
+Mountain film and posters
+Source: A drone flights above the mountains in the forest
+Creator: Ruben Velasco / Mixkit
+https://mixkit.co/free-stock-video/a-drone-flights-above-the-mountains-in-the-forest-50585/
+License: Mixkit Stock Video Free License
+https://mixkit.co/license/#videoFree
+Downloaded: 2026-11-01
+Adaptation: 12-second excerpt, muted colour grade, 1280px H.264 encode, WebP poster frames.
+Used as decorative editorial scenery; no affiliation or endorsement implied.
+
+The connected-architecture and logistics-architecture images in /images are
+existing original SimpTech artwork from this repository. Product interfaces
+are original React, HTML, CSS, and SVG compositions, with illustrative data.

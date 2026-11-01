@@ -1,3 +1,4 @@
+import type { ChildrenProps } from "../types";
 import { useEffect, useRef, useState } from "react";
 import { services, site } from "../data/content";
 import { MotionToggle, Reveal, ScrollProgress } from "./MotionSystem";
@@ -17,22 +18,26 @@ const companyLinks = [
     detail: "Good people, thoughtful work",
   },
 ];
-export function Header({ path }) {
+export function Header({ path }: { path: string }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const header = useRef(null);
-  const menuButton = useRef(null);
+  const header = useRef<HTMLElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    function close(event) {
-      if (event.type === "keydown" && event.key !== "Escape") return;
+    function close(event: KeyboardEvent | PointerEvent) {
+      if (event.type === "keydown" && "key" in event && event.key !== "Escape")
+        return;
       if (
         event.type === "pointerdown" &&
+        event.target instanceof Node &&
         header.current?.contains(event.target)
       )
         return;
-      header.current?.querySelectorAll("details[open]").forEach((el) => {
-        el.open = false;
-        if (event.type === "keydown") el.querySelector("summary")?.focus();
-      });
+      header.current
+        ?.querySelectorAll<HTMLDetailsElement>("details[open]")
+        .forEach((el) => {
+          el.open = false;
+          if (event.type === "keydown") el.querySelector("summary")?.focus();
+        });
       if (event.type === "keydown") {
         setMobileOpen(false);
         if (mobileOpen) menuButton.current?.focus();
@@ -244,7 +249,11 @@ export function Footer() {
   );
 }
 
-export function Layout({ children, path, hideCTA = false }) {
+export function Layout({
+  children,
+  path,
+  hideCTA = false,
+}: ChildrenProps & { path: string; hideCTA?: boolean }) {
   return (
     <>
       <a className="skip-link" href="#main-content">

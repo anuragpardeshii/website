@@ -1,8 +1,8 @@
 # SimpTech
 
-A React + Vite company website with 32 prerendered pages, reusable software interface concepts, and accessible browser interactions.
+A React + TypeScript + Vite company website with 32 prerendered pages, reusable software interface concepts, and accessible browser interactions.
 
-Version 2 uses a dark graphite design system with off-white typography and cobalt accents. The homepage introduces SimpTech through a keyboard-accessible workspace preview, selected project concepts, six service tabs, a connected-systems diagram, the delivery process, and FAQs. Shared styles carry the design across service, project, company, insights, and contact pages.
+Version 2 uses warm graphite surfaces, off-white typography, restrained stone and olive details, and a cinematic landscape opening. The homepage combines real footage, original dashboard scenes, an accessible six-service explorer, interactive AI workflow concepts, a connected-systems diagram, and an editorial delivery process. Shared tokens carry the direction across all existing inner pages. React components use strict TypeScript; Tailwind CSS provides compositional utilities alongside the shared component styles.
 
 Version 2 is developed on the `version-2` branch. The reference at [Rightfit](https://www.rightfit.so/) informed spacing, visual restraint, and interface storytelling; SimpTech’s composition, copy, components, and interface concepts are original.
 
@@ -22,27 +22,27 @@ npm run build
 npm run preview
 ```
 
-`npm run build` builds the browser bundle, renders every route to its own directory index and clean-URL HTML alias, and writes `dist/sitemap.xml`, `dist/robots.txt`, and `dist/404.html`. Every page has an individual title, description, canonical URL, social metadata, and readable HTML before JavaScript runs. A route marker prevents hydration mismatches on static hosts that fall back to the homepage. The application hydrates matching pages to activate filters, menus, forms, and saved drafts. Navigation uses ordinary URLs and browser history.
+`npm run build` runs strict TypeScript checks, builds the browser bundle, renders every route to its own directory index and clean-URL HTML alias, and writes `dist/sitemap.xml`, `dist/robots.txt`, and `dist/404.html`. Every page has an individual title, description, canonical URL, social metadata, and readable HTML before JavaScript runs. A route marker prevents hydration mismatches on static hosts that fall back to the homepage. The application hydrates matching pages to activate filters, menus, forms, and saved drafts. Navigation uses ordinary URLs and browser history.
 
 ## Edit the website
 
-| What to change                                                   | Where                                                                                                              |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| Company name, description, deployed origin, public contact email | `src/data/content.js` → `site`                                                                                     |
-| Services and their detail pages                                  | `src/data/solutions.js` → `solutions`                                                                              |
-| Project concepts and detail stories                              | `src/data/content.js` → `projects`                                                                                 |
-| Articles and full article text                                   | `src/data/content.js` → `articles`                                                                                 |
-| Approved client testimonials                                     | `src/data/content.js` → `testimonials`                                                                             |
-| FAQs, process steps, and industry content                        | `src/data/content.js`                                                                                              |
-| Homepage composition and main headline                           | `src/pages/Home.jsx`                                                                                               |
-| Navbar, footer, and shared contact CTA                           | `src/components/Layout.jsx`                                                                                        |
-| Buttons, headings, icons, and accordion                          | `src/components/ui.jsx`                                                                                            |
-| Product interfaces and journal covers                            | `src/components/WorkspacePreview.jsx`, `src/components/EnterpriseVisuals.jsx`, `src/components/ProductVisuals.jsx` |
-| Colors, typography, spacing, and responsive rules                | `src/styles.css` (consolidated shared design system)                                                               |
-| Routing and page search metadata                                 | `src/App.jsx`                                                                                                      |
-| Production pre-rendering                                         | `scripts/prerender.mjs`                                                                                            |
+| What to change                                                   | Where                                                                                                                       |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Company name, description, deployed origin, public contact email | `src/data/content.js` → `site`                                                                                              |
+| Services and their detail pages                                  | `src/data/solutions.js` → `solutions`                                                                                       |
+| Project concepts and detail stories                              | `src/data/content.js` → `projects`                                                                                          |
+| Articles and full article text                                   | `src/data/content.js` → `articles`                                                                                          |
+| Approved client testimonials                                     | `src/data/content.js` → `testimonials`                                                                                      |
+| FAQs, process steps, and industry content                        | `src/data/content.js`                                                                                                       |
+| Homepage composition and main headline                           | `src/pages/Home.tsx`                                                                                                        |
+| Navbar, footer, and shared contact CTA                           | `src/components/Layout.tsx`                                                                                                 |
+| Buttons, headings, icons, and accordion                          | `src/components/ui.tsx`                                                                                                     |
+| Product interfaces and journal covers                            | `src/components/WorkspacePreview.tsx`, `src/components/EnterpriseVisuals.tsx`, `src/components/ProductVisuals.tsx`          |
+| Colors, typography, spacing, and responsive rules                | `src/cinematic.css` (current tokens and compositions), `src/styles.css` (shared components), `src/tailwind.css` (utilities) |
+| Routing and page search metadata                                 | `src/App.tsx`                                                                                                               |
+| Production pre-rendering                                         | `scripts/prerender.mjs`                                                                                                     |
 
-The content arrays generate their corresponding detail routes automatically. To add a service, project, or article, copy an existing object, choose a unique slug, and update its content. Rebuild to generate the new HTML and sitemap entry. For a new standalone page, add a React component and register it in `basePages` in `src/App.jsx`.
+The content arrays generate their corresponding detail routes automatically. To add a service, project, or article, copy an existing object, choose a unique slug, and update its content. Rebuild to generate the new HTML and sitemap entry. For a new standalone page, add a React component and register it in `basePages` in `src/App.tsx`.
 
 The `site.origin` value must match your production domain before a public launch. It is used in canonical links, structured data, the XML sitemap, and social cards. The current site is hosted privately through Sites; public indexing is dependent on hosting access, not just SEO markup.
 
@@ -67,7 +67,7 @@ No customer quotes, client logos, statistics, or endorsements have been invented
 }
 ```
 
-The homepage automatically displays the testimonial section when the array contains entries, with accessible controls when there is more than one quote. Until then, it displays SimpTech’s own partnership commitment.
+The reusable `PartnershipSection` supports approved testimonials. It is not mounted on the current homepage; add it deliberately when verified material is available.
 
 ## Included pages
 
@@ -87,7 +87,7 @@ The homepage automatically displays the testimonial section when the array conta
 
 ## Design research
 
-The supplied Atlassian, Kyndryl, and editorial layout references informed the use of spacious composition, strong type, purposeful blue, clear navigation, and substantial storytelling. All site copy, brand treatment, layout implementation, and product artwork are original.
+Rightfit was reviewed again on desktop and mobile for the cinematic revision. Its quiet navigation, typography, spacing, and large dashboard compositions informed the art direction. SimpTech uses its own content, layouts, original interfaces, and licensed landscape footage. Earlier research for the original site is retained below for context.
 
 Comparable sites reviewed on 29 October 2026:
 
@@ -125,20 +125,23 @@ For another static host, serve extensionless routes from the corresponding `dist
 
 ## Assets and licenses
 
-The product interfaces, journal covers, and logo are built with HTML, CSS, and SVG in this repository. The connected-systems diagram uses SVG with accessible HTML buttons. The two architectural images are original AI-generated artwork, converted to WebP without visual edits. `public/social-card.png` is the original share image. Lucide supplies the interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
+The product interfaces, journal covers, and logo are built with HTML, CSS, and SVG in this repository. The connected-systems diagram uses SVG with accessible HTML buttons. The two architectural images are original AI-generated artwork, converted to WebP; the current site renders them with restrained saturation. Real mountain footage by Ruben Velasco is licensed under the [Mixkit Stock Video Free License](https://mixkit.co/license/#videoFree). Its source and adaptations are recorded in `public/media/CREDITS.txt`. `public/social-card.png` is the original share image. Lucide supplies the interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
 
 ## Version 2 design and interaction
 
-- `src/components/WorkspacePreview.jsx` supplies the homepage’s Business overview, Sales pipeline, and Operations tabs. Arrow keys, Home, and End update the selected interface and corresponding service link.
-- `src/components/SolutionExperiences.jsx` supplies the six-service explorer, interactive SVG systems diagram, and project previews.
-- `src/components/EnterpriseVisuals.jsx` contains the original website, CRM, ERP, analytics, commerce, and logistics concepts. All names, figures, and records are illustrative. Mobile previews prioritize readable key metrics and records.
-- `src/styles.css` contains the consolidated layout, dark surface tokens, component styles, and responsive rules. The previous `redesign.css` layer was merged into this stylesheet and unused selectors removed.
-- `src/components/MotionSystem.jsx` provides the motion preference and pause controls. Content remains available in prerendered HTML; reduced-motion preferences and the site’s pause control disable nonessential motion.
-- `scripts/social-card.mjs` generates the matching social image from HTML, CSS, and SVG with the bundled Inter font. Run `npm run social-card` before building when changing the social design.
+- `src/components/WorkspacePreview.tsx` supplies the homepage’s Business overview, Sales pipeline, and Operations tabs. Arrow keys, Home, and End update the selected interface and corresponding service link.
+- `src/components/SolutionExperiences.tsx` supplies the six-service explorer, interactive SVG systems diagram, and project previews.
+- `src/components/EnterpriseVisuals.tsx` contains the original website, CRM, ERP, analytics, commerce, and logistics concepts. All names, figures, and records are illustrative. Mobile previews prioritize readable key metrics and records.
+- `src/cinematic.css` defines the warm monochrome tokens, cinematic hero, interface scenes, editorial process, AI console, and responsive rules. `src/styles.css` retains shared inner-page components; obsolete hero and conflicting project-preview rules were removed. Tailwind utilities compose the new React sections.
+- `src/components/MotionSystem.tsx` provides the motion preference and pause controls. Content remains available in prerendered HTML; reduced-motion preferences and the site’s pause control disable nonessential motion.
+- `src/components/CinematicHero.tsx` serves a responsive WebP poster and a 12-second muted local video. The film is around 1.5 MB and is loaded only on desktop when motion is enabled and data saving is off. It pauses offscreen and when the browser tab is hidden. Mobile and reduced-motion visitors get the still image.
+- `src/components/CinematicMotion.tsx` lazily loads GSAP and ScrollTrigger for staggered headline reveals, desktop parallax, and image masking. Context cleanup handles navigation, pause, and preference changes. Native scrolling is retained. Motion handles interface transitions and the existing reveal system; supported browsers also get a brief cross-document view transition.
+- `src/components/IntelligenceStudio.tsx` contains three scripted, local-only AI interface explorations with accessible tabs and expandable sample action plans. It makes no model calls and does not execute business actions.
+- `scripts/social-card.mjs` generates the matching social image from local imagery, HTML, CSS, and the bundled Inter font. Run `npm run social-card` before building when changing the social design.
 
 The existing contact flow still validates the brief, supports an optional local draft, and downloads the brief. It does not submit inquiries to a backend. Existing service URLs, legacy routes, project and article URLs, metadata, and prerendering are retained.
 
-Verification includes the new workspace keyboard navigation and service destinations in addition to the route, accessibility, filtering, navigation, download, and draft checks described above. Screenshots and the JSON report are in ignored `test-results/`.
+Verification includes AI tab keyboard navigation, action-plan reset, desktop/mobile AI accessibility, project-preview containment, video playback/offscreen pause, workspace keyboard navigation, and service destinations in addition to the route, accessibility, filtering, navigation, download, and draft checks described above. Screenshots and the JSON report are in ignored `test-results/`.
 
 ### Original artwork
 

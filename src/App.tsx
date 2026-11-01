@@ -143,7 +143,7 @@ export const routes = [
     component: () => <ArticleDetail article={a} />,
   })),
 ];
-export function getRoute(path) {
+export function getRoute(path: string) {
   return (
     routes.find(
       (r) =>

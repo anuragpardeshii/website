@@ -5,23 +5,31 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir .prerender && node scripts/prerender.mjs",
+    "build": "npm run typecheck && vite build && vite build --ssr src/entry-server.tsx --outDir .prerender && node scripts/prerender.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node scripts/verify.mjs",
     "format": "prettier --write src scripts vite.config.js index.html package.json README.md",
-    "social-card": "node scripts/social-card.mjs"
+    "social-card": "node scripts/social-card.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^12.23.24"
+    "motion": "^12.23.24",
+    "gsap": "^3.13.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
     "@playwright/test": "^1.56.1",
     "@vitejs/plugin-react": "^5.0.4",
     "vite": "^7.1.9",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/node": "^24.0.0",
+    "tailwindcss": "^4.1.0",
+    "@tailwindcss/vite": "^4.1.0"
   }
 }

@@ -16,6 +16,7 @@ const types = {
   ".svg": "image/svg+xml",
   ".png": "image/png",
   ".webp": "image/webp",
+  ".mp4": "video/mp4",
   ".xml": "application/xml",
   ".txt": "text/plain",
 };
@@ -200,6 +201,15 @@ try {
   await page.goto(base + "/");
   await page.keyboard.press("Tab");
   assert.equal(await page.locator(":focus").textContent(), "Skip to content");
+  const skipAudit = await new AxeBuilder({ page })
+    .include(".skip-link")
+    .withTags(["wcag2a", "wcag2aa"])
+    .analyze();
+  assert.equal(
+    skipAudit.violations.length,
+    0,
+    "Focused skip link has readable contrast",
+  );
   await page.keyboard.press("Enter");
   assert.equal(new URL(page.url()).hash, "#main-content");
   await page.locator(".nav-dropdown>summary").first().focus();
@@ -354,18 +364,116 @@ try {
   report.interactions.push(
     "Solution tabs support arrows and Home, connected-system controls update content, reduced-motion preference respected",
   );
+  const aiTabs = page.getByRole("tablist", {
+    name: "Explore AI workflow concepts",
+  });
+  await aiTabs.getByRole("tab", { name: "Sales pulse" }).focus();
+  await page.keyboard.press("ArrowRight");
+  await page
+    .getByRole("heading", { name: "A clearer view of what’s running low." })
+    .waitFor();
+  assert.equal(
+    await aiTabs
+      .getByRole("tab", { name: "Stock watch" })
+      .getAttribute("aria-selected"),
+    "true",
+  );
+  await page.getByRole("button", { name: "Preview an action plan" }).click();
+  assert(
+    await page
+      .getByText("Review the Studio Desk stock level", { exact: true })
+      .isVisible(),
+  );
+  assert(
+    await page
+      .getByText("Sample plan only. No actions have been taken.")
+      .isVisible(),
+  );
+  await aiTabs.getByRole("tab", { name: "Stock watch" }).focus();
+  await page.keyboard.press("End");
+  await page
+    .getByRole("heading", { name: "The week, without the spreadsheet hunt." })
+    .waitFor();
+  assert.equal(
+    await page
+      .getByRole("button", { name: "Preview an action plan" })
+      .getAttribute("aria-expanded"),
+    "false",
+  );
+  await page.keyboard.press("Home");
+  await page
+    .getByRole("heading", { name: "Three conversations to move forward." })
+    .waitFor();
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.locator(".intelligence-section").screenshot({
+      path: resolve(
+        output,
+        `intelligence-${width === 1440 ? "desktop" : "mobile"}.png`,
+      ),
+    });
+    const result = await new AxeBuilder({ page })
+      .include(".intelligence-section")
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .analyze();
+    if (result.violations.length)
+      report.accessibility.push({
+        path: `/#intelligence-${width}`,
+        violations: result.violations.map((v) => ({
+          id: v.id,
+          nodes: v.nodes.map((n) => ({
+            target: n.target,
+            summary: n.failureSummary,
+          })),
+        })),
+      });
+  }
+  assert.equal(await page.locator(".cinema-landscape video").count(), 0);
+  for (const scene of await page.locator(".showreel-image").all()) {
+    assert(
+      await scene.evaluate((element) => {
+        const preview = element
+          .querySelector(".showreel-screen")
+          .getBoundingClientRect();
+        const bounds = element.getBoundingClientRect();
+        return (
+          preview.right <= bounds.right + 1 &&
+          preview.bottom <= bounds.bottom + 1
+        );
+      }),
+      "Mobile project preview is fully contained",
+    );
+  }
+  report.interactions.push(
+    "AI concept keyboard tabs, sample action plans, reset, mobile containment and accessibility",
+  );
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForFunction(() => {
+    const film = document.querySelector(".cinema-landscape video");
+    return film && film.readyState >= 2 && !film.paused;
+  });
+  await page.locator(".intelligence-section").scrollIntoViewIfNeeded();
+  await page.waitForFunction(
+    () => document.querySelector(".cinema-landscape video")?.paused,
+  );
   await page
     .getByRole("button", { name: "Pause animations", exact: true })
     .click();
   assert.equal(await page.locator("html").getAttribute("data-motion"), "off");
+  assert.equal(await page.locator(".cinema-landscape video").count(), 0);
   await page
     .getByRole("button", { name: "Enable animations", exact: true })
     .click();
   assert.equal(await page.locator("html").getAttribute("data-motion"), "on");
   await page.emulateMedia({ reducedMotion: "reduce" });
-  report.interactions.push("Global animation pause and resume");
+  await page.waitForFunction(
+    () => !document.querySelector(".cinema-landscape video"),
+  );
+  report.interactions.push(
+    "Video plays on desktop, pauses offscreen, respects reduced motion and global pause/resume",
+  );
 
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(base + "/work");

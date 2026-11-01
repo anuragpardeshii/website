@@ -1,3 +1,4 @@
+import type { KeyboardEvent } from "react";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { services } from "../data/content";
@@ -7,10 +8,10 @@ import { Eyebrow, Icon, TextLink } from "./ui";
 
 export function SolutionExplorer() {
   const [active, setActive] = useState(1);
-  const tabs = useRef([]);
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const { disabled } = useSiteMotion();
   const service = services[active];
-  function navigate(e, i) {
+  function navigate(e: KeyboardEvent<HTMLButtonElement>, i: number) {
     let next;
     if (["ArrowDown", "ArrowRight"].includes(e.key))
       next = (i + 1) % services.length;
@@ -303,29 +304,21 @@ export function ProjectShowreel() {
                   <span>{p.name}</span>
                   <small>PRODUCT CONCEPT / 0{i + 1}</small>
                 </div>
-                {p.mode === "logistics" ? (
-                  <>
-                    <img
-                      src="/images/logistics-architecture.webp"
-                      alt="Original visual of a sunlit fulfillment center with blue shelving and an autonomous delivery robot"
-                      loading="lazy"
-                      width="1536"
-                      height="1024"
-                    />
-                    <div className="logistics-image-caption">
-                      <span>CONNECTED OPERATIONS</span>
-                      <strong>
-                        Every move.
-                        <br />
-                        In the right direction.
-                      </strong>
-                    </div>
-                  </>
-                ) : (
-                  <div className="showreel-screen">
-                    <SystemPreview mode={p.mode} />
-                  </div>
-                )}
+                <img
+                  className="showreel-backdrop"
+                  src={
+                    i === 0
+                      ? "/media/mountain-poster.webp"
+                      : "/images/connected-architecture.webp"
+                  }
+                  alt=""
+                  loading="lazy"
+                  width="1280"
+                  height="720"
+                />
+                <div className="showreel-screen">
+                  <SystemPreview mode={p.mode} />
+                </div>
                 <span className="showreel-open">
                   <Icon name="diagonal" size={25} />
                 </span>

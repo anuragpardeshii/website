@@ -1,9 +1,12 @@
 import React from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App";
+import "./tailwind.css";
 import "./styles.css";
+import "./cinematic.css";
 
 const root = document.getElementById("root");
+if (!root) throw new Error("Missing app root");
 const app = (
   <React.StrictMode>
     <App path={window.location.pathname} />

@@ -1,4 +1,7 @@
 import { faqs } from "../data/content";
+import { CinematicHero } from "../components/CinematicHero";
+import { CinematicMotion } from "../components/CinematicMotion";
+import { IntelligenceStudio } from "../components/IntelligenceStudio";
 import { WorkspacePreview } from "../components/WorkspacePreview";
 import {
   ConnectedSystems,
@@ -38,35 +41,27 @@ const process = [
 export default function Home() {
   return (
     <>
-      <section className="v2-hero">
+      <CinematicMotion />
+      <CinematicHero />
+      <section className="workspace-section section" id="studio-workspace">
         <div className="container">
-          <div className="v2-hero-copy">
-            <div className="studio-label">
-              <span /> INDEPENDENT THINKING. CONNECTED SOFTWARE.
+          <Reveal className="cinema-section-heading">
+            <div>
+              <Eyebrow>01 / SOFTWARE, MADE HUMAN</Eyebrow>
+              <h2>
+                One business.
+                <br />
+                <span className="quiet-text">A clearer picture.</span>
+              </h2>
             </div>
-            <h1>
-              Better websites.
-              <br />
-              <span>Smarter business software.</span>
-            </h1>
             <p>
-              From your first impression to your everyday operations.
-              <br className="desktop-break" /> We design and build the
-              technology that brings it all together.
+              Your customers, your operations, your next big decision. Bring it
+              all into focus with software that feels like it was made for you.
+              Because it is.
             </p>
-            <div className="hero-actions">
-              <Button href="/contact">Start a project</Button>
-              <Button href="/work" variant="secondary" icon="diagonal">
-                Explore our work
-              </Button>
-            </div>
-          </div>
-          <WorkspacePreview />
-          <div className="hero-footnote">
-            <span>YOUR BUSINESS, BETTER CONNECTED</span>
-            <span>
-              Strategy <i /> Design <i /> Development
-            </span>
+          </Reveal>
+          <div className="workspace-scene" data-image-reveal>
+            <WorkspacePreview />
           </div>
         </div>
       </section>
@@ -90,6 +85,7 @@ export default function Home() {
       </section>
       <ProjectShowreel />
       <SolutionExplorer />
+      <IntelligenceStudio />
       <ConnectedSystems />
       <section className="v2-process section">
         <div className="container">
@@ -107,8 +103,8 @@ export default function Home() {
           <div className="v2-process-grid">
             {process.map((step, i) => (
               <Reveal key={step.title} delay={i * 0.06}>
-                <div className="process-icon">
-                  <Icon name={step.icon} size={22} />
+                <div className="process-icon" aria-hidden="true">
+                  0{i + 1}
                 </div>
                 <span className="process-label">{step.output}</span>
                 <h3>{step.title}</h3>

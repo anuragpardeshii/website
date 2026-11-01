@@ -17,7 +17,7 @@ export function About() {
           <>
             We make technology
             <br />
-            <span className="blue-text">feel a little more human.</span>
+            <span className="accent-text">feel a little more human.</span>
           </>
         }
         description="A software development studio with a simple point of view: the best digital experiences make life easier for the people using them."
@@ -150,7 +150,7 @@ export function Approach() {
           <>
             Clear thinking.
             <br />
-            <span className="blue-text">Thoughtful execution.</span>
+            <span className="accent-text">Thoughtful execution.</span>
           </>
         }
         description="A collaborative way of working that turns a complex challenge into clear, manageable steps. You know where we are, where we’re going, and why."
@@ -163,7 +163,7 @@ export function Approach() {
               <div>
                 <h2>
                   {s.title}
-                  <span className="blue-text">.</span>
+                  <span className="accent-text">.</span>
                 </h2>
                 <p className="lead-text">{s.description}</p>
               </div>
@@ -238,7 +238,7 @@ export function Industries() {
           <>
             Different businesses.
             <br />
-            <span className="blue-text">The same thoughtful approach.</span>
+            <span className="accent-text">The same thoughtful approach.</span>
           </>
         }
         description="Every industry has its own language, workflows, and challenges. We start by understanding yours, then build around the people who use it."
@@ -343,7 +343,7 @@ export function Technologies() {
           <>
             Good tools.
             <br />
-            <span className="blue-text">Better judgment.</span>
+            <span className="accent-text">Better judgment.</span>
           </>
         }
         description="We choose technology to fit the problem, your team, and the long-term needs of your business. Here are some of the tools that can form that foundation."
@@ -415,7 +415,7 @@ export function Careers() {
           <>
             Care about the craft?
             <br />
-            <span className="blue-text">You’re in good company.</span>
+            <span className="accent-text">You’re in good company.</span>
           </>
         }
         description="We’re interested in people who ask thoughtful questions, care about the details, and make the people around them better."

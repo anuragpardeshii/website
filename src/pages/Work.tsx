@@ -1,3 +1,4 @@
+import type { Project } from "../types";
 import { useState } from "react";
 import { projects } from "../data/content";
 import { ProjectGrid } from "../components/Sections";
@@ -23,7 +24,7 @@ export function Work() {
           <>
             Ideas you can see.
             <br />
-            <span className="blue-text">Possibilities you can build on.</span>
+            <span className="accent-text">Possibilities you can build on.</span>
           </>
         }
         description="Original product concepts that show how we think about design, technology, and the problems software can solve."
@@ -68,7 +69,7 @@ export function Work() {
   );
 }
 
-export function ProjectDetail({ project }) {
+export function ProjectDetail({ project }: { project: Project }) {
   const next = projects[(projects.indexOf(project) + 1) % projects.length];
   return (
     <>

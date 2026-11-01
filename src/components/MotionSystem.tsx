@@ -1,3 +1,10 @@
+import type {
+  Dispatch,
+  SetStateAction,
+  PointerEvent as ReactPointerEvent,
+  ReactNode,
+} from "react";
+import type { ChildrenProps } from "../types";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import {
   MotionConfig,
@@ -10,13 +17,18 @@ import {
 } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 
-const MotionContext = createContext({
+const MotionContext = createContext<{
+  paused: boolean;
+  disabled: boolean;
+  setPaused: Dispatch<SetStateAction<boolean>>;
+  systemReduced: boolean;
+}>({
   paused: false,
   disabled: false,
   setPaused: () => {},
   systemReduced: false,
 });
-export function MotionProvider({ children }) {
+export function MotionProvider({ children }: ChildrenProps) {
   const [paused, setPaused] = useState(false);
   const [systemReduced, setSystemReduced] = useState(false);
   useEffect(() => {
@@ -87,7 +99,12 @@ export function ScrollProgress() {
     />
   );
 }
-export function Reveal({ children, className = "", delay = 0, as = "div" }) {
+export function Reveal({
+  children,
+  className = "",
+  delay = 0,
+  as = "div",
+}: ChildrenProps & { delay?: number; as?: "div" | "section" }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "0px 0px -30px 0px" });
   const { disabled } = useSiteMotion();
@@ -114,13 +131,17 @@ export function Reveal({ children, className = "", delay = 0, as = "div" }) {
     </Tag>
   );
 }
-export function MagneticLink({ href, children, className = "" }) {
+export function MagneticLink({
+  href,
+  children,
+  className = "",
+}: ChildrenProps & { href: string }) {
   const { disabled } = useSiteMotion();
   const x = useMotionValue(0),
     y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 160, damping: 20 }),
     springY = useSpring(y, { stiffness: 160, damping: 20 });
-  function move(e) {
+  function move(e: ReactPointerEvent<HTMLAnchorElement>) {
     if (disabled || e.pointerType !== "mouse") return;
     const r = e.currentTarget.getBoundingClientRect();
     x.set((e.clientX - r.left - r.width / 2) * 0.09);
@@ -150,6 +171,12 @@ export function ParallaxMedia({
   alt,
   children,
   eager = false,
+}: {
+  className?: string;
+  src: string;
+  alt: string;
+  children?: ReactNode;
+  eager?: boolean;
 }) {
   const ref = useRef(null);
   const { disabled } = useSiteMotion();

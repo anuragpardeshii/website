@@ -1,3 +1,4 @@
+import type { Article } from "../types";
 import { useState } from "react";
 import { articles } from "../data/content";
 import { ArticleCard } from "../components/Sections";
@@ -27,7 +28,7 @@ export function Insights() {
           <>
             A little perspective.
             <br />
-            <span className="blue-text">A better way forward.</span>
+            <span className="accent-text">A better way forward.</span>
           </>
         }
         description="Practical thinking on products, design, development, and making technology work better for your business."
@@ -115,7 +116,7 @@ export function Insights() {
   );
 }
 
-export function ArticleDetail({ article }) {
+export function ArticleDetail({ article }: { article: Article }) {
   const [copyStatus, setCopyStatus] = useState("");
   async function copyLink() {
     try {

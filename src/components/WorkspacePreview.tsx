@@ -1,3 +1,4 @@
+import type { KeyboardEvent } from "react";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { SystemPreview } from "./EnterpriseVisuals";
@@ -30,10 +31,10 @@ const views = [
 
 export function WorkspacePreview() {
   const [active, setActive] = useState(0);
-  const refs = useRef([]);
+  const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const { disabled } = useSiteMotion();
   const view = views[active];
-  function navigate(event, index) {
+  function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     let next;
     if (event.key === "ArrowRight") next = (index + 1) % views.length;
     else if (event.key === "ArrowLeft")
