@@ -1,3 +1,4 @@
+import { BusinessStory, ScrollStatement } from "../components/BusinessStory";
 import { AIJourney } from "../components/AIJourney";
 import { SignalField } from "../components/SignalField";
 import { faqs } from "../data/content";
@@ -11,7 +12,7 @@ import {
   SolutionExplorer,
 } from "../components/SolutionExperiences";
 import { Reveal } from "../components/MotionSystem";
-import { Button, Eyebrow, FAQList, Icon, TextLink } from "../components/ui";
+import { Eyebrow, FAQList, TextLink } from "../components/ui";
 
 const process = [
   {
@@ -45,14 +46,12 @@ export default function Home() {
     <>
       <CinematicMotion />
       <CinematicHero />
-      <AIJourney />
-      <SignalField />
-      <IntelligenceStudio />
+      <BusinessStory />
       <section className="workspace-section section" id="studio-workspace">
         <div className="container">
           <Reveal className="cinema-section-heading">
             <div>
-              <Eyebrow>02 / THE CONNECTED BUSINESS</Eyebrow>
+              <Eyebrow>BUSINESS SOFTWARE, BEAUTIFULLY CONNECTED</Eyebrow>
               <h2>
                 One business.
                 <br />
@@ -70,6 +69,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <ScrollStatement />
+      <SignalField />
+      <AIJourney />
+      <IntelligenceStudio />
       <ProjectShowreel />
       <SolutionExplorer />
       <ConnectedSystems />

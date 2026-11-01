@@ -197,4 +197,74 @@ export const solutions = [
     fit: "Warehouses, distributors, retailers, manufacturers, and logistics teams coordinating complex movement.",
     tags: ["Stock visibility", "Warehouse operations", "Fulfillment"],
   },
+  {
+    slug: "ai-engine-development",
+    title: "AI Engine Development",
+    label: "AI Engines",
+    icon: "sparkle",
+    accent: "ember",
+    visual: "ai",
+    short: "Turn business knowledge into useful intelligence.",
+    description:
+      "Custom AI systems that connect your knowledge, data, and workflows through considered interfaces and human oversight.",
+    headline: "Your knowledge. An intelligent new advantage.",
+    intro:
+      "Build AI around a real business problem: finding the right information, understanding a document, or preparing the next step in a workflow.",
+    problem:
+      "Useful knowledge is often buried across documents, tools, and conversations. A general-purpose assistant does not automatically understand your business or who should access its information.",
+    solution:
+      "We define the use case, connect the appropriate sources, and design the experience around permissions, visible references, and clear review points. Evaluation and operational requirements form part of the scope from the start.",
+    deliverables: [
+      "AI use-case discovery & technical feasibility",
+      "Knowledge retrieval & source integrations",
+      "Model integration & orchestration",
+      "Permissions, source references & review flows",
+      "Evaluation datasets & quality monitoring",
+      "Deployment, documentation & operational handover",
+    ],
+    outcomes: [
+      "Business knowledge within easier reach",
+      "Clearer context behind generated suggestions",
+      "Workflows with explicit human review",
+    ],
+    fit: "Internal knowledge assistants, document workflows, reporting copilots, and teams exploring a focused application of AI.",
+    tags: ["Knowledge retrieval", "AI orchestration", "Human oversight"],
+  },
+  {
+    slug: "chatbot-development",
+    title: "Intelligent Chatbots",
+    label: "Chatbots",
+    icon: "message",
+    accent: "ember",
+    visual: "chatbot",
+    short: "Make the next answer easier to find.",
+    description:
+      "Business chatbots for customer support, product guidance, and internal knowledge, with clear boundaries and human handoff.",
+    headline: "Helpful conversations. Thoughtfully designed.",
+    intro:
+      "Give customers and teams a considered way to ask questions, explore your offering, and find the right next step.",
+    problem:
+      "Repeated questions take up time. Static help pages can be hard to navigate. A chatbot needs useful knowledge, a clear purpose, and a dependable way to reach a person when the answer is uncertain.",
+    solution:
+      "We shape the conversation around your audience and approved content. From a guided support assistant to a knowledge-grounded AI chatbot, the scope reflects your requirements for accuracy, access, and escalation.",
+    deliverables: [
+      "Conversation strategy & experience design",
+      "Approved knowledge & content integrations",
+      "Website and application chat interfaces",
+      "AI or guided response workflows",
+      "Human handoff & support integrations",
+      "Testing, analytics & content maintenance",
+    ],
+    outcomes: [
+      "A clearer route to helpful information",
+      "Consistent guidance from approved sources",
+      "Human support when the conversation needs it",
+    ],
+    fit: "Customer support, product discovery, lead qualification, and internal help desks.",
+    tags: [
+      "Conversational interfaces",
+      "Knowledge assistants",
+      "Customer support",
+    ],
+  },
 ];

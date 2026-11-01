@@ -1,0 +1,889 @@
+/* SimpTech / Business in motion. A pure black canvas; ember lives in the AI artwork. */
+body,
+#root,
+main,
+.page-hero,
+.site-header,
+.site-footer,
+.contact-cta {
+  background-color: #000000;
+}
+.site-header {
+  background: #000000f0;
+}
+.business-hero {
+  min-height: min(940px, calc(100svh - 72px));
+  position: relative;
+  background: #000;
+  overflow: clip;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+}
+.business-hero-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 37px;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: #aaa;
+  position: relative;
+  z-index: 2;
+}
+.business-hero-top > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.business-hero-top i {
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+}
+.business-hero-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  padding-block: 75px 70px;
+}
+.business-hero-copy {
+  width: 67%;
+  pointer-events: auto;
+}
+.hero-overline {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  color: #a2a2a2;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  margin-bottom: 25px;
+}
+.hero-overline i {
+  width: 45px;
+  height: 1px;
+  background: #595959;
+}
+.business-hero h1 {
+  font-size: clamp(78px, 7.2vw, 112px);
+  line-height: 0.99;
+  letter-spacing: -0.07em;
+  font-weight: 450;
+  margin: 0 0 32px;
+}
+.business-hero h1 em {
+  font-style: normal;
+  color: #a3a3a3;
+}
+.business-hero-copy > p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #ccc;
+  margin: 0;
+}
+.business-hero-copy > p > span {
+  display: inline-block;
+  color: #999;
+  margin-top: 5px;
+  font-size: 12px;
+}
+.business-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+  margin-top: 29px;
+}
+.business-hero-actions > a:last-child {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  font-size: 12px;
+  color: #ddd;
+  min-height: 44px;
+}
+.business-hero-art {
+  position: absolute;
+  width: min(69vw, 1080px);
+  height: min(69vw, 1000px);
+  right: -10%;
+  top: 50%;
+  margin-top: min(-34.5vw, -390px);
+  z-index: 0;
+}
+.neural-engine {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.neural-engine canvas,
+.engine-fallback {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+.neural-engine[data-ready="true"] .engine-fallback {
+  visibility: hidden;
+}
+.engine-coordinate {
+  position: absolute;
+  left: 26%;
+  right: 24%;
+  bottom: 12%;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  text-align: center;
+  color: #999;
+  font-size: 7px;
+  letter-spacing: 0.14em;
+  pointer-events: none;
+}
+.engine-coordinate > span:last-child {
+  color: #888;
+  font-size: 6px;
+  letter-spacing: 0.1em;
+}
+.engine-cross {
+  color: #777;
+  font-size: 21px;
+  font-weight: 200;
+  position: absolute;
+  pointer-events: none;
+}
+.cross-a {
+  left: 15%;
+  top: 22%;
+}
+.cross-b {
+  right: 19%;
+  bottom: 20%;
+}
+.business-hero-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #252525;
+  padding-block: 24px 28px;
+  font-size: 7px;
+  letter-spacing: 0.11em;
+  color: #999;
+  position: relative;
+  z-index: 3;
+}
+.business-hero-footer > a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 28px;
+}
+.hero-scroll-icon {
+  height: 28px;
+  width: 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #555;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #ddd;
+}
+.business-story {
+  padding: 130px 0 100px;
+  background: #000;
+  scroll-margin-top: 72px;
+}
+.business-story-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 100px;
+}
+.business-story-intro h2 {
+  font-size: clamp(42px, 4.8vw, 66px);
+  line-height: 1.06;
+  margin: 27px 0;
+  letter-spacing: -0.06em;
+}
+.business-story-intro h2 span {
+  color: #999;
+}
+.business-story-intro p {
+  max-width: 320px;
+  font-size: 13px;
+  line-height: 1.9;
+  color: #aaa;
+}
+.business-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  color: #e5e5e5;
+  font-size: 12px;
+  margin-top: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #555;
+}
+.business-practice {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 30px 0;
+  border-top: 1px solid #333;
+  transition: border-color 0.3s;
+}
+.business-practices > :last-child .business-practice {
+  border-bottom: 1px solid #333;
+}
+.business-practice > div {
+  flex: 1;
+  min-width: 0;
+}
+.practice-number {
+  font-size: 9px;
+  color: #999;
+  margin-top: 5px;
+}
+.business-practice h3 {
+  font-size: clamp(20px, 1.8vw, 25px);
+  font-weight: 450;
+  letter-spacing: -0.035em;
+  margin: 0 0 12px;
+}
+.business-practice p {
+  font-size: 12px;
+  color: #aaa;
+  max-width: 410px;
+  line-height: 1.8;
+  margin: 0 0 20px;
+}
+.business-practice small {
+  color: #999;
+  font-size: 7px;
+  letter-spacing: 0.07em;
+  line-height: 1.8;
+}
+.business-practice > svg {
+  transition: transform 0.35s;
+  margin-top: 2px;
+}
+.business-practice:hover {
+  border-color: #eee;
+}
+.business-practice:hover > svg {
+  transform: translate(4px, -4px);
+}
+.scroll-statement {
+  background: #000;
+  padding: 120px 0;
+}
+.statement-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 55px;
+}
+.statement-top > span {
+  color: #999;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+}
+.scroll-statement h2 {
+  font-size: clamp(45px, 6.2vw, 89px);
+  line-height: 1.15;
+  letter-spacing: -0.055em;
+  max-width: 1150px;
+  margin: 0 0 55px;
+}
+.scroll-statement h2 > span {
+  display: inline-block;
+  white-space: pre;
+}
+.statement-rule {
+  height: 1px;
+  background: #272727;
+}
+.statement-rule i {
+  height: 1px;
+  display: block;
+  background: #bbb;
+  transform-origin: left;
+}
+.statement-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  padding-top: 25px;
+}
+.statement-bottom p {
+  font-size: 12px;
+  line-height: 1.9;
+  margin: 0;
+}
+.statement-bottom a {
+  display: flex;
+  gap: 24px;
+  font-size: 12px;
+  align-items: center;
+}
+/* Ember accents belong to AI illustrations, not the page canvas or business controls. */
+.signal-section {
+  background: #000;
+  padding-top: 110px;
+  border: 0;
+}
+.signal-art {
+  height: 380px;
+}
+.signal-nucleus {
+  background: #000;
+  border-color: #a3472c;
+  box-shadow:
+    0 0 0 8px #ff623a08,
+    0 0 80px #ff4b1c24,
+    0 25px 60px #000;
+  color: #ff986f;
+}
+.signal-nucleus > i {
+  border-color: #ff714a30;
+}
+.signal-nucleus:hover {
+  border-color: #ffa484;
+  box-shadow:
+    0 0 0 14px #ff623a0a,
+    0 0 100px #ff4b1c33,
+    0 25px 60px #000;
+}
+.ai-journey {
+  border-top: 0;
+}
+.journey-map-mini > div {
+  color: #ffa07e;
+  border-color: #a4533a;
+  background: #000;
+  box-shadow: 0 0 35px #ff4b1c18;
+}
+.journey-browser,
+.intelligence-console,
+.workspace-frame,
+.enterprise-window,
+.enterprise-main,
+.enterprise-sidebar {
+  background-color: #000;
+}
+.workspace-scene {
+  background: #000;
+  padding: 48px 40px 36px;
+  border-color: #333;
+  perspective: 1500px;
+}
+.workspace-scene::before {
+  display: none;
+}
+.workspace-frame {
+  box-shadow: 0 0 90px #ffffff07;
+}
+.selected-work {
+  border-top: 0;
+}
+.showreel-image {
+  background: #000;
+}
+.showreel-image .showreel-backdrop {
+  opacity: 0.2;
+}
+.showreel-card {
+  transform-origin: center;
+}
+.ai-service-preview {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: #000;
+  border: 1px solid #3c3c3c;
+  border-radius: 7px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.ai-preview-bar {
+  padding: 17px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  gap: 12px;
+}
+.ai-preview-bar > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+}
+.ai-preview-bar small {
+  color: #aaa;
+  font-size: 7px;
+}
+.engine-preview-body,
+.chat-preview-body {
+  padding: 28px;
+  flex: 1;
+}
+.ai-preview-title > span {
+  font-size: 7px;
+  color: #aaa;
+  letter-spacing: 0.1em;
+}
+.ai-preview-title h3,
+.chat-preview-heading h3 {
+  font-size: 25px;
+  margin: 15px 0 9px;
+  line-height: 1.15;
+}
+.ai-preview-title p,
+.chat-preview-heading p {
+  color: #aaa;
+  font-size: 10px;
+  line-height: 1.7;
+}
+.engine-preview-flow {
+  display: flex;
+  gap: 17px;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+}
+.engine-preview-flow > div {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  color: #ccc;
+}
+.engine-preview-flow span {
+  font-size: 6px;
+  letter-spacing: 0.08em;
+}
+.engine-preview-flow > i {
+  height: 1px;
+  width: 50px;
+  background: linear-gradient(90deg, #333, #df7046);
+}
+.engine-preview-flow > .engine-preview-core {
+  width: 68px;
+  height: 68px;
+  justify-content: center;
+  border: 1px solid #af5132;
+  color: #ff9e71;
+  border-radius: 19px;
+  box-shadow: 0 0 45px #ff4b1c20;
+}
+.engine-preview-steps > div {
+  display: flex;
+  gap: 14px;
+  padding: 15px 0;
+  border-top: 1px solid #292929;
+  align-items: center;
+}
+.engine-preview-steps > div > span {
+  color: #aaa;
+  font-size: 9px;
+}
+.engine-preview-steps > div > div {
+  flex: 1;
+}
+.engine-preview-steps strong {
+  display: block;
+  font-size: 11px;
+  font-weight: 450;
+}
+.engine-preview-steps small {
+  display: block;
+  font-size: 8px;
+  color: #aaa;
+  margin-top: 6px;
+}
+.ai-preview-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 18px;
+  border-top: 1px solid #292929;
+  font-size: 6px;
+  letter-spacing: 0.03em;
+  color: #aaa;
+}
+.chat-preview-heading {
+  margin-bottom: 25px;
+}
+.chat-preview-heading > svg {
+  color: #ff9870;
+}
+.chat-preview-heading h3 {
+  margin-top: 12px;
+}
+.chat-sample-question {
+  background: #101010;
+  border: 1px solid #333;
+  padding: 14px;
+  margin-left: 35px;
+  border-radius: 8px 8px 0 8px;
+  font-size: 11px;
+  color: #ddd;
+  line-height: 1.6;
+}
+.chat-sample-answer {
+  background: #080808;
+  border: 1px solid #303030;
+  padding: 18px;
+  margin: 15px 20px 15px 0;
+  border-radius: 8px 8px 8px 0;
+}
+.chat-sample-answer > span {
+  font-size: 7px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: #ffb491;
+}
+.chat-sample-answer p {
+  font-size: 11px;
+  line-height: 1.85;
+  margin: 13px 0;
+}
+.chat-sample-answer > div {
+  font-size: 8px;
+  color: #bbb;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.chat-human {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  font-size: 9px;
+  color: #bbb;
+}
+.service-detail-art > .ai-service-preview {
+  flex: 1;
+  margin-top: 28px;
+  min-height: 470px;
+  max-width: 100%;
+}
+@media (max-width: 1099px) {
+  .business-hero {
+    min-height: 850px;
+  }
+  .business-hero h1 {
+    font-size: 85px;
+  }
+  .business-hero-art {
+    width: 850px;
+    height: 850px;
+    right: -28%;
+    margin-top: -390px;
+  }
+  .business-hero-copy {
+    width: 75%;
+  }
+  .business-story-grid {
+    gap: 50px;
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+  .business-story {
+    padding-block: 90px;
+  }
+  .business-practice {
+    gap: 13px;
+  }
+  .engine-preview-body,
+  .chat-preview-body {
+    padding: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .business-hero {
+    min-height: 1040px;
+  }
+  .business-hero-top {
+    padding-top: 28px;
+    font-size: 7px;
+  }
+  .business-hero-top > span:last-child {
+    display: none;
+  }
+  .business-hero-main {
+    display: block;
+    padding-top: 67px;
+    padding-bottom: 390px;
+  }
+  .business-hero-copy {
+    width: 100%;
+  }
+  .hero-overline {
+    font-size: 7px;
+    margin-bottom: 20px;
+  }
+  .business-hero h1 {
+    font-size: clamp(59px, 12.8vw, 91px);
+    line-height: 1.01;
+    margin-bottom: 25px;
+  }
+  .business-hero-copy > p {
+    font-size: 13px;
+    line-height: 1.8;
+    max-width: 330px;
+  }
+  .business-hero-copy > p > span {
+    font-size: 10px;
+    margin-top: 10px;
+  }
+  .business-hero-actions {
+    gap: 15px;
+    margin-top: 25px;
+  }
+  .business-hero-actions .button {
+    font-size: 11px;
+    padding-inline: 16px;
+  }
+  .business-hero-actions > a:last-child {
+    font-size: 10px;
+    gap: 10px;
+  }
+  .business-hero-art {
+    width: 560px;
+    height: 560px;
+    top: auto;
+    bottom: 35px;
+    right: calc(50% - 280px);
+    margin: 0;
+  }
+  .engine-coordinate {
+    bottom: 11%;
+    font-size: 6px;
+  }
+  .engine-coordinate > span:last-child {
+    font-size: 5px;
+  }
+  .engine-cross {
+    font-size: 16px;
+  }
+  .cross-a {
+    top: 27%;
+    left: 20%;
+  }
+  .cross-b {
+    right: 20%;
+    bottom: 22%;
+  }
+  .business-hero-footer {
+    padding-block: 18px;
+    font-size: 6px;
+    margin-top: auto;
+  }
+  .business-hero-footer > span {
+    display: none;
+  }
+  .business-hero-footer > a {
+    gap: 10px;
+  }
+  .business-hero-footer > a:last-child {
+    font-size: 6px;
+  }
+  .business-story {
+    padding: 80px 0 50px;
+  }
+  .business-story-grid {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+  .business-story-intro h2 {
+    font-size: 48px;
+  }
+  .business-story-intro h2 br:nth-child(2) {
+    display: none;
+  }
+  .business-story-intro h2 span::before {
+    content: " ";
+  }
+  .business-story-intro p {
+    max-width: 400px;
+  }
+  .business-practice {
+    padding-block: 24px;
+    gap: 12px;
+  }
+  .business-practice h3 {
+    font-size: 21px;
+    max-width: 270px;
+  }
+  .business-practice p {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+  .business-practice small {
+    font-size: 6px;
+  }
+  .business-practice > svg {
+    width: 18px;
+    flex-shrink: 0;
+  }
+  .scroll-statement {
+    padding: 70px 0;
+  }
+  .statement-top {
+    margin-bottom: 35px;
+  }
+  .statement-top > span {
+    display: none;
+  }
+  .scroll-statement h2 {
+    font-size: clamp(35px, 8.4vw, 54px);
+    margin-bottom: 35px;
+    line-height: 1.25;
+  }
+  .statement-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
+  .statement-bottom p {
+    font-size: 11px;
+  }
+  .workspace-scene {
+    padding: 14px 7px;
+  }
+  .signal-section {
+    padding-top: 65px;
+  }
+  .signal-art {
+    height: 280px;
+  }
+  .signal-heading h2 {
+    font-size: 32px;
+  }
+  .signal-heading .eyebrow {
+    font-size: 7px;
+  }
+  .ai-preview-bar {
+    padding: 12px;
+    gap: 7px;
+  }
+  .ai-preview-bar > span {
+    font-size: 9px;
+    gap: 6px;
+  }
+  .ai-preview-bar small {
+    font-size: 6px;
+  }
+  .ai-preview-bar svg {
+    width: 14px;
+  }
+  .engine-preview-body,
+  .chat-preview-body {
+    padding: 17px 14px;
+  }
+  .ai-preview-title h3,
+  .chat-preview-heading h3 {
+    font-size: 22px;
+  }
+  .ai-preview-title > span {
+    font-size: 6px;
+  }
+  .engine-preview-flow {
+    gap: 10px;
+    padding: 23px 0;
+  }
+  .engine-preview-flow > i {
+    width: 23px;
+  }
+  .engine-preview-flow > .engine-preview-core {
+    height: 53px;
+    width: 53px;
+    border-radius: 15px;
+  }
+  .engine-preview-steps strong {
+    font-size: 10px;
+  }
+  .engine-preview-steps small {
+    font-size: 8px;
+  }
+  .engine-preview-steps > div {
+    gap: 10px;
+    padding-block: 13px;
+  }
+  .ai-preview-footer {
+    padding-inline: 12px;
+    font-size: 5px;
+  }
+  .chat-preview-heading {
+    margin-bottom: 18px;
+  }
+  .chat-sample-question {
+    margin-left: 15px;
+    font-size: 10px;
+    padding: 11px;
+  }
+  .chat-sample-answer {
+    margin-right: 8px;
+    padding: 13px;
+  }
+  .chat-sample-answer p {
+    font-size: 10px;
+  }
+  .chat-human {
+    font-size: 8px;
+  }
+  .solution-product.visual-ai,
+  .solution-product.visual-chatbot {
+    min-height: 540px;
+  }
+  .service-detail-art > .ai-service-preview {
+    min-height: 440px;
+  }
+}
+@media (max-width: 359px) {
+  .business-hero {
+    min-height: 1080px;
+  }
+  .business-hero h1 {
+    font-size: 54px;
+  }
+  .business-hero-actions {
+    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .business-hero-art {
+    bottom: 27px;
+  }
+  .business-hero-footer > a:last-child {
+    display: none;
+  }
+  .business-story-intro h2 {
+    font-size: 42px;
+  }
+  .business-practice h3 {
+    font-size: 19px;
+  }
+  .signal-heading h2 {
+    font-size: 27px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .business-hero-art,
+  .business-hero-copy {
+    transform: none !important;
+  }
+}
+html[data-motion="off"] .business-hero-art,
+html[data-motion="off"] .business-hero-copy {
+  transform: none !important;
+}

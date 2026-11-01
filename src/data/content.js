@@ -6,7 +6,7 @@ export const site = {
   origin: "https://simptech-digital-studio.teethfast.chatgpt.site",
   contactEmail: "", // Add a verified public email to enable the email handoff.
   description:
-    "Distinctive websites. Connected business software. SimpTech designs and engineers CRM, ERP, analytics, commerce, and logistics platforms that move businesses forward.",
+    "SimpTech designs and develops distinctive websites, business dashboards, analytics, intelligent chatbots, AI engines, CRM, ERP, and connected business software.",
 };
 
 // Add only approved, attributable client quotes. The section appears automatically.

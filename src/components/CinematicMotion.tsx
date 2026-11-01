@@ -27,15 +27,17 @@ export function CinematicMotion() {
             });
             media.add("(min-width: 768px)", () => {
               gsap.utils
-                .toArray<HTMLElement>("[data-parallax]")
-                .forEach((element) => {
-                  gsap.to(element, {
-                    yPercent: 12,
+                .toArray<HTMLElement>(".showreel-card")
+                .forEach((element, index) => {
+                  gsap.from(element, {
+                    y: index % 2 ? 90 : 45,
+                    rotate: index % 2 ? 1.5 : -1.5,
+                    scale: 0.96,
                     ease: "none",
                     scrollTrigger: {
-                      trigger: element.parentElement,
-                      start: "top top",
-                      end: "bottom top",
+                      trigger: element,
+                      start: "top 95%",
+                      end: "top 30%",
                       scrub: 0.8,
                     },
                   });
@@ -44,13 +46,16 @@ export function CinematicMotion() {
                 .toArray<HTMLElement>("[data-image-reveal]")
                 .forEach((element) => {
                   gsap.from(element, {
-                    clipPath: "inset(8% 3% 8% 3%)",
-                    duration: 1.1,
-                    ease: "power2.out",
+                    clipPath: "inset(4% 2% 4% 2%)",
+                    scale: 0.92,
+                    y: 65,
+                    rotateX: 4,
+                    ease: "none",
                     scrollTrigger: {
                       trigger: element,
-                      start: "top 85%",
-                      once: true,
+                      start: "top 100%",
+                      end: "top 20%",
+                      scrub: 0.8,
                     },
                   });
                 });

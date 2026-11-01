@@ -27,7 +27,7 @@ const basePages = [
     path: "/services",
     title: "Software development services",
     description:
-      "Website development, CRM, ERP, dashboards and business analytics, e-commerce and order management, and inventory and logistics software.",
+      "Websites, dashboards, analytics, intelligent chatbots, AI engines, CRM, ERP, commerce, and inventory systems designed around your business.",
     component: Services,
   },
   {

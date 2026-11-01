@@ -80,11 +80,11 @@ export function IntelligenceStudio() {
             next step, and the right place to begin.
           </p>
           <p>
-            We explore how thoughtful AI interfaces could fit into your existing
+            We design AI assistants around your knowledge and existing
             workflows. Useful by design. Always with you in control.
           </p>
-          <TextLink href="/contact?service=workflow-automation">
-            Explore an idea with us
+          <TextLink href="/services/ai-engine-development">
+            Explore AI engine development
           </TextLink>
           <div className="intelligence-disclosure">
             <Icon name="sparkle" size={17} />

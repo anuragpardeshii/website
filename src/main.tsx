@@ -5,6 +5,7 @@ import "./tailwind.css";
 import "./styles.css";
 import "./cinematic.css";
 import "./intelligence.css";
+import "./business.css";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Missing app root");

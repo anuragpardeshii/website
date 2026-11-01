@@ -1,8 +1,8 @@
 # SimpTech
 
-A React + TypeScript + Vite company website with 32 prerendered pages, reusable software interface concepts, and accessible browser interactions.
+A React + TypeScript + Vite company website with 34 prerendered pages, reusable software interface concepts, and accessible browser interactions.
 
-Version 2 uses a black-on-black palette, silver typography, original filament artwork, and AI-focused interface storytelling. The homepage combines scroll-driven AI chapters, an animated signal field, hover-responsive surfaces, original dashboard scenes, an accessible six-service explorer, and an editorial delivery process. Shared neutral tokens carry the direction across all existing inner pages. React components use strict TypeScript; Tailwind CSS provides compositional utilities alongside the shared component styles.
+Version 2 uses a pure `#000000` canvas, off-white typography, and ember-colored generative AI artwork. It leads with the business offering: websites, dashboards, analytics, chatbots, AI engines, CRM, ERP, and connected operations. The homepage combines an original animated particle sculpture, an editorial capability index, scroll-linked typography and interface reveals, native-scroll AI chapters, an animated signal field, and interactive product concepts. Shared black surfaces carry the direction across the existing inner pages. React components use strict TypeScript; Tailwind CSS provides compositional utilities alongside shared styles.
 
 Version 2 is developed on the `version-2` branch. The reference at [Rightfit](https://www.rightfit.so/) informed spacing, visual restraint, and interface storytelling; SimpTech’s composition, copy, components, and interface concepts are original.
 
@@ -113,7 +113,7 @@ After building, run:
 npm test
 ```
 
-The browser verification script checks all 32 routes, page metadata, a single main heading, internal links, desktop/mobile overflow, and automated WCAG A/AA rules. It also checks image loading, solution-tab keyboard controls, connected-system selection, global motion pause/resume, reduced-motion preferences, keyboard navigation, the mobile services menu, project filtering, insight search and reset, FAQs, form validation, download contents, saved draft lifecycle, query parameter preselection, and the custom 404.
+The browser verification script checks all 34 routes, page metadata, a single main heading, internal links, desktop/mobile overflow, and automated WCAG A/AA rules. It also checks image loading, solution-tab keyboard controls, connected-system selection, global motion pause/resume, reduced-motion preferences, keyboard navigation, the mobile services menu, project filtering, insight search and reset, FAQs, form validation, download contents, saved draft lifecycle, query parameter preselection, and the custom 404.
 
 The script uses Google Chrome at `/usr/bin/google-chrome` by default. Set `SIMPTECH_CHROME` to another Chromium-compatible executable when needed. It starts a temporary localhost server and closes both the server and browser when complete. Reports and screenshots are written to ignored `test-results/`. Automated accessibility checks complement, rather than replace, assistive-technology and human review.
 
@@ -125,25 +125,29 @@ For another static host, serve extensionless routes from the corresponding `dist
 
 ## Assets and licenses
 
-The product interfaces, journal covers, logo, and animated signal field are built with HTML, CSS, and SVG in this repository. The architectural and silver filament images are original AI-generated artwork, served as optimized WebP files. The new sculpture's complete generation prompt and asset details are recorded in `public/media/CREDITS.txt`. `public/social-card.png` is the matching original share image. Lucide supplies interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
+The product interfaces, journal covers, logo, and animated signal field are built with HTML, CSS, and SVG in this repository. The particle engine is original Canvas and SVG artwork, generated in the browser without image or video downloads. The architectural and silver filament images elsewhere on the site are original AI-generated artwork, served as optimized WebP files. The new sculpture's complete generation prompt and asset details are recorded in `public/media/CREDITS.txt`. `public/social-card.png` is the matching original share image. Lucide supplies interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
 
 ## Version 2 design and interaction
 
 - `src/components/WorkspacePreview.tsx` supplies the homepage’s Business overview, Sales pipeline, and Operations tabs. Arrow keys, Home, and End update the selected interface and corresponding service link.
-- `src/components/SolutionExperiences.tsx` supplies the six-service explorer, interactive SVG systems diagram, and project previews.
+- `src/components/SolutionExperiences.tsx` supplies the eight-service explorer, interactive SVG systems diagram, and project previews.
 - `src/components/EnterpriseVisuals.tsx` contains the original website, CRM, ERP, analytics, commerce, and logistics concepts. All names, figures, and records are illustrative. Mobile previews prioritize readable key metrics and records.
-- `src/intelligence.css` defines the pure-black direction, responsive AI scenes, signal artwork, and interaction styling. `src/cinematic.css` supplies the editorial composition; `src/styles.css` retains shared inner-page components. Existing colors have been neutralized across the application.
+- `src/business.css` defines the business hero, capability index, typography sequence, and AI service previews. `src/intelligence.css` supplies responsive AI scenes, signal artwork, and interaction styling. `src/cinematic.css` supplies the editorial composition; `src/styles.css` retains shared inner-page components. Existing colors have been neutralized across the application.
 - `src/components/MotionSystem.tsx` provides motion preferences and pause controls. Content remains available in prerendered HTML; reduced-motion preferences and the pause control disable nonessential motion.
-- `src/components/CinematicHero.tsx` combines responsive original WebP sculpture artwork with Motion scroll parallax. `MotionSurface.tsx` adds spring-driven pointer depth and lighting to the hero, AI workspace, and assistant console; touch and reduced-motion visitors retain static surfaces.
+- `src/components/CinematicHero.tsx` leads with the business value and scroll-linked artwork. `NeuralEngine.tsx` renders the original ember particle sculpture with a procedural SVG fallback. `MotionSurface.tsx` adds spring-driven pointer depth and lighting to the AI workspace and assistant console.
+- `src/components/BusinessStory.tsx` presents four business practice areas and a scroll-driven typographic statement. All capability links point to working service pages.
+- `src/components/AIServicePreview.tsx` provides original AI-engine and customer-support interfaces. `src/data/solutions.js` includes dedicated chatbot and AI-engine services; navigation, the explorer, contact preselection, prerendering, and sitemap include them automatically.
 - `src/components/AIJourney.tsx` presents Connect, Understand, and Review chapters. On sufficiently large desktop viewports, native scrolling advances the chapters inside a sticky composition. Tabs and keyboard navigation remain available. Small screens, paused motion, and reduced motion use the same content without the extended scroll scene.
 - `src/components/SignalField.tsx` draws the original SVG connection artwork. Scroll progress reveals the filaments; particles and ambient motion run only while the scene is nearby and motion is enabled.
-- `src/components/CinematicMotion.tsx` lazily loads GSAP and ScrollTrigger for staggered headline reveals and image masking. Context cleanup handles navigation, pause, and preference changes. Motion (formerly Framer Motion) handles scroll scenes, spring interactions, interface transitions, and reveals without a duplicate animation dependency. Native scrolling is retained.
+- `src/components/CinematicMotion.tsx` lazily loads GSAP and ScrollTrigger for staggered headline reveals, scroll-linked interface perspective and masking, and project-preview parallax. Context cleanup handles navigation, pause, and preference changes. Motion (formerly Framer Motion) handles scroll scenes, spring interactions, interface transitions, and reveals without a duplicate animation dependency. Native scrolling is retained.
 - `src/components/IntelligenceStudio.tsx` contains three scripted, local-only AI interface explorations with accessible tabs and expandable sample action plans. Neither AI interface calls a model or executes business actions.
-- `scripts/social-card.mjs` generates the matching social image from local imagery, HTML, CSS, and the bundled Inter font. Run `npm run social-card` before building when changing the social design.
+- `scripts/social-card.mjs` generates the matching social image from original particle geometry, HTML, CSS, and the bundled Inter font. Run `npm run social-card` before building when changing the social design.
+
+The particle engine targets at most 30 frames per second, caps pixel density, uses fewer points on small screens, and stops when offscreen, the document is hidden, motion is paused, reduced motion is requested, or data saving is enabled. Reduced-motion users get the full content and a static artwork. The scene adds no 3D engine dependency. GSAP remains lazy-loaded; React and Motion use separate cacheable chunks. Hero art requires no media download, and supporting images remain lazy-loaded.
 
 The existing contact flow still validates the brief, supports an optional local draft, and downloads the brief. It does not submit inquiries to a backend. Existing service URLs, legacy routes, project and article URLs, metadata, and prerendering are retained.
 
-Verification includes desktop scroll chapters, keyboard and touch-accessible chapter tabs, sample review/reset, hover depth, offscreen particle suspension, motion pause/resume, mobile interface containment, and AI accessibility. It also covers existing route metadata, navigation, filtering, contact downloads, and local drafts. Screenshots and the JSON report are in ignored `test-results/`.
+Verification includes real canvas frame changes, complete pause/resume, pure-black page color, offscreen suspension, both new service destinations, desktop scroll chapters, keyboard and touch-accessible chapter tabs, sample review/reset, hover depth, offscreen particle suspension, motion pause/resume, mobile interface containment, and AI accessibility. It also covers existing route metadata, navigation, filtering, contact downloads, and local drafts. Screenshots and the JSON report are in ignored `test-results/`.
 
 ### Original artwork
 

@@ -28,7 +28,7 @@ export function SolutionExplorer() {
     <section className="solutions-showcase" id="solutions">
       <div className="container">
         <Reveal className="editorial-section-heading">
-          <Eyebrow>SIX CAPABILITIES. ONE DEVELOPMENT PARTNER.</Eyebrow>
+          <Eyebrow>YOUR BUSINESS. OUR FULL ATTENTION.</Eyebrow>
           <div>
             <h2>
               Good software starts

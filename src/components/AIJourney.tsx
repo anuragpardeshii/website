@@ -308,7 +308,7 @@ export function AIJourney() {
             <h3>{chapter.title}</h3>
             <p>{chapter.description}</p>
           </div>
-          <TextLink href="/contact?service=workflow-automation">
+          <TextLink href="/contact?service=ai-engine-development">
             Let's shape your AI system
           </TextLink>
           <div className="journey-scroll-note">

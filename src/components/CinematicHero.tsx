@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { Button, Icon } from "./ui";
 import { useSiteMotion } from "./MotionSystem";
-import { MotionSurface } from "./MotionSurface";
+import { NeuralEngine } from "./NeuralEngine";
 
 export function CinematicHero() {
   const ref = useRef<HTMLElement>(null);
@@ -11,97 +11,76 @@ export function CinematicHero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 110]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 12]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.82]);
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   return (
-    <section
-      ref={ref}
-      className="cinema-hero black-hero"
-      aria-labelledby="hero-title"
-    >
+    <section ref={ref} className="business-hero" aria-labelledby="hero-title">
+      <div className="container business-hero-top">
+        <span>
+          <i /> SIMPTECH — DESIGN & TECHNOLOGY
+        </span>
+        <span>BUILT WITH INTENT. MADE TO MATTER.</span>
+      </div>
       <motion.div
-        className="hero-scroll-art"
-        style={disabled ? {} : { y, scale }}
-        aria-hidden="true"
+        className="business-hero-art"
+        style={disabled ? {} : { y, rotate, scale }}
       >
-        <MotionSurface className="hero-intelligence-art">
-          <picture>
-            <source
-              media="(max-width: 767px)"
-              srcSet="/media/intelligence-sculpture-mobile.webp"
-            />
-            <img
-              src="/media/intelligence-sculpture.webp"
-              alt=""
-              width="1536"
-              height="1024"
-              fetchPriority="high"
-            />
-          </picture>
-          <div className="hero-coordinate-lines">
-            <i />
-            <i />
+        <NeuralEngine />
+        <div className="engine-coordinate">
+          <span>01 / INTELLIGENCE IN MOTION</span>
+          <span>AN ORIGINAL GENERATIVE STUDY</span>
+        </div>
+        <div className="engine-cross cross-a">+</div>
+        <div className="engine-cross cross-b">+</div>
+      </motion.div>
+      <div className="container business-hero-main">
+        <motion.div
+          className="business-hero-copy"
+          style={disabled ? {} : { y: titleY }}
+        >
+          <div className="hero-overline">
+            <span>FOR AMBITIOUS BUSINESSES</span>
             <i />
           </div>
-        </MotionSurface>
-      </motion.div>
-      <div className="cinema-hero-shade" aria-hidden="true" />
-      <div className="container cinema-hero-content">
-        <div className="cinema-eyeline flex items-center justify-between gap-4">
-          <span>
-            <i /> SIMPTECH / DIGITAL SYSTEMS STUDIO
-          </span>
-          <span className="hidden md:block">
-            DESIGNED FOR PEOPLE. BUILT FOR POSSIBILITY.
-          </span>
-        </div>
-        <h1 id="hero-title">
-          <span className="hero-line">
-            <span data-hero-line>Intelligence.</span>
-          </span>
-          <span className="hero-line">
-            <span data-hero-line>
-              Made <em>useful.</em>
+          <h1 id="hero-title">
+            <span className="hero-line">
+              <span data-hero-line>Built to move</span>
             </span>
-          </span>
-        </h1>
-        <div className="cinema-hero-bottom">
+            <span className="hero-line">
+              <span data-hero-line>business</span>
+            </span>
+            <span className="hero-line">
+              <span data-hero-line>
+                <em>forward.</em>
+              </span>
+            </span>
+          </h1>
           <p>
-            AI systems. Thoughtful websites. Connected software.
+            Exceptional websites. Connected dashboards.
+            <br className="desktop-break" /> AI that works for your business.
             <br />
-            Built to make your business work better.
+            <span>Designed with passion. Engineered with purpose.</span>
           </p>
-          <div className="cinema-actions flex flex-wrap items-center gap-6">
+          <div className="business-hero-actions">
             <Button href="/contact" icon="diagonal">
-              Start a project
+              Let’s build your next chapter
             </Button>
-            <a href="#intelligence-flow" className="cinema-work-link">
-              Explore AI systems <Icon name="arrow" size={17} />
+            <a href="#business-solutions">
+              Explore what we build <Icon name="arrow" size={17} />
             </a>
           </div>
-        </div>
-        <MotionSurface className="hero-node">
-          <div className="hero-node-top">
-            <Icon name="sparkle" size={16} />
-            <span>THE INTELLIGENCE LAYER</span>
-            <i />
-          </div>
-          <strong>Everything, in context.</strong>
-          <div className="hero-node-flow">
-            <span>Knowledge</span>
-            <Icon name="arrow" size={12} />
-            <span>Reasoning</span>
-            <Icon name="arrow" size={12} />
-            <span>Review</span>
-          </div>
-          <small>AN ORIGINAL SYSTEM CONCEPT</small>
-        </MotionSurface>
-        <div className="cinema-hero-footer flex items-center justify-between gap-4">
-          <a href="#intelligence-flow">
-            Discover what connects us <span>↓</span>
-          </a>
-          <span>SCROLL TO EXPLORE</span>
-        </div>
+        </motion.div>
+      </div>
+      <div className="container business-hero-footer">
+        <a href="#business-solutions">
+          <span className="hero-scroll-icon">↓</span> SCROLL INTO POSSIBILITY
+        </a>
+        <span>WEBSITES / SOFTWARE / INTELLIGENCE</span>
+        <a href="/approach">
+          THE SIMPTECH APPROACH <Icon name="diagonal" size={13} />
+        </a>
       </div>
     </section>
   );

@@ -23,11 +23,11 @@ export function SignalField() {
       data-active={active}
     >
       <div className="container signal-heading">
-        <Eyebrow>INTELLIGENCE IS A CONNECTION.</Eyebrow>
+        <Eyebrow>A LITTLE INTELLIGENCE. A LOT OF POSSIBILITY.</Eyebrow>
         <h2 id="signal-title">
-          From scattered signals.
+          Intelligence, in motion.
           <br />
-          <span>To a shared understanding.</span>
+          <span>Purpose, in every connection.</span>
         </h2>
       </div>
       <motion.div
@@ -44,7 +44,7 @@ export function SignalField() {
                 key={i}
                 d={`M0 ${y} C280 ${y}, 340 ${middle}, 600 ${middle} S930 ${340 - y},1200 ${340 - y}`}
                 fill="none"
-                stroke={i % 5 === 0 ? "#999" : "#303030"}
+                stroke={i % 5 === 0 ? "#ff794b" : "#542216"}
                 strokeWidth={i % 5 === 0 ? 1 : 0.6}
                 style={{ pathLength: disabled ? 1 : pathLength }}
               />
@@ -58,7 +58,7 @@ export function SignalField() {
                 cx="0"
                 cy="0"
                 r="2"
-                fill="white"
+                fill="#ffc3a5"
               >
                 <animateMotion
                   dur={`${7 + i * 2}s`}

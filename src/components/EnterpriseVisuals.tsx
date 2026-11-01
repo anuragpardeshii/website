@@ -1,3 +1,4 @@
+import { AIServicePreview } from "./AIServicePreview";
 import { Icon } from "./ui";
 
 function ProductBar({ name }: { name: string }) {
@@ -261,6 +262,8 @@ function OperationsBody({ logistics = false, commerce = false }) {
   );
 }
 export function SystemPreview({ mode = "analytics", className = "" }) {
+  if (mode === "ai" || mode === "chatbot")
+    return <AIServicePreview mode={mode} className={className} />;
   const names: Record<string, string> = {
     crm: "Orbit",
     erp: "Nexus",

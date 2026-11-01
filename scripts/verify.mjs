@@ -295,6 +295,8 @@ try {
     ["Dashboards & Business Analytics", "business-analytics"],
     ["E-commerce & Order Management", "ecommerce-development"],
     ["Inventory & Logistics Management", "inventory-logistics"],
+    ["AI Engine Development", "ai-engine-development"],
+    ["Intelligent Chatbots", "chatbot-development"],
   ]) {
     await page.getByRole("tab", { name: new RegExp(label) }).click();
     await page.waitForFunction(
@@ -344,7 +346,7 @@ try {
       });
   }
   report.interactions.push(
-    "All six mobile solution previews, destination links, and accessibility checks",
+    "All eight mobile solution previews, destination links, and accessibility checks",
   );
   await page.getByRole("button", { name: "Logistics", exact: true }).click();
   assert(
@@ -531,6 +533,54 @@ try {
   );
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForFunction(
+    () => document.querySelector(".neural-engine")?.dataset.running === "true",
+  );
+  const liveFrame = await page
+    .locator(".neural-engine canvas")
+    .evaluate((el) => el.toDataURL());
+  await page.waitForTimeout(180);
+  assert.notEqual(
+    await page
+      .locator(".neural-engine canvas")
+      .evaluate((el) => el.toDataURL()),
+    liveFrame,
+    "AI engine renders changing frames",
+  );
+  await page
+    .getByRole("button", { name: "Pause animations", exact: true })
+    .click();
+  await page.waitForFunction(
+    () => document.querySelector(".neural-engine")?.dataset.running === "false",
+  );
+  const pausedFrame = await page
+    .locator(".neural-engine canvas")
+    .evaluate((el) => el.toDataURL());
+  await page.waitForTimeout(180);
+  assert.equal(
+    await page
+      .locator(".neural-engine canvas")
+      .evaluate((el) => el.toDataURL()),
+    pausedFrame,
+    "Paused engine is genuinely static",
+  );
+  assert.equal(
+    await page
+      .locator("body")
+      .evaluate((el) => getComputedStyle(el).backgroundColor),
+    "rgb(0, 0, 0)",
+    "Pure black page canvas",
+  );
+  await page
+    .getByRole("button", { name: "Enable animations", exact: true })
+    .click();
+  await page.waitForFunction(
+    () => document.querySelector(".neural-engine")?.dataset.running === "true",
+  );
+  report.interactions.push(
+    "Generative AI engine changes frames, pauses completely, resumes and uses a pure black page canvas",
+  );
   await page.waitForFunction(
     () =>
       document
@@ -561,6 +611,11 @@ try {
       "Sticky AI interface stays visible during scroll",
     );
   }
+  assert.equal(
+    await page.locator(".neural-engine").getAttribute("data-running"),
+    "false",
+    "Offscreen AI engine stops rendering",
+  );
   await page.locator(".journey-browser").hover({ position: { x: 40, y: 50 } });
   await page.waitForFunction(() =>
     document
@@ -639,6 +694,19 @@ try {
       null,
   );
   report.interactions.push("FAQ category filter and keyboard accordion");
+  await page.goto(base + "/contact?service=chatbot-development");
+  assert.equal(
+    await page.getByLabel("I’m interested in").inputValue(),
+    "chatbot-development",
+  );
+  await page.goto(base + "/contact?service=ai-engine-development");
+  assert.equal(
+    await page.getByLabel("I’m interested in").inputValue(),
+    "ai-engine-development",
+  );
+  report.interactions.push(
+    "Chatbot and AI engine service destinations preselect the correct project brief",
+  );
   await page.goto(base + "/contact?service=web-applications");
   assert.equal(
     await page.locator('select[name="service"]').inputValue(),
