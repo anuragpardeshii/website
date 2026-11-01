@@ -229,6 +229,38 @@ try {
   assert(page.url().includes("/services/website-development"));
   report.interactions.push("Mobile navigation and service destination");
   await page.goto(base + "/");
+  const overviewTab = page.getByRole("tab", {
+    name: "Business overview",
+    exact: true,
+  });
+  await overviewTab.focus();
+  await page.keyboard.press("ArrowRight");
+  await page
+    .getByRole("tabpanel", { name: "Sales pipeline", exact: true })
+    .getByRole("img", { name: /Orbit crm interface concept/ })
+    .waitFor();
+  assert.equal(
+    await page.locator(".workspace-caption a").getAttribute("href"),
+    "/services/crm-development",
+  );
+  await page.keyboard.press("End");
+  await page
+    .getByRole("tabpanel", { name: "Operations", exact: true })
+    .getByRole("img", { name: /Nexus erp interface concept/ })
+    .waitFor();
+  assert.equal(
+    await page.locator(".workspace-caption a").getAttribute("href"),
+    "/services/erp-development",
+  );
+  await page.keyboard.press("Home");
+  await page
+    .getByRole("tabpanel", { name: "Business overview", exact: true })
+    .getByRole("img", { name: /Meridian analytics interface concept/ })
+    .waitFor();
+  assert.equal(await overviewTab.getAttribute("aria-selected"), "true");
+  report.interactions.push(
+    "Hero workspace keyboard controls switch previews and service destinations",
+  );
   const initialTab = page.getByRole("tab", { name: /CRM Development/ });
   await initialTab.focus();
   await page.keyboard.press("ArrowDown");
@@ -245,6 +277,64 @@ try {
       .getByRole("tab", { name: /Website Development/ })
       .getAttribute("aria-selected"),
     "true",
+  );
+  for (const [label, slug] of [
+    ["Website Development", "website-development"],
+    ["CRM Development", "crm-development"],
+    ["ERP Development", "erp-development"],
+    ["Dashboards & Business Analytics", "business-analytics"],
+    ["E-commerce & Order Management", "ecommerce-development"],
+    ["Inventory & Logistics Management", "inventory-logistics"],
+  ]) {
+    await page.getByRole("tab", { name: new RegExp(label) }).click();
+    await page.waitForFunction(
+      (href) =>
+        document.querySelector("#solution-panel a")?.getAttribute("href") ===
+        href,
+      `/services/${slug}`,
+    );
+    assert.equal(await page.locator("#solution-panel [role=img]").count(), 1);
+    assert(
+      await page.locator(".solution-product").evaluate((frame) => {
+        const preview = frame
+          .querySelector(".solution-product-window")
+          .getBoundingClientRect();
+        const bounds = frame.getBoundingClientRect();
+        return (
+          preview.bottom <= bounds.bottom + 1 &&
+          preview.right <= bounds.right + 1
+        );
+      }),
+      `Mobile ${label} preview is fully contained in its frame`,
+    );
+    assert(
+      !(await page.evaluate(
+        () => document.documentElement.scrollWidth > innerWidth,
+      )),
+      `Mobile ${label} fits`,
+    );
+    await page
+      .locator(".solution-stage")
+      .screenshot({ path: resolve(output, `${slug}-mobile.png`) });
+    const result = await new AxeBuilder({ page })
+      .include(".solution-explorer")
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .analyze();
+    if (result.violations.length)
+      report.accessibility.push({
+        path: `/#solutions/${slug} (mobile)`,
+        violations: result.violations.map((v) => ({
+          id: v.id,
+          nodes: v.nodes.map((n) => ({
+            target: n.target,
+            html: n.html,
+            summary: n.failureSummary,
+          })),
+        })),
+      });
+  }
+  report.interactions.push(
+    "All six mobile solution previews, destination links, and accessibility checks",
   );
   await page.getByRole("button", { name: "Logistics", exact: true }).click();
   assert(

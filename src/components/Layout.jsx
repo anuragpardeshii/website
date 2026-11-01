@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { services, site } from "../data/content";
 import { MotionToggle, Reveal, ScrollProgress } from "./MotionSystem";
-import { Button, Icon, Logo, TextLink } from "./ui";
+import { Button, Eyebrow, Icon, Logo, TextLink } from "./ui";
 
 const companyLinks = [
   { href: "/about", label: "About SimpTech", detail: "Our point of view" },
@@ -119,7 +119,7 @@ export function Header({ path }) {
                   : ""
               }
             >
-              Studio
+              About
               <Icon name="chevron" size={14} />
             </summary>
             <div className="company-menu">
@@ -139,7 +139,7 @@ export function Header({ path }) {
           </a>
           <MotionToggle />
           <Button className="nav-cta" href="/contact" icon="diagonal">
-            Let’s talk
+            Start a project
           </Button>
         </nav>
       </div>
@@ -151,32 +151,25 @@ export function ContactCTA() {
   return (
     <section className="contact-cta">
       <div className="container">
-        <div className="cta-label">
-          <span>YOUR NEXT CHAPTER STARTS HERE.</span>
-          <span>LET’S MAKE IT HAPPEN ↙</span>
-        </div>
-        <Reveal className="cta-editorial">
+        <Reveal className="v2-cta-content">
+          <Eyebrow>LET’S MAKE SOMETHING USEFUL</Eyebrow>
           <h2>
-            What’s your
+            Your next chapter.
             <br />
-            <span>next big move?</span>
+            <span>Built together.</span>
           </h2>
-          <a
-            className="cta-big-arrow"
-            href="/contact"
-            aria-label="Start a project with SimpTech"
-          >
-            <Icon name="diagonal" size={64} />
-          </a>
-        </Reveal>
-        <div className="cta-bottom">
           <p>
-            A bold idea. A complex challenge. A better way to work.
-            <br />
-            We’d love to hear what you have in mind.
+            A better website. A smarter workflow. A new idea.
+            <br /> Tell us what you have in mind. We’ll help you find a way
+            forward.
           </p>
-          <TextLink href="/contact">Start a conversation</TextLink>
-        </div>
+          <Button href="/contact" icon="diagonal">
+            Start a project
+          </Button>
+          <span className="cta-small-note">
+            A conversation is a good place to start.
+          </span>
+        </Reveal>
       </div>
     </section>
   );
@@ -232,7 +225,7 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-wordmark" aria-hidden="true">
-          simptech<span>®</span>
+          simptech<span>.</span>
         </div>
         <div className="footer-bottom">
           <span>

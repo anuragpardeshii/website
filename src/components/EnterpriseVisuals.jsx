@@ -9,7 +9,7 @@ function ProductBar({ name }) {
         <small>WORKSPACE</small>
       </div>
       <div className="enterprise-top-right">
-        <span>⌘ K</span>
+        <span>DEMO</span>
         <i />
         <span className="enterprise-avatar">JD</span>
       </div>
@@ -71,23 +71,23 @@ function AnalyticsBody() {
             Previous period
           </span>
         </div>
-        <svg viewBox="0 0 600 170" aria-hidden="true">
-          <path d="M0 30H600M0 80H600M0 130H600" stroke="#e8edf3" fill="none" />
+        <svg viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 30H600M0 80H600M0 130H600" stroke="#29303c" fill="none" />
           <path
             d="M0 150 35 125 70 133 110 92 150 105 195 75 240 86 275 49 320 58 355 34 395 57 440 21 480 31 525 9 565 18 600 0V170H0Z"
-            fill="#edf3ff"
+            fill="#122647"
           />
           <path
             d="M0 150 35 125 70 133 110 92 150 105 195 75 240 86 275 49 320 58 355 34 395 57 440 21 480 31 525 9 565 18 600 0"
             fill="none"
-            stroke="#185bf1"
+            stroke="#5d8dff"
             strokeWidth="3"
             strokeLinejoin="round"
           />
           <path
             d="M0 158 60 145 120 149 180 125 240 135 300 104 360 112 420 94 480 105 540 80 600 87"
             fill="none"
-            stroke="#aebfdc"
+            stroke="#626f84"
             strokeWidth="2"
             strokeDasharray="6 5"
           />

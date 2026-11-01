@@ -19,7 +19,7 @@ import { FAQ, NotFound, Policy, Sitemap } from "./pages/Utility";
 const basePages = [
   {
     path: "/",
-    title: "Ambition, meet execution",
+    title: "Better websites. Smarter business software.",
     description: site.description,
     component: Home,
   },

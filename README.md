@@ -1,6 +1,10 @@
 # SimpTech
 
-A complete React + Vite company website with 32 pre-rendered pages, original generated artwork and product interfaces, and reusable components. The redesigned visual direction uses a white canvas, electric cobalt, oversized Inter typography, original architectural imagery, editorial layouts, and a dark interactive systems section. Motion for React (Framer Motion) drives scroll reveals, parallax, magnetic links, and animated capability transitions. No stock template, copied brand artwork, external font request, or AI API is required.
+A React + Vite company website with 32 prerendered pages, reusable software interface concepts, and accessible browser interactions.
+
+Version 2 uses a dark graphite design system with off-white typography and cobalt accents. The homepage introduces SimpTech through a keyboard-accessible workspace preview, selected project concepts, six service tabs, a connected-systems diagram, the delivery process, and FAQs. Shared styles carry the design across service, project, company, insights, and contact pages.
+
+Version 2 is developed on the `version-2` branch. The reference at [Rightfit](https://www.rightfit.so/) informed spacing, visual restraint, and interface storytelling; SimpTech’s composition, copy, components, and interface concepts are original.
 
 ## Run locally
 
@@ -22,21 +26,21 @@ npm run preview
 
 ## Edit the website
 
-| What to change                                                   | Where                                                                       |
-| ---------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Company name, description, deployed origin, public contact email | `src/data/content.js` → `site`                                              |
-| Services and their detail pages                                  | `src/data/solutions.js` → `solutions`                                       |
-| Project concepts and detail stories                              | `src/data/content.js` → `projects`                                          |
-| Articles and full article text                                   | `src/data/content.js` → `articles`                                          |
-| Approved client testimonials                                     | `src/data/content.js` → `testimonials`                                      |
-| FAQs, process steps, and industry content                        | `src/data/content.js`                                                       |
-| Homepage composition and main headline                           | `src/pages/Home.jsx`                                                        |
-| Navbar, footer, and shared contact CTA                           | `src/components/Layout.jsx`                                                 |
-| Buttons, headings, icons, and accordion                          | `src/components/ui.jsx`                                                     |
-| Product interfaces and journal covers                            | `src/components/EnterpriseVisuals.jsx`, `src/components/ProductVisuals.jsx` |
-| Colors, typography, spacing, and responsive rules                | `src/redesign.css` (new visual system), `src/styles.css` (base styles)      |
-| Routing and page search metadata                                 | `src/App.jsx`                                                               |
-| Production pre-rendering                                         | `scripts/prerender.mjs`                                                     |
+| What to change                                                   | Where                                                                                                              |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Company name, description, deployed origin, public contact email | `src/data/content.js` → `site`                                                                                     |
+| Services and their detail pages                                  | `src/data/solutions.js` → `solutions`                                                                              |
+| Project concepts and detail stories                              | `src/data/content.js` → `projects`                                                                                 |
+| Articles and full article text                                   | `src/data/content.js` → `articles`                                                                                 |
+| Approved client testimonials                                     | `src/data/content.js` → `testimonials`                                                                             |
+| FAQs, process steps, and industry content                        | `src/data/content.js`                                                                                              |
+| Homepage composition and main headline                           | `src/pages/Home.jsx`                                                                                               |
+| Navbar, footer, and shared contact CTA                           | `src/components/Layout.jsx`                                                                                        |
+| Buttons, headings, icons, and accordion                          | `src/components/ui.jsx`                                                                                            |
+| Product interfaces and journal covers                            | `src/components/WorkspacePreview.jsx`, `src/components/EnterpriseVisuals.jsx`, `src/components/ProductVisuals.jsx` |
+| Colors, typography, spacing, and responsive rules                | `src/styles.css` (consolidated shared design system)                                                               |
+| Routing and page search metadata                                 | `src/App.jsx`                                                                                                      |
+| Production pre-rendering                                         | `scripts/prerender.mjs`                                                                                            |
 
 The content arrays generate their corresponding detail routes automatically. To add a service, project, or article, copy an existing object, choose a unique slug, and update its content. Rebuild to generate the new HTML and sitemap entry. For a new standalone page, add a React component and register it in `basePages` in `src/App.jsx`.
 
@@ -121,18 +125,20 @@ For another static host, serve extensionless routes from the corresponding `dist
 
 ## Assets and licenses
 
-The product interfaces, journal covers, and logo are built with HTML, CSS, and SVG in this repository. The connected-systems wireframe is drawn with Canvas. The two architectural images are original AI-generated artwork, converted to WebP without visual edits. `public/social-card.png` is the original share image. Lucide supplies the interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
+The product interfaces, journal covers, and logo are built with HTML, CSS, and SVG in this repository. The connected-systems diagram uses SVG with accessible HTML buttons. The two architectural images are original AI-generated artwork, converted to WebP without visual edits. `public/social-card.png` is the original share image. Lucide supplies the interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
 
-## Redesigned experience
+## Version 2 design and interaction
 
-The six primary solution pages are Website Development; CRM; ERP; Dashboards & Business Analytics; E-commerce & Order Management; and Inventory & Logistics Management. The earlier `/services/web-applications`, `/services/admin-dashboards`, `/services/saas-products`, and `/services/workflow-automation` pages remain available, including existing contact deep links.
+- `src/components/WorkspacePreview.jsx` supplies the homepage’s Business overview, Sales pipeline, and Operations tabs. Arrow keys, Home, and End update the selected interface and corresponding service link.
+- `src/components/SolutionExperiences.jsx` supplies the six-service explorer, interactive SVG systems diagram, and project previews.
+- `src/components/EnterpriseVisuals.jsx` contains the original website, CRM, ERP, analytics, commerce, and logistics concepts. All names, figures, and records are illustrative. Mobile previews prioritize readable key metrics and records.
+- `src/styles.css` contains the consolidated layout, dark surface tokens, component styles, and responsive rules. The previous `redesign.css` layer was merged into this stylesheet and unused selectors removed.
+- `src/components/MotionSystem.jsx` provides the motion preference and pause controls. Content remains available in prerendered HTML; reduced-motion preferences and the site’s pause control disable nonessential motion.
+- `scripts/social-card.mjs` generates the matching social image from HTML, CSS, and SVG with the bundled Inter font. Run `npm run social-card` before building when changing the social design.
 
-- `src/components/SolutionExperiences.jsx` contains the keyboard-accessible six-tab explorer, the interactive connected-systems story, and the original project showcase.
-- `src/components/MotionSystem.jsx` contains the shared motion provider, pause control, scroll progress, viewport reveals, magnetic links, parallax media, and real-time wireframe renderer.
-- `src/components/EnterpriseVisuals.jsx` contains reusable website, CRM, ERP, analytics, commerce, and logistics interface concepts. All data is illustrative.
-- `src/redesign.css` is the new design layer. Its sections cover the homepage, product interfaces, editorial content, inner pages, and responsive breakpoints.
+The existing contact flow still validates the brief, supports an optional local draft, and downloads the brief. It does not submit inquiries to a backend. Existing service URLs, legacy routes, project and article URLs, metadata, and prerendering are retained.
 
-All core content is present in the rendered HTML. The operating-system reduced-motion preference disables continuous animation and parallax; the navigation also provides an explicit pause/resume control. The canvas suspends animation outside the viewport and when the document is hidden. The interactive solution tabs do not auto-advance. Page transitions use native links so URLs, history, open-in-new-tab, and pre-rendered SEO remain predictable.
+Verification includes the new workspace keyboard navigation and service destinations in addition to the route, accessibility, filtering, navigation, download, and draft checks described above. Screenshots and the JSON report are in ignored `test-results/`.
 
 ### Original artwork
 
@@ -143,4 +149,4 @@ The built-in image generation tool created two original images for this redesign
 | `public/images/connected-architecture.webp` | Wide 16:9 premium editorial architectural artwork. A refined photorealistic modular sculpture made from translucent cobalt glass, matte ultramarine blocks, clear optical glass fins, and brushed aluminium connection bridges. Three tiers with an open rectangular portal, pale blue-white ground, long directional afternoon shadows, elevated three-quarter 70 mm perspective. High-end industrial photography. No people, text, logos, screens, dashboards, floating icons, spheres, purple gradients, or sci-fi neon. |
 | `public/images/logistics-architecture.webp` | Original premium editorial architectural photograph of a modern, spacious fulfillment center. Tall blue steel shelving, beige cartons, a blue autonomous mobile robot in the foreground, strong daylight through clerestory windows, and an elevated view down a long central aisle. Cobalt, white, charcoal, and beige palette. No people, text, logos, or brand marks. Leave space in the upper left for an editorial overlay.                                                                                            |
 
-These assets are approximately 178 KB and 301 KB. `public/social-card.png` is generated locally from the new hero artwork and typography using `npm run social-card`. The original full-resolution generated PNGs remain in the local image-generation output directory; the site serves only the optimized WebP files.
+These assets are approximately 178 KB and 301 KB. `public/social-card.png` is generated locally from the version 2 typography and original interface illustration using `npm run social-card`. The original full-resolution generated PNGs remain in the local image-generation output directory; the site serves only the optimized WebP files.

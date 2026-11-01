@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { services } from "../data/content";
 import { SystemPreview } from "./EnterpriseVisuals";
-import { OrbitCanvas, Reveal, useSiteMotion } from "./MotionSystem";
+import { Reveal, useSiteMotion } from "./MotionSystem";
 import { Eyebrow, Icon, TextLink } from "./ui";
 
 export function SolutionExplorer() {
@@ -27,12 +27,12 @@ export function SolutionExplorer() {
     <section className="solutions-showcase" id="solutions">
       <div className="container">
         <Reveal className="editorial-section-heading">
-          <Eyebrow>01 / WHAT WE BUILD</Eyebrow>
+          <Eyebrow>SIX CAPABILITIES. ONE DEVELOPMENT PARTNER.</Eyebrow>
           <div>
             <h2>
-              Built around your business.
+              Good software starts
               <br />
-              <span className="quiet-text">Not the other way around.</span>
+              <span className="quiet-text">with your business.</span>
             </h2>
             <p>
               Exceptional websites. Connected operations. One development
@@ -97,7 +97,7 @@ export function SolutionExplorer() {
                 <div className="solution-stage-copy">
                   <div>
                     <h3>{service.short}</h3>
-                    <p>{service.description}</p>
+                    <p>{service.problem}</p>
                   </div>
                   <TextLink href={`/services/${service.slug}`}>
                     Explore {service.label}
@@ -167,7 +167,7 @@ export function ConnectedSystems() {
     <section className="connected-section">
       <div className="container">
         <div className="connected-top">
-          <Eyebrow light>02 / THE BIGGER PICTURE</Eyebrow>
+          <Eyebrow light>THE SPACE BETWEEN YOUR SYSTEMS</Eyebrow>
           <span>
             <i />
             BUILT TO WORK TOGETHER
@@ -176,11 +176,9 @@ export function ConnectedSystems() {
         <div className="connected-layout">
           <Reveal className="connected-copy">
             <h2>
-              Great software
+              Separate systems.
               <br />
-              connects.
-              <br />
-              <span>Everything.</span>
+              <span>Shared possibilities.</span>
             </h2>
             <p>
               Your customers. Your people. Your operations. We build the
@@ -189,7 +187,30 @@ export function ConnectedSystems() {
             <TextLink href="/approach">Discover our approach</TextLink>
           </Reveal>
           <div className="connected-interactive">
-            <OrbitCanvas active={active} />
+            <div className="system-map" aria-hidden="true">
+              <svg viewBox="0 0 600 400" preserveAspectRatio="none">
+                <path d="M300 200V70H150M300 200V70H450M300 200H80M300 200H520M300 200V330H150M300 200V330H450" />
+                {[
+                  "M300 200V70H150",
+                  "M300 200V70H450",
+                  "M300 200H520",
+                  "M300 200V330H450",
+                  "M300 200V330H150",
+                  "M300 200H80",
+                ].map((path, i) => (
+                  <path
+                    key={path}
+                    d={path}
+                    className={active === i ? "map-active" : "map-hidden"}
+                  />
+                ))}
+              </svg>
+              <div className="system-map-core">
+                <Icon name="layers" size={26} />
+                <strong>One business.</strong>
+                <span>Connected by design.</span>
+              </div>
+            </div>
             <div
               className="orbit-service-buttons"
               aria-label="Explore connected business systems"
@@ -250,14 +271,6 @@ const work = [
     mode: "analytics",
     className: "project-analytics",
   },
-  {
-    name: "Atlas",
-    slug: "atlas-logistics",
-    tag: "INVENTORY / LOGISTICS",
-    title: "A business that keeps moving.",
-    mode: "logistics",
-    className: "project-logistics",
-  },
 ];
 export function ProjectShowreel() {
   return (
@@ -265,14 +278,14 @@ export function ProjectShowreel() {
       <div className="container">
         <Reveal className="work-section-heading">
           <div>
-            <Eyebrow>03 / IDEAS, ENGINEERED</Eyebrow>
+            <Eyebrow>SELECTED EXPLORATIONS</Eyebrow>
             <h2>
-              Proof of thinking.
+              A closer look at
               <br />
-              <span className="quiet-text">Possibilities in practice.</span>
+              <span className="quiet-text">what’s possible.</span>
             </h2>
           </div>
-          <TextLink href="/work">Explore our work</TextLink>
+          <TextLink href="/work">View all projects</TextLink>
         </Reveal>
         <div className="showreel-grid">
           {work.map((p, i) => (
@@ -287,10 +300,7 @@ export function ProjectShowreel() {
                 aria-label={`Explore ${p.name} concept`}
               >
                 <div className="showreel-image-header">
-                  <span>
-                    {p.name}
-                    <sup>®</sup>
-                  </span>
+                  <span>{p.name}</span>
                   <small>PRODUCT CONCEPT / 0{i + 1}</small>
                 </div>
                 {p.mode === "logistics" ? (

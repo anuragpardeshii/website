@@ -1,267 +1,140 @@
-import { faqs, steps } from "../data/content";
-import { HeroHoverGrid } from "../components/HeroHoverGrid";
-import { InsightsSection, PartnershipSection } from "../components/Sections";
+import { faqs } from "../data/content";
+import { WorkspacePreview } from "../components/WorkspacePreview";
 import {
   ConnectedSystems,
   ProjectShowreel,
   SolutionExplorer,
 } from "../components/SolutionExperiences";
-import {
-  MagneticLink,
-  ParallaxMedia,
-  Reveal,
-} from "../components/MotionSystem";
-import { Eyebrow, FAQList, Icon, TextLink } from "../components/ui";
+import { Reveal } from "../components/MotionSystem";
+import { Button, Eyebrow, FAQList, Icon, TextLink } from "../components/ui";
 
-const differences = [
-  [
-    "target",
-    "Business first. Always.",
-    "We connect every design and engineering decision to the way your business actually works.",
-  ],
-  [
-    "sparkle",
-    "Design with a point of view.",
-    "Distinctive on the outside. Intuitive on the inside. Experiences people understand and remember.",
-  ],
-  [
-    "code",
-    "Built beyond the launch.",
-    "Clear architecture, considered integrations, and maintainable code give your next chapter room to grow.",
-  ],
-  [
-    "handshake",
-    "A partner in your corner.",
-    "Direct conversations, visible progress, and shared ownership. You stay part of the process.",
-  ],
+const process = [
+  {
+    icon: "search",
+    title: "Understand the problem",
+    text: "We map your goals, your users, and the way your business works.",
+    output: "01 / DISCOVERY",
+  },
+  {
+    icon: "layout",
+    title: "Make it tangible",
+    text: "Explore real screens and test the important journeys before we build.",
+    output: "02 / DESIGN",
+  },
+  {
+    icon: "code",
+    title: "Build it together",
+    text: "Working software, regular demos, and a clear view of what comes next.",
+    output: "03 / DEVELOPMENT",
+  },
+  {
+    icon: "diagonal",
+    title: "Launch with confidence",
+    text: "Test the details, prepare your team, and plan for what comes after launch.",
+    output: "04 / LAUNCH",
+  },
 ];
+
 export default function Home() {
   return (
     <>
-      <section className="editorial-hero">
-        <HeroHoverGrid />
+      <section className="v2-hero">
         <div className="container">
-          <div className="hero-kicker">
+          <div className="v2-hero-copy">
+            <div className="studio-label">
+              <span /> INDEPENDENT THINKING. CONNECTED SOFTWARE.
+            </div>
+            <h1>
+              Better websites.
+              <br />
+              <span>Smarter business software.</span>
+            </h1>
+            <p>
+              From your first impression to your everyday operations.
+              <br className="desktop-break" /> We design and build the
+              technology that brings it all together.
+            </p>
+            <div className="hero-actions">
+              <Button href="/contact">Start a project</Button>
+              <Button href="/work" variant="secondary" icon="diagonal">
+                Explore our work
+              </Button>
+            </div>
+          </div>
+          <WorkspacePreview />
+          <div className="hero-footnote">
+            <span>YOUR BUSINESS, BETTER CONNECTED</span>
             <span>
-              <i />
-              DIGITAL EXPERIENCES. REAL BUSINESS IMPACT.
+              Strategy <i /> Design <i /> Development
             </span>
-            <span>STRATEGY × DESIGN × ENGINEERING</span>
-          </div>
-          <div className="editorial-hero-heading">
-            <Reveal>
-              <h1>
-                Ambition, meet
-                <br />
-                <span>execution.</span>
-                <i className="hero-asterisk" aria-hidden="true">
-                  ✳
-                </i>
-              </h1>
-            </Reveal>
-            <Reveal className="hero-editorial-aside" delay={0.12}>
-              <p>
-                We turn complex challenges into exceptional websites and
-                connected business software.
-              </p>
-              <MagneticLink href="/contact">
-                Let’s build what’s next
-              </MagneticLink>
-              <a className="hero-explore-link" href="#solutions">
-                Explore our solutions <Icon name="arrow" size={16} />
-              </a>
-            </Reveal>
-          </div>
-          <div className="hero-art-wrap">
-            <ParallaxMedia
-              className="hero-architectural-media"
-              src="/images/connected-architecture.webp"
-              alt="An original architectural sculpture of interconnected cobalt glass, blue steel, and silver bridges in warm daylight"
-              eager
-            >
-              <div className="hero-art-coordinates">
-                <span>ST — SYSTEMS FOR TOMORROW</span>
-                <span>01 / CONNECTED BY DESIGN</span>
-              </div>
-              <div className="hero-art-card">
-                <Icon name="layers" size={24} />
-                <strong>
-                  Many moving parts.
-                  <br />
-                  One clear direction.
-                </strong>
-                <div>
-                  <span>YOUR BUSINESS. BETTER CONNECTED.</span>
-                  <Icon name="diagonal" size={24} />
-                </div>
-              </div>
-              <span className="hero-cross cross-one" aria-hidden="true">
-                +
-              </span>
-              <span className="hero-cross cross-two" aria-hidden="true">
-                +
-              </span>
-              <div className="hero-art-label">
-                <span>COMPLEXITY, RECONSIDERED.</span>
-                <strong>
-                  Built to work.
-                  <br />
-                  Designed to matter.
-                </strong>
-              </div>
-            </ParallaxMedia>
-          </div>
-          <div className="hero-art-bottom">
-            <span>INDEPENDENT THINKING. INTEGRATED SOLUTIONS.</span>
-            <a href="#solutions">
-              SCROLL TO EXPLORE <span>↓</span>
-            </a>
           </div>
         </div>
       </section>
-      <div
-        className="capability-marquee"
-        role="img"
-        aria-label="Websites, CRM and ERP, business intelligence, digital commerce, connected operations"
-      >
-        <div className="marquee-track" aria-hidden="true">
-          {[0, 1].map((n) => (
-            <div key={n}>
-              {[
-                "WEBSITES",
-                "CRM & ERP",
-                "BUSINESS INTELLIGENCE",
-                "DIGITAL COMMERCE",
-                "CONNECTED OPERATIONS",
-              ].map((t) => (
-                <span key={t}>
-                  {t}
-                  <i>✳</i>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-      <section className="studio-intro">
-        <div className="container">
-          <Eyebrow>SMALL DETAILS. BIG AMBITIONS.</Eyebrow>
+      <section className="v2-intro">
+        <div className="container v2-intro-layout">
+          <Eyebrow>LESS FRICTION. MORE POSSIBILITY.</Eyebrow>
           <Reveal>
             <h2>
-              Your technology should be
+              Your next stage deserves
               <br />
-              your <span>unfair advantage.</span>
+              <span className="quiet-text">a better way to work.</span>
             </h2>
-            <div className="studio-intro-bottom">
-              <p>
-                From the first impression to the systems behind the scenes, we
-                bring strategy, design, and engineering together to make your
-                business work better.
-              </p>
-              <TextLink href="/about">Meet SimpTech</TextLink>
-            </div>
+            <p>
+              A website that tells your story. A CRM your team actually enjoys.
+              Operations that stay in sync. We turn the complicated parts of
+              your business into simple, useful experiences.
+            </p>
+            <TextLink href="/about">Get to know SimpTech</TextLink>
           </Reveal>
         </div>
       </section>
+      <ProjectShowreel />
       <SolutionExplorer />
       <ConnectedSystems />
-      <ProjectShowreel />
-      <section className="difference-section">
-        <div className="container">
-          <Reveal className="work-section-heading">
-            <div>
-              <Eyebrow>04 / THE SIMPTECH DIFFERENCE</Eyebrow>
-              <h2>
-                More than good code.
-                <br />
-                <span className="quiet-text">A better way forward.</span>
-              </h2>
-            </div>
-            <p>
-              Thoughtful by design.
-              <br />
-              Dependable by development.
-            </p>
-          </Reveal>
-          <div className="difference-grid">
-            {differences.map(([icon, title, text], i) => (
-              <Reveal key={title} delay={i * 0.08}>
-                <div className="difference-icon">
-                  <Icon name={icon} size={25} />
-                  <span>0{i + 1}</span>
-                </div>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="editorial-process">
+      <section className="v2-process section">
         <div className="container">
           <div className="work-section-heading">
             <div>
-              <Eyebrow>05 / FROM IDEA TO IMPACT</Eyebrow>
+              <Eyebrow>FROM THE FIRST CONVERSATION</Eyebrow>
               <h2>
                 A clear path.
                 <br />
-                At every step.
+                <span className="quiet-text">At every step.</span>
               </h2>
             </div>
             <TextLink href="/approach">How we work together</TextLink>
           </div>
-          <div className="process-runway">
-            {steps.map((s, i) => (
-              <Reveal className="process-stop" key={s.title} delay={i * 0.09}>
-                <span className="process-big-number">0{i + 1}</span>
-                <div className="process-point">
-                  <i />
-                  <span />
+          <div className="v2-process-grid">
+            {process.map((step, i) => (
+              <Reveal key={step.title} delay={i * 0.06}>
+                <div className="process-icon">
+                  <Icon name={step.icon} size={22} />
                 </div>
-                <h3>{s.title}</h3>
-                <p>{s.text || s.description}</p>
+                <span className="process-label">{step.output}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-      <section className="engineering-strip">
-        <div className="container">
-          <div>
-            <span>GOOD IDEAS DESERVE SOLID FOUNDATIONS.</span>
-            <TextLink href="/technologies">Our engineering toolkit</TextLink>
-          </div>
-          <div className="engineering-wordmarks">
-            {[
-              "React",
-              "Next.js",
-              "TypeScript",
-              "Node.js",
-              "Python",
-              "PostgreSQL",
-              "AWS",
-            ].map((t, i) => (
-              <span key={t}>
-                {i === 0 && <b>⚛</b>}
-                {t}
-              </span>
-            ))}
+          <div className="v2-engineering">
+            <span>Thoughtful design. Dependable foundations.</span>
+            <div>
+              React <i /> TypeScript <i /> Node.js <i /> PostgreSQL
+            </div>
+            <TextLink href="/technologies">Our toolkit</TextLink>
           </div>
         </div>
       </section>
-      <PartnershipSection />
-      <div className="editorial-insights">
-        <InsightsSection />
-      </div>
       <section className="section home-faq">
         <div className="container faq-layout">
           <div>
-            <Eyebrow>A GOOD PLACE TO START</Eyebrow>
+            <Eyebrow>BEFORE WE GET STARTED</Eyebrow>
             <h2>
-              Big ideas.
-              <br />A few questions.
+              Good questions.
+              <br />
+              <span className="quiet-text">Clear answers.</span>
             </h2>
-            <TextLink href="/faq">Find more answers</TextLink>
+            <TextLink href="/faq">More about working together</TextLink>
           </div>
           <FAQList items={[faqs[1], faqs[2], faqs[5], faqs[7]]} />
         </div>

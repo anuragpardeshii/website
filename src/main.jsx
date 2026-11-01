@@ -2,7 +2,6 @@ import React from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App";
 import "./styles.css";
-import "./redesign.css";
 
 const root = document.getElementById("root");
 const app = (
