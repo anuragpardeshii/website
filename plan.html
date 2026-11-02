@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>SleekTech CRM and Talent — Product plan</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f4f5f7;
+      color: #15181d;
+      font: 16px/1.7 system-ui;
+    }
+    main {
+      max-width: 1060px;
+      margin: 60px auto;
+      padding: 48px;
+      background: white;
+      border: 1px solid #dedfe3;
+    }
+    h1 {
+      font-size: 52px;
+      line-height: 1.08;
+      letter-spacing: -0.055em;
+    }
+    h2 {
+      margin-top: 45px;
+      letter-spacing: -0.04em;
+    }
+    h3 {
+      margin-bottom: 8px;
+    }
+    a,
+    .eyebrow {
+      color: #185bf1;
+    }
+    .eyebrow {
+      letter-spacing: 0.15em;
+      font-size: 12px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td,
+    th {
+      padding: 16px;
+      border: 1px solid #dedfe3;
+      text-align: left;
+      vertical-align: top;
+    }
+    .flow {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .flow div {
+      padding: 22px;
+      background: #f4f7fc;
+      flex: 1;
+      border-top: 3px solid #185bf1;
+    }
+    small {
+      color: #616773;
+    }
+    @media (max-width: 700px) {
+      main {
+        margin: 0;
+        padding: 24px;
+      }
+      h1 {
+        font-size: 38px;
+      }
+      table {
+        font-size: 13px;
+      }
+      td,
+      th {
+        padding: 8px;
+      }
+    }
+  </style>
+  <main>
+    <p class="eyebrow">SLEEKTECH / PRODUCT STRATEGY / 01 NOVEMBER 2026</p>
+    <h1>One business.<br />Two connected workspaces.</h1>
+    <p>
+      Build a CRM for revenue operations and project delivery, and a Talent
+      platform for recruitment and candidate self-service. Both applications use
+      Next.js and share a Node.js API and MongoDB document model. The existing
+      SleekTech careers page reads published roles from the same API.
+    </p>
+    <h2>1. Product plan</h2>
+    <table>
+      <tr>
+        <th>Workspace</th>
+        <th>Core release</th>
+        <th>Subsequent enterprise capabilities</th>
+      </tr>
+      <tr>
+        <td>CRM</td>
+        <td>
+          Lead capture and qualification; pipeline and stage history; one-time
+          conversion to customer; client directory; active projects and delivery
+          progress; tasks and follow-ups; AI-assisted email drafting; reviewed
+          outbound email; delivery, bounce, open and click events; WhatsApp
+          opt-in, templates and conversation history.
+        </td>
+        <td>
+          Gmail / Microsoft 365 OAuth, mailbox synchronization, configurable
+          sales pipelines, forecasting, CSV deduplication and import review,
+          approval-based sequences, account ownership, proposals, reporting
+          exports and SLA automation.
+        </td>
+      </tr>
+      <tr>
+        <td>Talent</td>
+        <td>
+          Job drafting and publication; searchable public vacancies; mandatory
+          candidate sign-in; PDF/DOCX résumé extraction; reviewable form
+          autofill; saved profile; application submission and withdrawal;
+          candidate status timeline; recruiter pipeline; interview scheduling;
+          evidence-based scorecards; recorded hiring decisions.
+        </td>
+        <td>
+          SSO and MFA; verified candidate email and password recovery; calendar
+          provider synchronization; offer approvals and e-signatures;
+          requisition approvals; referrals; talent pools; onboarding;
+          configurable retention and deletion workflows; recruitment analytics.
+        </td>
+      </tr>
+      <tr>
+        <td>Shared foundation</td>
+        <td>
+          Server-side role checks; password hashing; revocable cookie sessions;
+          validation; persistent data; transaction-safe conversion; private
+          files; upload limits; webhook signature checks and replay
+          deduplication; activity history; responsive keyboard-accessible UI.
+        </td>
+        <td>
+          Managed backups with restore drills, object storage, distributed
+          workers and rate limits, OpenTelemetry, audit export, enterprise
+          tenancy, data residency decisions, load testing and penetration
+          testing.
+        </td>
+      </tr>
+    </table>
+    <h3>Business journeys</h3>
+    <p>
+      CRM: New lead → Qualification → Proposal → Negotiation → Won → Customer →
+      Delivery project. Losing a deal preserves its history. Converting twice
+      must return the same client.
+    </p>
+    <p>
+      Talent: Published role → Sign in → Upload and review résumé → Complete
+      application → Screening → Interview → Offer → Hired. Candidates can
+      withdraw. Recruiters make decisions; AI does not score, rank or
+      automatically reject applicants.
+    </p>
+    <h3>Research and product decisions</h3>
+    <ul>
+      <li>
+        <a href="https://www.hubspot.com/products">HubSpot’s CRM scope</a>
+        supports centering the workspace on contacts, deals, tasks and connected
+        communication. SleekTech additionally links won opportunities directly
+        to delivery.
+      </li>
+      <li>
+        <a
+          href="https://support.greenhouse.io/hc/en-us/articles/4414777492891-Scorecard-overview"
+          >Greenhouse scorecards</a
+        >
+        use predefined criteria and interviewer feedback. Talent will record
+        rubric scores and evidence, rather than an opaque AI suitability score.
+      </li>
+      <li>
+        <a href="https://www.twilio.com/docs/whatsapp/key-concepts"
+          >WhatsApp messaging rules</a
+        >
+        distinguish a 24-hour customer-service window from approved templates
+        outside it. Capture opt-in and enforce the window on the server.
+      </li>
+      <li>
+        <a
+          href="https://www.apple.com/legal/privacy/data/en/mail-privacy-protection/"
+          >Apple Mail Privacy Protection</a
+        >
+        can load remote content without recipient engagement. Label opens as
+        signals; delivery and replies are separate events.
+      </li>
+      <li>
+        <a href="https://resend.com/docs/webhooks/verify-webhooks-requests"
+          >Resend webhook verification</a
+        >
+        requires signed raw payloads. Verify before storing events and
+        deduplicate retries.
+      </li>
+      <li>
+        <a
+          href="https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html"
+          >OWASP upload guidance</a
+        >
+        informs authenticated uploads, file signatures, limits, generated file
+        names, private storage and malware scanning.
+      </li>
+      <li>
+        <a
+          href="https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses"
+          >OpenAI Structured Outputs</a
+        >
+        supports typed extraction. Treat résumé content as untrusted data,
+        validate output, and ask the candidate to confirm extracted fields.
+      </li>
+    </ul>
+    <h2>2. Architecture</h2>
+    <div class="flow">
+      <div><b>Next.js CRM</b><br />Sales · Clients · Delivery</div>
+      <div><b>Next.js Talent</b><br />Jobs · Candidate · Recruiting</div>
+      <div><b>Existing website</b><br />Published vacancies</div>
+    </div>
+    <p style="text-align: center">
+      ↓ Same-origin API proxy / public vacancies API ↓
+    </p>
+    <div class="flow">
+      <div>
+        <b>Shared Node.js API</b><br />Identity · CRM · Recruitment · Messaging
+        · AI · Files · Audit
+      </div>
+      <div>
+        <b>MongoDB</b><br />Transactional document records<br />Private résumé
+        storage
+      </div>
+    </div>
+    <p>
+      Use a modular monolith so transactions and permissions stay
+      straightforward. Local development uses
+      <a href="https://www.mongodb.com/docs/manual/replication/">MongoDB replica sets</a>;
+      deployed installations use a secured MongoDB replica set or Atlas cluster. The frontends have no
+      provider secrets and never query the database directly. Candidate
+      registration cannot grant staff privileges. This release serves one
+      SleekTech organization; multi-tenant SaaS is a separate architecture
+      milestone.
+    </p>
+    <h3>Data relationships</h3>
+    <p>
+      Users → sessions and candidate profiles. Leads → clients → projects. Leads
+      → messages → delivery events. Jobs → applications ← candidates.
+      Applications → stage history, interviews and scorecards. Résumés are owned
+      by candidates and available only to authorized recruitment staff. The
+      existing website receives only published job fields.
+    </p>
+    <h2>3. Design specification</h2>
+    <p>
+      Use the existing SleekTech symbol and Inter font. Cobalt #185bf1 is
+      reserved for primary actions, active navigation and focus. Charcoal
+      #15181d, muted gray #616773 and thin #dedfe3 borders carry information.
+      White surfaces, restrained 6–10px radii and spacious layouts keep the
+      applications related to the editorial marketing site.
+    </p>
+    <table>
+      <tr>
+        <th>Surface</th>
+        <th>Layout and behavior</th>
+      </tr>
+      <tr>
+        <td>CRM workspace</td>
+        <td>
+          Compact left navigation, contextual page header, four useful metrics,
+          revenue pipeline, next actions, recent activity. Tables have search
+          and meaningful empty states. Lead detail opens in a focused dialog;
+          conversion creates a customer without losing history.
+        </td>
+      </tr>
+      <tr>
+        <td>Talent workspace</td>
+        <td>
+          Same shell with recruitment navigation. Requisitions, candidate
+          stages, interview details and scorecards share clear status language.
+          Published and draft jobs remain visibly distinct.
+        </td>
+      </tr>
+      <tr>
+        <td>Candidate experience</td>
+        <td>
+          Editorial careers hero, department filters and readable job
+          descriptions. Sign-in precedes an application. Upload is optional;
+          manual completion remains available. Extracted fields are editable,
+          existing edits require confirmation before replacement, and submission
+          requires consent.
+        </td>
+      </tr>
+      <tr>
+        <td>Accessibility</td>
+        <td>
+          Visible focus, semantic labels, dialogs with Escape and focus
+          restoration, live status messages, reduced-motion support, readable
+          tables with contained horizontal scrolling, and mobile navigation.
+        </td>
+      </tr>
+    </table>
+    <h2>4. Delivery and acceptance</h2>
+    <ol>
+      <li>
+        Complete research and this plan, then establish the shared design
+        system.
+      </li>
+      <li>
+        Implement the shared API and persistent core data, followed by both
+        Next.js workspaces.
+      </li>
+      <li>
+        Connect the marketing careers page to published jobs and candidate
+        applications.
+      </li>
+      <li>
+        Test role isolation, lead conversion idempotency, job visibility,
+        candidate ownership, file validation, stage history, webhook security
+        and the complete application journey.
+      </li>
+      <li>
+        Activate provider accounts and validate real delivery on a staging
+        domain before public launch.
+      </li>
+    </ol>
+    <p>
+      Provider credentials, a verified sender domain, a WhatsApp Business phone
+      number and approved templates are operational prerequisites for live
+      integrations. The secure OpenAI project selection is pending. Local
+      demonstration records must remain explicitly labeled and must never send
+      messages.
+    </p>
+    <p>
+      Production launch also requires organization-specific privacy and
+      retention settings, verified email/recovery, backups, infrastructure
+      monitoring and security review. These are tracked release gates, not
+      claims that this first implementation is ready for unrestricted public
+      deployment.
+    </p>
+    <small
+      >Scope assumption: SleekTech’s internal sales and hiring operations.
+      Currency defaults to INR and can be changed in the formatter. No real
+      customers, applicants or job vacancies are invented; example records
+      appear only in explicitly enabled local demo mode.</small
+    >
+  </main>
+</html>

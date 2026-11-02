@@ -1,0 +1,33 @@
+{
+  "name": "sleektech-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "platform:dev": "npm --prefix .. run dev",
+    "platform:build": "npm --prefix .. run build",
+    "platform:test": "npm --prefix .. test",
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir .prerender && node scripts/prerender.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node scripts/verify.mjs",
+    "format": "prettier --write src scripts vite.config.js index.html package.json README.md",
+    "brand-assets": "node scripts/brand-assets.mjs",
+    "social-card": "node scripts/social-card.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "motion": "^12.23.24",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@playwright/test": "^1.56.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^5.0.4",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4.3.3",
+    "vite": "^7.1.9"
+  }
+}

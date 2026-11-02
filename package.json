@@ -1,27 +1,37 @@
 {
-  "name": "simptech-site",
+  "name": "sleektech-platform",
   "private": true,
-  "version": "1.0.0",
   "type": "module",
+  "workspaces": [
+    "crm",
+    "careers",
+    "backend",
+    "shared/ui"
+  ],
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
-    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir .prerender && node scripts/prerender.mjs",
-    "preview": "vite preview --host 127.0.0.1",
-    "test": "node scripts/verify.mjs",
-    "format": "prettier --write src scripts vite.config.js index.html package.json README.md",
-    "social-card": "node scripts/social-card.mjs"
-  },
-  "dependencies": {
-    "lucide-react": "^0.468.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "motion": "^12.23.24"
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "npm test --workspace @sleektech/backend",
+    "test:browser": "node tests/browser.mjs",
+    "test:marketing": "node tests/marketing.mjs",
+    "migrate": "node scripts/workspace-command.mjs backend migrate",
+    "migrate:status": "node scripts/workspace-command.mjs backend migrate:status",
+    "admin": "node scripts/workspace-command.mjs backend admin",
+    "api": "node scripts/workspace-command.mjs backend dev",
+    "import:legacy": "node scripts/workspace-command.mjs backend import:legacy",
+    "test:crm-pages": "node tests/crm-pages.mjs",
+    "test:table-actions": "node tests/table-actions.mjs",
+    "test:notifications": "node tests/notifications.mjs",
+    "test:dev": "node --test tests/dev-config.test.mjs",
+    "test:dev-startup": "node tests/dev-startup.mjs",
+    "test:crm-ui": "node tests/crm-ui.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
     "@playwright/test": "^1.56.1",
-    "@vitejs/plugin-react": "^5.0.4",
-    "vite": "^7.1.9",
     "prettier": "^3.6.2"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

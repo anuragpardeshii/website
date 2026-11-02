@@ -1,146 +1,182 @@
-# SimpTech
+# SleekTech platform
 
-A complete React + Vite company website with 32 pre-rendered pages, original generated artwork and product interfaces, and reusable components. The redesigned visual direction uses a white canvas, electric cobalt, oversized Inter typography, original architectural imagery, editorial layouts, and a dark interactive systems section. Motion for React (Framer Motion) drives scroll reveals, parallax, magnetic links, and animated capability transitions. No stock template, copied brand artwork, external font request, or AI API is required.
+The marketing website, CRM and careers portal live in one repository. Two Next.js 16.4 applications share an Express 5 Node.js API and a MongoDB replica set. This is a working local product implementation with persistent core workflows. It has not been deployed or validated with live messaging or AI credentials.
 
-## Run locally
+## Run and review
 
-Requires Node.js 20.19+ or 22.12+ and npm.
+Requires Node.js 24+, npm and Docker. Run the commands from the repository root (the `SimpTech` folder in the existing local checkout):
 
 ```bash
-npm ci
-npm run dev
+make install
+make dev
 ```
 
-Open the Local URL printed by Vite. For a production build:
+`make dev` starts MongoDB in Docker and all four applications locally with hot reload. `make up` runs everything in Docker with Compose Watch; `make down` stops containers without deleting database volumes. Docker Compose 2.32+ is required. The checked-in Docker configuration is for local development, with ports bound to loopback. Docker mode uses normal staff accounts (`docker compose exec backend npm run admin`); local `make dev` uses normal role-based staff sign-in.
+
+The addresses below are defaults. `make dev` / `npm run dev` checks availability and selects the next free port for each app when necessary. Use the **selected URLs printed by the launcher**. It synchronizes the backend origins, frontend API proxies, cross-portal links, marketing careers links and WebSocket origin policy for that run. Both `localhost` and `127.0.0.1` work on the selected ports. Unconfigured ports and origins remain denied; production origin rules stay exact.
+
+Set preferred starting ports with `API_PORT`, `CRM_PORT`, `CAREERS_PORT` and `WEBSITE_PORT` (for example, `CRM_PORT=3101 CAREERS_PORT=3102 make dev`). `PORT` remains the backend fallback when `API_PORT` is unset. The launcher changes the child-process environment, not your saved `.env.local` files. Each Next dev instance has its own ignored `.next-local-<port>` directory, so a second local stack can run without sharing a Next lock. Ctrl+C stops only that launcher's children and waits for their listeners to close.
+
+| Application | Local address                | Entry                                       |
+| ----------- | ---------------------------- | ------------------------------------------- |
+| CRM         | http://localhost:3001        | Staff sign-in                        |
+| Careers     | http://localhost:3002        | Browse roles and create a candidate account |
+| Recruitment | http://localhost:3002/manage | Staff sign-in                        |
+| Shared API  | http://127.0.0.1:4000        | `/api/health`                               |
+
+`npm run dev` defaults to `ENABLE_DEMO=false`. Explicitly enabling demo access is only effective before any personal staff account exists. Demo access is loopback-only and unavailable in production. Demo workspaces block all outbound email and WhatsApp sends. Example roles are labeled on the public careers surface. MongoDB data persists in the Docker `mongo_data` volume; résumés are private files in `backend/.data/resumes`. Keep this directory backed up for local work and never commit it.
+
+To create an empty workspace, use a separate database and upload directory: `MONGODB_DATABASE=sleektech_real DATA_DIR=.data/real ENABLE_DEMO=false npm run dev`. Use the same settings when running `MONGODB_DATABASE=sleektech_real DATA_DIR=.data/real npm run admin` to provision staff. The CLI prompts for an email, name, role and hidden password. Start the same workspace again afterward. Candidate registration never creates staff users. Staff roles are `admin`, `sales`, and `recruiter`; candidate accounts cannot access either administrative workspace.
+
+The plan and sources are in [plan.html](plan.html). The marketing site’s careers integration lives in `simptech-site/src/components/CareerOpportunities.jsx`.
+
+## Implemented workflows
+
+- CRM: dedicated, bookmarkable pages for leads, client briefs, customers, projects, tasks and communications; create/edit/search leads, qualify opportunities, preserve stage activity, convert a lead exactly once to a customer, list converted customers, create and update delivery projects, and manage follow-up tasks.
+- Communications: persistent editable email/WhatsApp drafts, AI-assisted email generation, explicit send review, provider readiness, server-side Resend and Meta Cloud API adapters, signed delivery webhooks, replay deduplication, inbound WhatsApp text, opt-in and reply-window enforcement. Approved WhatsApp templates without variable parameters are supported.
+- Talent: draft/edit/publish/close jobs; public department/search filters; candidate registration/sign-in; PDF/DOCX uploads; optional AI extraction; reviewable autofill; saved profiles; applications with immutable submission snapshots; duplicate prevention; private downloads; candidate timelines, scheduled interviews and withdrawal.
+- Recruitment: role directory, candidate board/list, job filtering, application review, interview scheduling, structured scorecards, recorded stage decisions and activity history. An offer requires a scorecard. Terminal applications cannot be moved forward. AI does not rank, score or reject candidates.
+- Shared: scrypt password hashes, hashed revocable sessions in HttpOnly cookies, server-side roles, approved-origin/custom-header CSRF checks, validation, rate limiting, transaction-safe conversion and selection, accessible dialogs, reduced motion and mobile layouts.
+
+## Layout
+
+The repository root contains `crm/`, `careers/`, `backend/`, `shared/` and `simptech-site/`. The existing website history is preserved. For marketing-only development or static hosting, use `simptech-site` as the project directory, run `npm ci` and `npm run build` there, and publish `simptech-site/dist` relative to the repository root. The existing Sites identity stays in `simptech-site/.openai/hosting.json`.
+
+```text
+crm/                      Next.js revenue workspace
+careers/                  Next.js public careers, candidate portal and recruitment
+backend/src/              Node.js API modules; MongoDB access
+shared/ui/                Shared SleekTech components and styles
+backend/migrations/       Versioned collection, profile, and upload migrations
+simptech-site/            Existing Vite marketing website
+scripts/                  Local orchestration and build commands
+backend/tests/            MongoDB API and migration checks
+tests/                    Browser journey checks
+plan.html                 Research, product scope, architecture and design
+```
+
+The API is a modular monolith serving one SleekTech organization. The schema covers users, sessions, leads, clients, projects, tasks, jobs, applications, résumés, interview scorecards, conversations, delivery events and audit activity. MongoDB collections have validators and indexes; multi-document workflows use replica-set transactions. Versioned JavaScript migrations run on startup and through `make migrate`. See `backend/README.md` for checksums, locks, and recovery.
+
+## Configuration and integrations
+
+Non-secret settings are documented in `.env.example`. The dev/build scripts load an ignored `.env.local` at the workspace root if present. Only `NEXT_PUBLIC_*` values are embedded in browser bundles. Never put provider secrets in a `NEXT_PUBLIC_*` or `VITE_*` variable.
+
+| Connection         | Backend configuration                                                                                           | Activation requirements                                                                                                                                                                              |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OpenAI             | `OPENAI_API_KEY`, optional `OPENAI_MODEL`                                                                       | Complete the secure project/key selection flow. No key has been created or written by this implementation. Default model is `gpt-4.1-mini`; Responses API uses Structured Outputs and `store:false`. |
+| Resend             | `RESEND_API_KEY`, `EMAIL_FROM`, `RESEND_WEBHOOK_SECRET`                                                         | Verified sender domain; tracking settings enabled in the provider; signed webhook routed to `/api/webhooks/resend`.                                                                                  |
+| WhatsApp Cloud API | `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_ID`, `WHATSAPP_GRAPH_VERSION`, `WHATSAPP_APP_SECRET`, `WHATSAPP_VERIFY_TOKEN` | Approved business phone and templates; a supported Graph API version; webhook at `/api/webhooks/whatsapp`. Optional `WHATSAPP_TEMPLATE_LANGUAGE` defaults to `en`.                                   |
+| MongoDB            | `MONGODB_URI`, `MONGODB_DATABASE`                                                                               | Required for `NODE_ENV=production`; provision TLS, access controls, backups and restore verification in infrastructure.                                                                              |
+| Malware scanning   | `CLAMAV_HOST`, optional `CLAMAV_PORT`                                                                           | clamd INSTREAM protocol; production résumé uploads fail closed if scanning is unavailable.                                                                                                           |
+
+AI email generation returns an editable draft; it never sends automatically. Resume AI enhancement requires the candidate’s explicit opt-in. Text extraction remains functional without an AI account. Scanned image PDFs need OCR, which is not included; candidates can enter their details manually. Files are limited to 5 MB, PDFs to 30 pages, DOCX archives to bounded entry counts and expanded sizes. Parsing runs in a time-limited child process. Production should move this to a dedicated sandboxed worker and private object storage.
+
+Open/click events are labeled as signals because privacy proxies and security scanners can generate them. Email replies and inbox synchronization are not implemented. WhatsApp inbound messages attach to an existing lead with a matching international phone number; unmatched inbound senders are not automatically turned into contacts. Templates with parameters, media messages and a full omnichannel inbox are follow-up work.
+
+Interview scheduling records the meeting in both portals; it does not send calendar invitations. Job publication updates the shared API immediately. The existing marketing site fetches its published role list from that API when configured.
+
+Provider requests use bounded timeouts. Email sends include an idempotency key. An ambiguous send timeout becomes `Unconfirmed` and is not silently retried. Operators must reconcile that state with the provider before creating another send; a durable outbox/reconciliation worker is a production milestone.
+
+## Build and verification
 
 ```bash
 npm run build
-npm run preview
-```
-
-`npm run build` builds the browser bundle, renders every route to its own directory index and clean-URL HTML alias, and writes `dist/sitemap.xml`, `dist/robots.txt`, and `dist/404.html`. Every page has an individual title, description, canonical URL, social metadata, and readable HTML before JavaScript runs. A route marker prevents hydration mismatches on static hosts that fall back to the homepage. The application hydrates matching pages to activate filters, menus, forms, and saved drafts. Navigation uses ordinary URLs and browser history.
-
-## Edit the website
-
-| What to change                                                   | Where                                                                       |
-| ---------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Company name, description, deployed origin, public contact email | `src/data/content.js` → `site`                                              |
-| Services and their detail pages                                  | `src/data/solutions.js` → `solutions`                                       |
-| Project concepts and detail stories                              | `src/data/content.js` → `projects`                                          |
-| Articles and full article text                                   | `src/data/content.js` → `articles`                                          |
-| Approved client testimonials                                     | `src/data/content.js` → `testimonials`                                      |
-| FAQs, process steps, and industry content                        | `src/data/content.js`                                                       |
-| Homepage composition and main headline                           | `src/pages/Home.jsx`                                                        |
-| Navbar, footer, and shared contact CTA                           | `src/components/Layout.jsx`                                                 |
-| Buttons, headings, icons, and accordion                          | `src/components/ui.jsx`                                                     |
-| Product interfaces and journal covers                            | `src/components/EnterpriseVisuals.jsx`, `src/components/ProductVisuals.jsx` |
-| Colors, typography, spacing, and responsive rules                | `src/redesign.css` (new visual system), `src/styles.css` (base styles)      |
-| Routing and page search metadata                                 | `src/App.jsx`                                                               |
-| Production pre-rendering                                         | `scripts/prerender.mjs`                                                     |
-
-The content arrays generate their corresponding detail routes automatically. To add a service, project, or article, copy an existing object, choose a unique slug, and update its content. Rebuild to generate the new HTML and sitemap entry. For a new standalone page, add a React component and register it in `basePages` in `src/App.jsx`.
-
-The `site.origin` value must match your production domain before a public launch. It is used in canonical links, structured data, the XML sitemap, and social cards. The current site is hosted privately through Sites; public indexing is dependent on hosting access, not just SEO markup.
-
-### Contact behavior
-
-The project form is functional without a backend. It validates required fields, accepts service-specific links, prepares a project brief, downloads a UTF-8 text file, and optionally saves/restores a draft in local storage. Draft storage requires checking the opt-in box; a clear-draft action removes it. Submitted details are not transmitted to a server.
-
-Set `site.contactEmail` to your verified public email to enable the email handoff and show the email in the contact page and footer. The email button opens the visitor’s email application with the brief populated. It does not claim that an inquiry was automatically sent. For direct submissions, connect a real backend or form service, add pending/success/failure states, and update the privacy page to reflect its data handling.
-
-### Project stories and testimonials
-
-The Meridian, Orbit, Aster, and Atlas projects are explicitly labeled as original concepts. Their UI names, customers, transactions, and metrics are illustrative. Replace them with approved project details as real work becomes available; do not relabel concept work as delivered client work.
-
-No customer quotes, client logos, statistics, or endorsements have been invented. A reusable testimonial section is implemented. Add approved entries to the `testimonials` array:
-
-```js
-{
-  quote: 'The exact, approved client quote.',
-  name: 'Client name',
-  role: 'Role',
-  company: 'Company'
-}
-```
-
-The homepage automatically displays the testimonial section when the array contains entries, with accessible controls when there is more than one quote. Until then, it displays SimpTech’s own partnership commitment.
-
-## Included pages
-
-| Page family         | Routes                                                                                                                                                                                        |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Homepage            | `/`                                                                                                                                                                                           |
-| Services            | `/services`                                                                                                                                                                                   |
-| Service details     | `/services/website-development`, `/services/crm-development`, `/services/erp-development`, `/services/business-analytics`, `/services/ecommerce-development`, `/services/inventory-logistics` |
-| Work                | `/work`                                                                                                                                                                                       |
-| Project concepts    | `/work/meridian-analytics`, `/work/orbit-workspace`, `/work/aster-commerce`, `/work/atlas-logistics`                                                                                          |
-| Company             | `/about`, `/approach`, `/industries`, `/technologies`, `/careers`                                                                                                                             |
-| Insights            | `/insights`                                                                                                                                                                                   |
-| Articles            | `/insights/before-you-build-your-mvp`, `/insights/dashboards-that-drive-decisions`, `/insights/automate-the-right-things`                                                                     |
-| Contact and help    | `/contact`, `/faq`                                                                                                                                                                            |
-| Website information | `/privacy`, `/terms`, `/accessibility`, `/sitemap`                                                                                                                                            |
-| Missing page        | `/404.html`                                                                                                                                                                                   |
-
-## Design research
-
-The supplied Atlassian, Kyndryl, and editorial layout references informed the use of spacious composition, strong type, purposeful blue, clear navigation, and substantial storytelling. All site copy, brand treatment, layout implementation, and product artwork are original.
-
-Comparable sites reviewed on 29 October 2026:
-
-- [thoughtbot services](https://thoughtbot.com/services): separate capability pages, industries, an approach page, and resource navigation. [Their case studies](https://thoughtbot.com/case-studies) show the usefulness of detailed project narratives.
-- [Netguru](https://www.netguru.com/): service, technology, industry, and client navigation. [Their resources](https://www.netguru.com/resources) add practical guides and insights beyond a brochure homepage.
-- [Atlassian company](https://www.atlassian.com/company): company storytelling and pathways into solutions, resources, and customer stories.
-
-Award-winning and agency references reviewed for the redesign:
-
-- [Active Theory v5 on Awwwards](https://www.awwwards.com/sites/active-theory-v5): real-time environments and full-screen interaction informed the idea of an original animated technology scene.
-- [Unseen Studio on Awwwards](https://www.awwwards.com/sites/unseen-studio): immersive visual storytelling informed the stronger art direction and deliberate transitions.
-- [Instrument](https://www.instrument.com/): the agency’s use of large typography, visual project narratives, and technology-focused storytelling informed the editorial page rhythm.
-
-SimpTech’s layout, copy, artwork, product concepts, and animation implementation are original. This site does not claim an award or reuse those studios’ assets.
-
-Those observations informed the additional approach, industries, technology toolkit, careers, insights, FAQ, and detailed project pages. Security certifications, customer proof, and hiring claims were omitted because no substantiating company information was supplied.
-
-## Verification
-
-After building, run:
-
-```bash
 npm test
+# With npm run dev running:
+npm run test:browser
+# Page navigation checks with the CRM dev server running; isolated API/database
+npm run test:crm-pages
+# With the marketing Vite preview on port 5175 and the shared API running:
+npm run test:marketing
 ```
 
-The browser verification script checks all 32 routes, page metadata, a single main heading, internal links, desktop/mobile overflow, and automated WCAG A/AA rules. It also checks image loading, solution-tab keyboard controls, connected-system selection, global motion pause/resume, reduced-motion preferences, keyboard navigation, the mobile services menu, project filtering, insight search and reset, FAQs, form validation, download contents, saved draft lifecycle, query parameter preselection, and the custom 404.
+The API suite uses an randomly named, isolated MongoDB database and a temporary upload directory. It exercises authentication, roles, origin checks, lead conversion concurrency, projects, job visibility, résumé parsing/ownership, application snapshots, selection transitions, withdrawal, mocked AI/provider adapters and signed webhook replay handling. Provider tests are mocked and do not contact external services.
 
-The script uses Google Chrome at `/usr/bin/google-chrome` by default. Set `SIMPTECH_CHROME` to another Chromium-compatible executable when needed. It starts a temporary localhost server and closes both the server and browser when complete. Reports and screenshots are written to ignored `test-results/`. Automated accessibility checks complement, rather than replace, assistive-technology and human review.
+`npm run test:crm-pages` verifies direct URLs, list filters and browser Back, lead conversion, saved briefs, project progress, message drafts and delivery history, mobile layouts, and staff permissions. It uses a temporary database and intercepts browser API traffic, leaving the running workspace untouched. Screenshots are saved to `/tmp/sleektech-crm-pages-results/` by default.
 
-## Hosting
+The original `test:browser` checks create explicitly named QA records in the local demo workspace. They exercise lead-to-project conversion, messaging drafts, candidate sign-up, PDF autofill, application submission, scorecards, interviews, job publication, responsive layouts and axe accessibility. Screenshots and reports are written to ignored `test-results/`. The marketing site retains `npm run build` and `npm test` inside `simptech-site/`.
 
-The deployable output is `dist/`; the Sites identity and static directory are in `.openai/hosting.json`. Keep the project ID unchanged when updating this existing Site. The source is kept independently of the built output.
+## Deployment and remaining release gates
 
-For another static host, serve extensionless routes from the corresponding `dist/<route>/index.html` and use `dist/404.html` for missing pages. Set the production origin in the content file and rebuild. No runtime environment variables or server secrets are needed.
+Deploy two Next.js Node services and the shared API, with a secured MongoDB replica set or Atlas cluster and private file/object storage. Configure `API_URL` for each Next.js build/server and public `NEXT_PUBLIC_CRM_URL`, `NEXT_PUBLIC_TALENT_URL`, and `NEXT_PUBLIC_MARKETING_URL` for cross-application links. Set backend `CRM_ORIGIN`, `TALENT_ORIGIN`, and `MARKETING_ORIGIN` to the exact HTTPS origins. The API binds to loopback by default; configure `HOST` for the chosen infrastructure. Cookie sessions are host-only, so separate production subdomains sign in independently while sharing the same accounts and backend.
 
-## Assets and licenses
+Production requires an explicit MongoDB URI and HTTPS configured origins. Demo login is omitted and sample data is not seeded. Public candidate registration is off by default in production; do not enable `ENABLE_CANDIDATE_REGISTRATION` until the following launch gates are satisfied:
 
-The product interfaces, journal covers, and logo are built with HTML, CSS, and SVG in this repository. The connected-systems wireframe is drawn with Canvas. The two architectural images are original AI-generated artwork, converted to WebP without visual edits. `public/social-card.png` is the original share image. Lucide supplies the interface icons. Inter is served locally from `public/fonts/`; its SIL Open Font License is included there. Third-party names on the technology page identify possible tools and do not imply endorsement.
+1. Email verification, staff MFA/SSO policy, verified reset-link delivery and session administration. Administrator-issued password recovery is implemented; self-service email recovery is not yet enabled.
+2. Provider credential setup and staging validation for real AI output, sender verification, WhatsApp approvals, webhook delivery and failure reconciliation.
+3. Organization-specific privacy contact, retention periods, candidate export/deletion procedures and a scheduled cleanup policy for unattached résumés.
+4. Managed backups and restore drills, dedicated upload scanning/parsing workers, object storage, durable background jobs, distributed rate limits and monitoring.
+5. Security review, load testing, accessibility review with assistive technology, and user acceptance testing with the actual sales and hiring teams.
 
-## Redesigned experience
+Advanced forecasting, configurable pipelines, CSV import review, mailbox OAuth/synchronization, calendar integrations, requisition/offer approvals, referrals, talent pools, onboarding, e-signatures and multi-tenant SaaS are explicitly planned follow-up capabilities. This local release is not represented as a finished enterprise production deployment.
 
-The six primary solution pages are Website Development; CRM; ERP; Dashboards & Business Analytics; E-commerce & Order Management; and Inventory & Logistics Management. The earlier `/services/web-applications`, `/services/admin-dashboards`, `/services/saas-products`, and `/services/workflow-automation` pages remain available, including existing contact deep links.
+## Development stack and references
 
-- `src/components/SolutionExperiences.jsx` contains the keyboard-accessible six-tab explorer, the interactive connected-systems story, and the original project showcase.
-- `src/components/MotionSystem.jsx` contains the shared motion provider, pause control, scroll progress, viewport reveals, magnetic links, parallax media, and real-time wireframe renderer.
-- `src/components/EnterpriseVisuals.jsx` contains reusable website, CRM, ERP, analytics, commerce, and logistics interface concepts. All data is illustrative.
-- `src/redesign.css` is the new design layer. Its sections cover the homepage, product interfaces, editorial content, inner pages, and responsive breakpoints.
+All three frontends use Tailwind CSS v4 with SleekTech theme tokens. The existing bespoke CSS remains as the component layer so the visual identity is preserved; utility classes handle shared layout and interaction details. The backend has no rendered UI.
 
-All core content is present in the rendered HTML. The operating-system reduced-motion preference disables continuous animation and parallax; the navigation also provides an explicit pause/resume control. The canvas suspends animation outside the viewport and when the document is hidden. The interactive solution tabs do not auto-advance. Page transitions use native links so URLs, history, open-in-new-tab, and pre-rendered SEO remain predictable.
+`make build`, `make test`, `make migrate`, `make migration-status`, and `make migration-new NAME=profile_changes` are the primary commands. Frontend changes use Next Fast Refresh and Vite HMR. Local backend changes use a debounced Chokidar supervisor that gracefully restarts the API; Docker syncs the source and restarts the backend process. Compose Watch syncs application/shared UI source and rebuilds dependency changes.
 
-### Original artwork
+Existing PostgreSQL files are retained under `backend/.data/postgres`. `make import-legacy` imports into an empty MongoDB database in a transaction and creates a recovery copy before opening the old database. No original records are deleted. Existing sessions are not copied.
 
-The built-in image generation tool created two original images for this redesign:
+Implementation references: [MongoDB transactions](https://www.mongodb.com/docs/drivers/node/current/crud/transactions/), [Tailwind for Next.js](https://tailwindcss.com/docs/installation/framework-guides/nextjs), [Tailwind for Vite](https://tailwindcss.com/docs/installation/using-vite), and [Docker Compose Watch](https://docs.docker.com/compose/how-tos/file-watch/).
 
-| Asset                                       | Creation prompt / direction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `public/images/connected-architecture.webp` | Wide 16:9 premium editorial architectural artwork. A refined photorealistic modular sculpture made from translucent cobalt glass, matte ultramarine blocks, clear optical glass fins, and brushed aluminium connection bridges. Three tiers with an open rectangular portal, pale blue-white ground, long directional afternoon shadows, elevated three-quarter 70 mm perspective. High-end industrial photography. No people, text, logos, screens, dashboards, floating icons, spheres, purple gradients, or sci-fi neon. |
-| `public/images/logistics-architecture.webp` | Original premium editorial architectural photograph of a modern, spacious fulfillment center. Tall blue steel shelving, beige cartons, a blue autonomous mobile robot in the foreground, strong daylight through clerestory windows, and an elevated view down a long central aisle. Cobalt, white, charcoal, and beige palette. No people, text, logos, or brand marks. Leave space in the upper left for an editorial overlay.                                                                                            |
+If the website is already running locally, use `WEBSITE_PORT=5176 make up` for the Docker stack. The original local site can keep running. Private résumé storage uses portable file keys so the same uploads work from the host and Docker.
 
-These assets are approximately 178 KB and 301 KB. `public/social-card.png` is generated locally from the new hero artwork and typography using `npm run social-card`. The original full-resolution generated PNGs remain in the local image-generation output directory; the site serves only the optimized WebP files.
+Verified locally: all three frontend builds; 19 MongoDB API/migration tests; CRM and candidate/recruiter browser journeys; and all 32 marketing routes with responsive, keyboard, animation, and accessibility checks. Provider calls remain mocked. Docker development origins explicitly allow localhost and 127.0.0.1; source polling and initial synchronization support Docker Desktop.
+
+## Role-based access
+
+| Role | CRM and discovery | Recruitment management | Candidate portal |
+| --- | --- | --- | --- |
+| Super admin | Full access plus users, roles and password recovery | Full access | Use a separate candidate account to apply |
+| Admin | CRM administration; no user/role administration | Full access | Use a separate candidate account to apply |
+| Sales / marketing | Leads, customers, projects, tasks, messages, discovery | No access | No access |
+| Recruiter | No access | Jobs, applicants, interviews, decisions | No access |
+| Candidate | No access | No access | Own profile, applications and résumés only |
+
+Portal gates and API routes both enforce the role. Public registration always creates a candidate, regardless of submitted role fields. Staff accounts are provisioned through `make admin`; credentials are hashed and never placed in source files. Demo sign-in is hidden and rejected once a personal staff account exists, including when demo mode was explicitly enabled. Public job listings and contact registration remain accessible without staff sign-in.
+
+
+## Record details, collaboration and account security
+
+CRM lead, customer, project, task, brief and communication URLs open as readable detail pages. Select **Edit**, save or cancel to return to the record. Task fields include owner, description, status, priority, assigned date, deadline, last updated time and remarks. Staff can view tasks; only the creator, assigned owner, admin or super admin can edit them. Saved edits carry a version to reject stale updates instead of overwriting another teammate's work.
+
+Comments and one-level threaded replies are available on these record pages. Type `@` and at least two letters, then select an active CRM teammate with the keyboard or pointer. Mentions and task assignments create recipient-only in-app notifications. Notifications use an authenticated WebSocket at `/api/collaboration/notifications/socket`, proxied through the CRM's existing Next.js `/api` rewrite. One MongoDB change stream per backend instance broadcasts committed notification changes only to the signed-in recipient. The bell and open notification list refresh on socket events; there is no notification polling timer. Reconnect uses exponential backoff and reloads persisted state, including changes missed offline. Marking read synchronizes across tabs. Clicking a notification opens the associated detail page; mentions load the correct comment/reply page, open the thread, and highlight the target.
+
+The socket validates the exact CRM origin, existing HttpOnly session and CRM role, checks session validity before delivery and every 25 seconds without extending idle expiry, and bounds connection attempts, per-user connections, payloads and buffered output. Client messages cannot select recipients or mutate records. Configure `CRM_ORIGIN` to the public CRM URL; production uses `wss:` through HTTPS. Any reverse proxy in front of Next.js must forward WebSocket `Upgrade` and `Connection` headers and allow idle connections for more than 25 seconds. MongoDB replica-set requirements are unchanged. Operational references: [ws authentication and heartbeat examples](https://github.com/websockets/ws), [MongoDB change streams](https://www.mongodb.com/docs/drivers/node/current/monitoring-and-logging/change-streams/), and [OWASP WebSocket guidance](https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Security_Cheat_Sheet.html).
+
+Recruitment-only staff and candidates are excluded from CRM mention suggestions. Activity history records actor, time and changed values, with comments and replies in the same ordered timeline. Historical actions before this release are not reconstructed.
+
+Super admins use **Users & access** to search users, open profiles, change roles or disable accounts. Sensitive account actions require the super admin's current password. An administrator cannot remove their own super-admin access; concurrent administration is serialized and the last active super admin is protected. Role/status changes revoke the affected account's sessions and outstanding reset links. The account owner requested super-admin access for the existing personal account; its password was preserved.
+
+**Password recovery:** open a user, confirm your own password and select **Generate reset link**. Copy the link and provide it through your established verified support channel; the app does not automatically send an email. Tokens are random, stored only as SHA-256 hashes, expire after 30 minutes, and are single-use even with concurrent submissions. Generating another link replaces the previous link. Successful recovery signs out all sessions and requires a fresh sign-in. The reset token is kept in the URL fragment and removed from browser history when the reset page opens. Both portals have a `/reset-password` page and show/hide password controls.
+
+New and reset passwords require 15–128 characters, reject a small list of obvious passwords and cannot equal the account email. Existing passwords continue to work; legacy hashes upgrade to scrypt (N=32768, r=8, p=3) after successful sign-in. Sessions have a seven-day absolute lifetime and a one-hour idle limit. Browser mutation requests require the approved Origin and custom request header. API schemas constrain types, lengths, enum values, dates and IDs; unknown mutation fields are rejected on the new CRM/account endpoints. Responses do not expose password hashes or reset tokens in user directories. The frontends add anti-framing, nosniff, referrer and permissions headers; the CSP currently constrains frames, objects, base URLs and form targets, not application scripts.
+
+Tables in CRM, user administration, notifications, comments, activity, delivery events and brief invitation history use server-side pagination. The default is 20 records, maximum 50, maximum page 500. CRM text search uses normalized, escaped, indexed **prefix** matching; search by the beginning of a name, company, email, task title or message subject. Inputs debounce for 300 ms, stale fetches are cancelled, and relationship/mention suggestions are capped at eight. Overview endpoints return aggregate counts and small previews. MongoDB connection pooling and bounded query timeouts apply; counts remain exact, so large deployments should load-test their own data and indexes.
+
+Apply `V5__collaboration_access_and_task_details.mjs` before starting the new API (`make migrate`, also run automatically at backend startup). It adds collaboration, reset and notification collections/indexes, extends the user-role validator, and backfills task/search/version fields without changing passwords. Applied migration checksums remain immutable.
+
+`npm test` now includes the collaboration/security suite: role restrictions, reauthentication, session revocation, task edit ownership, concurrent stale updates, cross-record reply rejection, recipient-only notification access, literal query handling, pagination and concurrent password recovery. `npm run test:crm-pages` uses isolated test accounts to check read-only details, edit/cancel/save, mentions/replies, notifications, user administration, reset pages, debounce, pagination, mobile overflow, careers super-admin access and axe critical/serious accessibility violations.
+
+Security design references: [OWASP Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html), [Input Validation](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html), [Forgot Password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html), [Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html), and [Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html). These are implemented controls, not an OWASP certification or a substitute for a production penetration test. MFA/SSO, verified email delivery, breached-password screening, a full script CSP and distributed rate-limit storage remain production work.
+
+
+Every CRM and careers table now has an **Actions → View** link for each row. The action stays visible when wide tables scroll horizontally. CRM links preserve pagination/search filters; careers links preserve role filters, search and board/list selection. Candidate applications and roles (including draft and closed roles) open private, role-protected detail pages at `/manage/applications/:id` and `/manage/jobs/:id`. Role details are read-only until **Edit role** is selected. Public vacancies remain limited to published roles. `npm run test:table-actions` verifies row destinations, return navigation, private role access, candidate decisions and mobile actions against an isolated database.
+
+`npm run test:notifications` starts an isolated Next.js instance and MongoDB test database. It checks actual WebSocket upgrades through the Next rewrite, live bell/list updates, recipient isolation, cross-tab read status, paginated reply redirects, offline/server-restart recovery, mobile accessibility and the absence of periodic notification polling. Artifacts are written to `/tmp/sleektech-notifications-results`. The backend notification suite also checks transaction rollback, multiple API instances, session revocation/expiry, role restrictions, payload limits and connection limits.
+
+`npm run test:dev` verifies allocation, reservations and synchronized URLs. `npm run test:dev-startup` starts two temporary stacks with occupied default ports and an isolated database, then checks API proxies, CORS/CSRF, socket delivery, portal links, hot reload and clean shutdown. The test leaves unrelated servers running and writes its results to `/tmp/sleektech-port-tests`.
+
+
+## Compact CRM and opportunity board
+
+The CRM uses compact page headings, shared table and form spacing, three-column desktop record summaries, and comments alongside record details. Smaller screens show labelled facts, account context and then discussion. Read-only detail pages retain explicit Edit actions.
+
+The sales pipeline keeps all six stages in one horizontal row. Drag the grip on a card with a mouse or touch device, or use its stage selector with the keyboard. Changes save immediately, with optimistic feedback, version-conflict handling and a persisted activity trail. Moving to Won runs customer conversion in the same transaction; converted opportunities remain Won. Reopen a Lost opportunity before moving it to Won.
+
+Stage totals and values cover all matches, even when only the first 12 cards are loaded. Load more fetches the next batch for that stage. Search is debounced; board payloads exclude notes and contact email. Cards are ordered by latest update. Refreshing or saving a move reloads the first batch in each stage. `V6__pipeline_stage_pagination.mjs` adds the stage/update index and runs automatically when the backend starts (or with `make migrate`).
+
+Run `npm run test:crm-ui` for the isolated desktop/mobile browser journey, including actual API persistence, keyboard/touch interactions, errors and accessibility checks. It creates a temporary Next instance and database, then removes both. Screenshots are written to `/tmp/sleektech-crm-ui-results`. `npm test` includes pipeline pagination, role, transaction and version-conflict regressions.
+
+Design references: [Carbon data table density](https://carbondesignsystem.com/components/data-table/usage/) informed consistent row and toolbar spacing; [Atlassian accessible drag and drop](https://atlassian.design/components/pragmatic-drag-and-drop/accessibility-guidelines/) informed the alternative stage selector, announcements and focus restoration. Pointer handling uses [dnd-kit sensors](https://dndkit.com/legacy/api-documentation/sensors/).

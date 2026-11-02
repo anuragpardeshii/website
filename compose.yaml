@@ -1,0 +1,161 @@
+name: sleektech
+services:
+  mongo:
+    image: mongo:8.0
+    command: [mongod, --replSet, rs0, --bind_ip_all]
+    ports: ["127.0.0.1:27017:27017"]
+    volumes: [mongo_data:/data/db]
+    healthcheck:
+      test:
+        [
+          CMD-SHELL,
+          'mongosh --quiet --eval ''try { rs.status(); } catch (e) { rs.initiate({_id: "rs0", members: [{_id: 0, host: "mongo:27017"}]}); quit(1); } if (!db.hello().isWritablePrimary) quit(1);''',
+        ]
+      interval: 5s
+      timeout: 10s
+      retries: 30
+      start_period: 10s
+  backend:
+    build: { context: ., dockerfile: Dockerfile }
+    working_dir: /workspace/backend
+    command: [npm, start]
+    init: true
+    env_file:
+      - path: ./backend/.env.local
+        required: false
+    environment:
+      NODE_ENV: development
+      HOST: 0.0.0.0
+      MONGODB_URI: mongodb://mongo:27017/?replicaSet=rs0&directConnection=true
+      MONGODB_DATABASE: sleektech
+      DATA_DIR: /workspace/backend/.data
+      ENABLE_DEMO: "false"
+      CRM_ORIGIN: http://localhost:3001
+      TALENT_ORIGIN: http://localhost:3002
+      MARKETING_ORIGIN: http://localhost:${WEBSITE_PORT:-5173}
+    ports: ["127.0.0.1:4000:4000"]
+    volumes: ["./backend/.data:/workspace/backend/.data"]
+    depends_on:
+      mongo: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          CMD,
+          node,
+          -e,
+          "fetch('http://127.0.0.1:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    develop:
+      watch:
+        - {
+            action: sync+restart,
+            initial_sync: true,
+            path: ./backend/src,
+            target: /workspace/backend/src,
+          }
+        - {
+            action: sync+restart,
+            initial_sync: true,
+            path: ./backend/migrations,
+            target: /workspace/backend/migrations,
+          }
+        - { action: rebuild, path: ./backend/package.json }
+        - { action: rebuild, path: ./package-lock.json }
+  crm:
+    build: { context: ., dockerfile: Dockerfile }
+    working_dir: /workspace/crm
+    command: [npm, run, dev, --, -H, 0.0.0.0]
+    init: true
+    environment:
+      WATCHPACK_POLLING: "1000"
+      API_URL: http://backend:4000
+      NEXT_PUBLIC_CRM_URL: http://localhost:3001
+      NEXT_PUBLIC_TALENT_URL: http://localhost:3002
+      NEXT_PUBLIC_MARKETING_URL: http://localhost:${WEBSITE_PORT:-5173}
+    ports: ["127.0.0.1:3001:3001"]
+    depends_on:
+      backend: { condition: service_healthy }
+    develop:
+      watch:
+        - action: sync
+          initial_sync: true
+          path: ./crm
+          target: /workspace/crm
+          ignore: [node_modules/, .next/, .env.local, package.json]
+        - {
+            action: sync,
+            initial_sync: true,
+            path: ./shared/ui,
+            target: /workspace/shared/ui,
+          }
+        - { action: rebuild, path: ./crm/package.json }
+        - { action: rebuild, path: ./package-lock.json }
+  careers:
+    build: { context: ., dockerfile: Dockerfile }
+    working_dir: /workspace/careers
+    command: [npm, run, dev, --, -H, 0.0.0.0]
+    init: true
+    environment:
+      WATCHPACK_POLLING: "1000"
+      API_URL: http://backend:4000
+      NEXT_PUBLIC_CRM_URL: http://localhost:3001
+      NEXT_PUBLIC_TALENT_URL: http://localhost:3002
+      NEXT_PUBLIC_MARKETING_URL: http://localhost:${WEBSITE_PORT:-5173}
+    ports: ["127.0.0.1:3002:3002"]
+    depends_on:
+      backend: { condition: service_healthy }
+    develop:
+      watch:
+        - action: sync
+          initial_sync: true
+          path: ./careers
+          target: /workspace/careers
+          ignore: [node_modules/, .next/, .env.local, package.json]
+        - {
+            action: sync,
+            initial_sync: true,
+            path: ./shared/ui,
+            target: /workspace/shared/ui,
+          }
+        - { action: rebuild, path: ./careers/package.json }
+        - { action: rebuild, path: ./package-lock.json }
+  website:
+    build: { context: ./simptech-site, dockerfile: Dockerfile }
+    init: true
+    environment:
+      WATCHPACK_POLLING: "1000"
+      API_URL: http://backend:4000
+    ports: ["127.0.0.1:${WEBSITE_PORT:-5173}:5173"]
+    depends_on:
+      backend: { condition: service_healthy }
+    develop:
+      watch:
+        - {
+            action: sync,
+            initial_sync: true,
+            path: ./simptech-site/src,
+            target: /app/src,
+          }
+        - {
+            action: sync,
+            initial_sync: true,
+            path: ./simptech-site/public,
+            target: /app/public,
+          }
+        - {
+            action: sync+restart,
+            initial_sync: true,
+            path: ./simptech-site/vite.config.js,
+            target: /app/vite.config.js,
+          }
+        - {
+            action: sync,
+            path: ./simptech-site/index.html,
+            target: /app/index.html,
+          }
+        - { action: rebuild, path: ./simptech-site/package-lock.json }
+volumes:
+  mongo_data:

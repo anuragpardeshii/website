@@ -1,0 +1,10 @@
+node_modules
+.git
+.claude
+.codex
+.aws
+.env*
+dist
+.prerender
+test-results
+platform

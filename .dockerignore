@@ -1,0 +1,11 @@
+**/node_modules
+**/.next
+**/.data
+**/.env*
+**/.git
+**/.claude
+**/test-results
+**/*.tsbuildinfo
+simptech-site
+
+**/.next-local-*/

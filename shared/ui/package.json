@@ -1,0 +1,13 @@
+{
+  "name": "@sleektech/ui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.tsx",
+    "./styles.css": "./styles.css"
+  },
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "lucide-react": "^0.468.0"
+  }
+}

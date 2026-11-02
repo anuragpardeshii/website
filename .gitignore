@@ -1,8 +1,24 @@
+# Dependencies and generated build output
 node_modules/
+.next/
+.next-local-*/
 dist/
 .prerender/
+*.tsbuildinfo
+next-env.d.ts
+coverage/
 test-results/
+playwright-report/
+*.log
+
+# Local configuration and persisted application data
 .env
 .env.*
 !.env.example
+.data/
 .DS_Store
+
+# Personal editor and assistant configuration
+.claude/
+.codex/
+.agents/

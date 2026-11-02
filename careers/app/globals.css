@@ -1,0 +1,87 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "@sleektech/ui/styles.css" layer(components);
+@import "tailwindcss/utilities.css" layer(utilities);
+@source "../app";
+@source "../components";
+@source "../../shared/ui";
+@theme {
+  --color-brand: #245cff;
+  --color-ink: #172940;
+  --font-sans: "Inter", sans-serif;
+}
+
+.talent-record {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.talent-record-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #526782;
+  font-size: 12px;
+  margin-bottom: 26px;
+}
+.talent-record-back:hover {
+  color: var(--blue);
+}
+.talent-record-content {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 32px;
+  min-width: 0;
+}
+.talent-record-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: #526782;
+  font-size: 12px;
+}
+.talent-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  margin: 30px 0;
+}
+.talent-facts dt {
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 7px;
+}
+.talent-facts dd {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.talent-description {
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+}
+.talent-description h2 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.talent-description p,
+.talent-record-content .prose {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+  color: #526782;
+}
+.talent-record-content .form-actions {
+  flex-wrap: wrap;
+  position: static;
+}
+@media (max-width: 600px) {
+  .talent-record-content {
+    padding: 22px 18px;
+  }
+  .talent-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
