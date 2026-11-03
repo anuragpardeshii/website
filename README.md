@@ -4,7 +4,7 @@ The marketing website, CRM and careers portal live in one repository. Two Next.j
 
 ## Run and review
 
-Requires Node.js 24+, npm and Docker. Run the commands from the repository root (the `SimpTech` folder in the existing local checkout):
+Requires Node.js 24+, npm and Docker. Run the commands from the repository root (the `SleekTech` folder in the existing local checkout):
 
 ```bash
 make install
@@ -28,7 +28,7 @@ Set preferred starting ports with `API_PORT`, `CRM_PORT`, `CAREERS_PORT` and `WE
 
 To create an empty workspace, use a separate database and upload directory: `MONGODB_DATABASE=sleektech_real DATA_DIR=.data/real ENABLE_DEMO=false npm run dev`. Use the same settings when running `MONGODB_DATABASE=sleektech_real DATA_DIR=.data/real npm run admin` to provision staff. The CLI prompts for an email, name, role and hidden password. Start the same workspace again afterward. Candidate registration never creates staff users. Staff roles are `admin`, `sales`, and `recruiter`; candidate accounts cannot access either administrative workspace.
 
-The plan and sources are in [plan.html](plan.html). The marketing site’s careers integration lives in `simptech-site/src/components/CareerOpportunities.jsx`.
+The plan and sources are in [plan.html](plan.html). The marketing site’s careers integration lives in `sleektech-site/src/components/CareerOpportunities.jsx`.
 
 ## Implemented workflows
 
@@ -40,7 +40,7 @@ The plan and sources are in [plan.html](plan.html). The marketing site’s caree
 
 ## Layout
 
-The repository root contains `crm/`, `careers/`, `backend/`, `shared/` and `simptech-site/`. The existing website history is preserved. For marketing-only development or static hosting, use `simptech-site` as the project directory, run `npm ci` and `npm run build` there, and publish `simptech-site/dist` relative to the repository root. The existing Sites identity stays in `simptech-site/.openai/hosting.json`.
+The repository root contains `crm/`, `careers/`, `backend/`, `shared/` and `sleektech-site/`. The existing website history is preserved. For marketing-only development or static hosting, use `sleektech-site` as the project directory, run `npm ci` and `npm run build` there, and publish `sleektech-site/dist` relative to the repository root. Set the marketing project's Vercel Root Directory to `sleektech-site` and its Output Directory to `dist`. The existing Sites identity stays in `sleektech-site/.openai/hosting.json`.
 
 ```text
 crm/                      Next.js revenue workspace
@@ -48,7 +48,7 @@ careers/                  Next.js public careers, candidate portal and recruitme
 backend/src/              Node.js API modules; MongoDB access
 shared/ui/                Shared SleekTech components and styles
 backend/migrations/       Versioned collection, profile, and upload migrations
-simptech-site/            Existing Vite marketing website
+sleektech-site/            Existing Vite marketing website
 scripts/                  Local orchestration and build commands
 backend/tests/            MongoDB API and migration checks
 tests/                    Browser journey checks
@@ -94,11 +94,11 @@ The API suite uses an randomly named, isolated MongoDB database and a temporary 
 
 `npm run test:crm-pages` verifies direct URLs, list filters and browser Back, lead conversion, saved briefs, project progress, message drafts and delivery history, mobile layouts, and staff permissions. It uses a temporary database and intercepts browser API traffic, leaving the running workspace untouched. Screenshots are saved to `/tmp/sleektech-crm-pages-results/` by default.
 
-The original `test:browser` checks create explicitly named QA records in the local demo workspace. They exercise lead-to-project conversion, messaging drafts, candidate sign-up, PDF autofill, application submission, scorecards, interviews, job publication, responsive layouts and axe accessibility. Screenshots and reports are written to ignored `test-results/`. The marketing site retains `npm run build` and `npm test` inside `simptech-site/`.
+The original `test:browser` checks create explicitly named QA records in the local demo workspace. They exercise lead-to-project conversion, messaging drafts, candidate sign-up, PDF autofill, application submission, scorecards, interviews, job publication, responsive layouts and axe accessibility. Screenshots and reports are written to ignored `test-results/`. The marketing site retains `npm run build` and `npm test` inside `sleektech-site/`.
 
 ## Deployment and remaining release gates
 
-Deploy two Next.js Node services and the shared API, with a secured MongoDB replica set or Atlas cluster and private file/object storage. Configure `API_URL` for each Next.js build/server and public `NEXT_PUBLIC_CRM_URL`, `NEXT_PUBLIC_TALENT_URL`, and `NEXT_PUBLIC_MARKETING_URL` for cross-application links. Set backend `CRM_ORIGIN`, `TALENT_ORIGIN`, and `MARKETING_ORIGIN` to the exact HTTPS origins. The API binds to loopback by default; configure `HOST` for the chosen infrastructure. Cookie sessions are host-only, so separate production subdomains sign in independently while sharing the same accounts and backend.
+Deploy two Next.js Node services and the shared API, with a secured MongoDB replica set or Atlas cluster and private file/object storage. Configure `API_URL` for each Next.js build/server and public `NEXT_PUBLIC_CRM_URL`, `NEXT_PUBLIC_TALENT_URL`, and `NEXT_PUBLIC_MARKETING_URL` for cross-application links. Set backend `CRM_ORIGIN`, `TALENT_ORIGIN`, and `MARKETING_ORIGIN` to the exact HTTPS origins. The API defaults to `0.0.0.0` in production and loopback in development; an explicit `HOST` overrides this default. On Render, set `NODE_ENV=production` and `HOST=0.0.0.0`, and let Render provide `PORT`. Cookie sessions are host-only, so separate production subdomains sign in independently while sharing the same accounts and backend.
 
 Production requires an explicit MongoDB URI and HTTPS configured origins. Demo login is omitted and sample data is not seeded. Public candidate registration is off by default in production; do not enable `ENABLE_CANDIDATE_REGISTRATION` until the following launch gates are satisfied:
 

@@ -1,0 +1,74 @@
+/* Application transitions, never camera movement. */
+.film-page-content,
+.film-scene-layer,
+.film-scene-stack {
+  transform: none !important;
+  perspective: none;
+  transform-style: flat;
+  will-change: auto;
+}
+.film-viewport .story-paper,
+.film-viewport .story-file {
+  animation: none;
+}
+/* Give the working canvas priority while retaining the left solution selector. */
+.what-we-build .wb-showcase {
+  max-width: none;
+}
+.what-we-build .wb-section-heading {
+  margin-bottom: 64px;
+}
+@media (min-width: 1200px) {
+  .what-we-build .wb-showcase {
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 48px;
+  }
+  .what-we-build .wb-capabilities {
+    padding-top: 14px;
+  }
+  .what-we-build .wb-tabs > button {
+    min-height: 68px;
+    padding: 21px 0;
+  }
+  .what-we-build .wb-tab-content > span:first-child {
+    font-size: 17px;
+    line-height: 1.45;
+  }
+  .what-we-build .wb-tabs > button:hover .wb-tab-content,
+  .what-we-build .wb-tabs > button[aria-selected="true"] .wb-tab-content {
+    transform: translateX(8px);
+  }
+}
+@media (min-width: 601px) {
+  .what-we-build .story-nav {
+    width: 58px;
+    flex: 0 0 58px;
+    padding: 22px 8px;
+    gap: 14px;
+    align-items: center;
+  }
+  .what-we-build .story-nav > div {
+    width: 38px;
+    height: 38px;
+    padding: 10px;
+    justify-content: center;
+  }
+  .what-we-build .story-nav > div > span,
+  .what-we-build .story-nav .film-account,
+  .what-we-build .story-nav .film-nav-section,
+  .what-we-build .story-nav .film-nav-projects,
+  .what-we-build .story-nav-bottom {
+    display: none;
+  }
+  .what-we-build .film-viewport .story-page {
+    padding: 30px 32px;
+  }
+  .what-we-build .film-viewport .story-page.is-chat {
+    padding: 0;
+  }
+}
+@media (max-width: 600px) {
+  .what-we-build .wb-section-heading {
+    margin-bottom: 36px;
+  }
+}

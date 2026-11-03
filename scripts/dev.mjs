@@ -71,7 +71,7 @@ function start(name, folder, binary, args, extra = {}) {
   children.push({ child, exited });
 }
 try {
-  const website = existsSync(new URL("simptech-site/package.json", root));
+  const website = existsSync(new URL("sleektech-site/package.json", root));
   config = await developmentConfig(process.env, { website });
   if (stopping) {
     await config.release();
@@ -118,9 +118,9 @@ try {
     if (website) {
       await config.leases.website.release();
       const vite = fileURLToPath(
-        new URL("simptech-site/node_modules/vite/bin/vite.js", root),
+        new URL("sleektech-site/node_modules/vite/bin/vite.js", root),
       );
-      start("website", "simptech-site", vite, [
+      start("website", "sleektech-site", vite, [
         "--host",
         config.host,
         "--port",

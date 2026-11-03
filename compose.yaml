@@ -123,7 +123,7 @@ services:
         - { action: rebuild, path: ./careers/package.json }
         - { action: rebuild, path: ./package-lock.json }
   website:
-    build: { context: ./simptech-site, dockerfile: Dockerfile }
+    build: { context: ./sleektech-site, dockerfile: Dockerfile }
     init: true
     environment:
       WATCHPACK_POLLING: "1000"
@@ -136,26 +136,26 @@ services:
         - {
             action: sync,
             initial_sync: true,
-            path: ./simptech-site/src,
+            path: ./sleektech-site/src,
             target: /app/src,
           }
         - {
             action: sync,
             initial_sync: true,
-            path: ./simptech-site/public,
+            path: ./sleektech-site/public,
             target: /app/public,
           }
         - {
             action: sync+restart,
             initial_sync: true,
-            path: ./simptech-site/vite.config.js,
+            path: ./sleektech-site/vite.config.js,
             target: /app/vite.config.js,
           }
         - {
             action: sync,
-            path: ./simptech-site/index.html,
+            path: ./sleektech-site/index.html,
             target: /app/index.html,
           }
-        - { action: rebuild, path: ./simptech-site/package-lock.json }
+        - { action: rebuild, path: ./sleektech-site/package-lock.json }
 volumes:
   mongo_data:

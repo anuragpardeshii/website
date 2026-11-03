@@ -1,0 +1,29 @@
+SleekTech folded ribbon logo
+
+Reference: the blue folded S image supplied by the user on 2026-11-03.
+Built-in image_gen was used for the white-background raster rendition:
+sleektech-site/public/brand/sleektech-generated-white.png (1254 x 1254).
+
+Prompt: Recreate exactly the supplied folded ribbon S on pure white. Preserve
+the silhouette, rising diagonal ribbons, rounded upper-left/lower-right folds,
+sharp top-right and bottom-left ends, blue/cyan/violet gradients and dark indigo
+central underside. Center the symbol with clear margin, crisp smooth edges,
+no texture, external shadows, outlines, text, watermark or extra marks.
+Requested 2048 square; the image tool returned 1254 square.
+
+The scalable SVG master was separately recreated from the approved reference
+in sleektech-site/src/data/brand.js. The 4096 x 4096 PNG deliverables are rendered
+directly from that vector master in Chrome, rather than enlarged from a bitmap.
+Variants: transparent, solid white background, and solid near-black background.
+
+Regenerate vector exports, 4K PNGs and browser icons with npm run brand-assets
+from sleektech-site. Regenerate the branded sharing image with npm run social-card.
+
+Actual built-in image_gen prompt:
+Use case: logo-brand / precise-object-edit. Edit target: the user's attached SleekTech logo, a folded ribbon S with electric blue, cyan and violet gradients on a nearly black square background. Create a high-resolution 2048 x 2048 square master of EXACTLY this symbol on a pure solid white (#FFFFFF) background. Preserve the original S silhouette, diagonal rising ribbon segments, rounded folded left upper turn and right lower turn, sharp flat ends at upper right and lower left, and the dark indigo central diagonal fold. Preserve proportions and smooth blue-to-cyan top ribbon, cyan-to-violet lower ribbon, and dark blue central underside. Keep the mark centered at roughly 74% of canvas width and height with clear white margin. Treat the input as a precise identity reference, not inspiration for a redesign. Crisp immaculate smooth edges, vector-like logo quality, no pixelation or texture, no shadows outside the mark, no outlines, no text, no wordmark, no mockup, no watermark, no additional marks. Change only background to white and improve resolution/edge quality.
+
+Wordmark update, 2026-11-03:
+The latest supplied type reference uses capitalized SleekTech, with Sleek in
+navy (#020b2b) and Tech in bright blue (#0066ff). Site and app branding, SVG
+wordmarks and the sharing image use this treatment. Dark backgrounds use
+white Sleek and lighter blue Tech (#6da6ff). Inter weight 650, tracking -0.055em.

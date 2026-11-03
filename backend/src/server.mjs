@@ -3,6 +3,7 @@ import { createApp } from "./app.mjs";
 import { attachNotificationSocket } from "./notification-socket.mjs";
 import { seedDemo } from "./seed.mjs";
 const production = process.env.NODE_ENV === "production";
+const host = process.env.HOST || (production ? "0.0.0.0" : "127.0.0.1");
 if (production) {
   if (!process.env.MONGODB_URI)
     throw new Error("Production requires MONGODB_URI.");
@@ -16,11 +17,11 @@ if (demo) await seedDemo(db);
 const app = createApp(db, { demo });
 const server = app.listen(
   Number(process.env.PORT || 4000),
-  process.env.HOST || "127.0.0.1",
+  host,
   () =>
     console.log(
       "SleekTech API: http://" +
-        (process.env.HOST || "127.0.0.1") +
+        host +
         ":" +
         (process.env.PORT || 4000) +
         (demo ? " (local demo)" : ""),

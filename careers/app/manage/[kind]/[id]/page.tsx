@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import TalentApp from "../../../../components/TalentApp";
 export const metadata = {
-  title: "Record details · Sleektech Talent",
+  title: "SleekTech",
   robots: { index: false, follow: false },
 };
 export default async function Page({

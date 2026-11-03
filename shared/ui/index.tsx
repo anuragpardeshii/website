@@ -124,20 +124,17 @@ export function Brand({
       className={"brand " + (light ? "brand-light" : "")}
       aria-label={"SleekTech " + (label || "home")}
     >
-      <svg
-        viewBox="0 0 48 48"
+      <img
+        src="/brand/sleektech-symbol.svg?v=ribbon-20261103"
+        className="brand-symbol"
         width="30"
         height="30"
-        fill="currentColor"
+        alt=""
         aria-hidden="true"
-      >
-        <path d="M17 4H44L34 14H21L16 19H26L16 29H4V17L17 4Z" />
-        <path
-          d="M17 4H44L34 14H21L16 19H26L16 29H4V17L17 4Z"
-          transform="rotate(180 24 24)"
-        />
-      </svg>
-      <span>sleektech</span>
+      />
+      <span className="brand-wordmark">
+        Sleek<span className="brand-tech">Tech</span>
+      </span>
       {label && (
         <>
           {" "}

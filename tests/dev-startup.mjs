@@ -156,7 +156,7 @@ try {
     "crm",
     "careers",
     "shared",
-    "simptech-site",
+    "sleektech-site",
   ])
     await cp(join(root, folder), join(temp, folder), {
       recursive: true,
@@ -166,8 +166,8 @@ try {
     await cp(join(root, file), join(temp, file));
   await symlink(join(root, "node_modules"), join(temp, "node_modules"), "dir");
   await symlink(
-    join(root, "simptech-site/node_modules"),
-    join(temp, "simptech-site/node_modules"),
+    join(root, "sleektech-site/node_modules"),
+    join(temp, "sleektech-site/node_modules"),
     "dir",
   );
   db = await database({

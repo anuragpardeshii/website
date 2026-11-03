@@ -2,7 +2,7 @@
 
 Shared Node.js/Express API for CRM, careers, and the marketing job feed. Native MongoDB driver with replica-set transactions, collection validation, unique indexes, and versioned migrations.
 
-From the parent `SimpTech` folder run `make install` and `make db`. Then run `npm run dev` here for debounced hot reload with graceful API restarts, or `npm start` for normal execution. Copy `.env.example` to `.env.local` to configure providers and origins. Runtime data and private résumés live in `.data/`.
+From the parent `SleekTech` folder run `make install` and `make db`. Then run `npm run dev` here for debounced hot reload with graceful API restarts, or `npm start` for normal execution. Copy `.env.example` to `.env.local` to configure providers and origins. Runtime data and private résumés live in `.data/`.
 
 - `npm test`: integration tests in a randomly named, isolated MongoDB database, removed afterward.
 - `npm run migrate`: apply pending migrations.

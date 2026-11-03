@@ -111,11 +111,21 @@ small {
   color: var(--blue);
   white-space: nowrap;
 }
+.brand-symbol {
+  display: block;
+  flex-shrink: 0;
+}
 .brand > span {
   font-size: 27px;
   font-weight: 650;
-  letter-spacing: -0.065em;
-  color: var(--ink);
+  letter-spacing: -0.055em;
+  color: #020b2b;
+}
+.brand-tech {
+  color: #0066ff;
+}
+.brand-light .brand-tech {
+  color: #6da6ff;
 }
 .brand em {
   font-size: 10px;
@@ -246,7 +256,7 @@ small {
   margin-left: 0;
   padding-left: 6px;
 }
-.sidebar .brand svg {
+.sidebar .brand .brand-symbol {
   width: 26px;
 }
 .workspace-label {
